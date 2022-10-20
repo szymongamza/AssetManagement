@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localisation.API", "Localisation.API\Localisation.API.csproj", "{608CED6D-3CE0-48FE-AFCE-0EB400B85F09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F14AE497-E63C-4912-80B6-143EB982054C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localisation", "Localisation", "{F922F1AE-AA5E-4CE5-8018-5707B303380F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{608CED6D-3CE0-48FE-AFCE-0EB400B85F09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{608CED6D-3CE0-48FE-AFCE-0EB400B85F09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{608CED6D-3CE0-48FE-AFCE-0EB400B85F09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{608CED6D-3CE0-48FE-AFCE-0EB400B85F09}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{608CED6D-3CE0-48FE-AFCE-0EB400B85F09} = {F922F1AE-AA5E-4CE5-8018-5707B303380F}
+		{F922F1AE-AA5E-4CE5-8018-5707B303380F} = {F14AE497-E63C-4912-80B6-143EB982054C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F275B2C-A300-4C93-AB32-47A5F3681F82}
+	EndGlobalSection
+EndGlobal

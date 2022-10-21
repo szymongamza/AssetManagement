@@ -4,7 +4,8 @@ namespace Localisation.API.Data
 {
     public interface IBuildingRepo
     {
-        bool SaveChanges();
-        IEnumerable<Building> GetAllBuildings();
+        Task<IEnumerable<Building>> GetAllBuildings();
+        Task<Building> GetBuildingById(int id);
+        Task CreateBuilding(Building building);
     }
 }

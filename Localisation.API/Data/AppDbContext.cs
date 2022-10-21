@@ -10,7 +10,5 @@ namespace Localisation.API.Data
         }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Item> Items { get; set; }
     }
 }

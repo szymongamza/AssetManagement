@@ -6,11 +6,12 @@ namespace Localisation.API.Model
     {
         public int Id { get; set; }
         [Required]
-        public int RoomNumber { get; set; }
+        public string RoomNumber { get; set; }
         [Required]
         public int Floor { get; set; }
-        public IEnumerable<Item> Items { get; set; } = Enumerable.Empty<Item>();
-        public IEnumerable<Employee> Employees { get; set; } = Enumerable.Empty<Employee>();
+        [Required]
+        public int BuildingId { get; set; }
+        public Building Building { get; set; }
 
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Localisation.API.Dtos
 {
-    public class BuildingCreateDtos
+    public class BuildingCreateDto
     {
         [Required]
         public string Name { get; set; }

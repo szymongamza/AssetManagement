@@ -9,7 +9,10 @@ namespace Localisation.API.Profiles
         public BuildingsProfile()
         {
             CreateMap<Building, BuildingReadDto>();
-            CreateMap<BuildingCreateDtos, Building>();
+            CreateMap<BuildingCreateDto, Building>();
+
+            CreateMap<Room, RoomReadDto>();
+            CreateMap<RoomCreateDto, Room>();
 
         }
     }

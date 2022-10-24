@@ -9,6 +9,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseInMemoryDatabase("InMemory");
 });
 builder.Services.AddScoped<IBuildingRepo, BuildingRepo>();
+builder.Services.AddScoped<IRoomRepo, RoomRepo>();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

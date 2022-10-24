@@ -25,9 +25,26 @@ namespace Localisation.API.Data
             }
             else
             {
-                Console.WriteLine("[][][][][] We already have Data. [][][][][]");
+                Console.WriteLine("[][][][][] We already have buildings. [][][][][]");
 
             }
+
+            if (!context.Rooms.Any())
+            {
+                Console.WriteLine("[][][][][] Seeding Data. [][][][][]");
+                context.Rooms.AddRange(
+                    new Room { RoomNumber = "001", Floor = -1, BuildingId = 1},
+                    new Room { RoomNumber = "002", Floor = -1, BuildingId = 1},
+                    new Room { RoomNumber = "001", Floor = -1, BuildingId = 2}
+                    );
+                context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("[][][][][] We already have rooms. [][][][][]");
+
+            }
+
         }
     }
 }

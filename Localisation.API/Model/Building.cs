@@ -14,6 +14,6 @@ namespace Localisation.API.Model
         public int MinFloor { get; set; }
         [Required]
         public int MaxFloor { get; set; }
-        public IEnumerable<Room> Rooms { get; set; } = Enumerable.Empty<Room>();
+        public IEnumerable<Room>? Rooms { get; set; }
     }
 }

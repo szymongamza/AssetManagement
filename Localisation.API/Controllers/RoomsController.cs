@@ -45,8 +45,11 @@ namespace Localisation.API.Controllers
             var building = await _buildingRepo.GetBuildingById(room.BuildingId);
             if (building == null)
             {
-                return Content(); //TODO
+                return NotFound();
             }
+            if (room.Floor > building.MaxFloor || room.Floor < building.MinFloor)
+                return BadRequest();
+
             var roomModel = _mapper.Map<Room>(room);
             await _roomRepo.CreateRoom(roomModel);
 

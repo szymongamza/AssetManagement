@@ -1,0 +1,44 @@
+﻿// OrderProcessing/Ocelot.json
+{
+  "Routes": [
+    //Product API
+    {
+      "DownstreamPathTemplate": "/api/Products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "item-api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Products",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    //Building API
+    {
+      "DownstreamPathTemplate": "/api/Buildings",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localisation-api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Buildings",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    //Room API
+    {
+      "DownstreamPathTemplate": "/api/Rooms",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localisation-api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Rooms",
+      "UpstreamHttpMethod": [ "GET" ]
+    }
+  ]
+}

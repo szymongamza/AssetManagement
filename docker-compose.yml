@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  item.api:
+    image: ${DOCKER_REGISTRY-}itemapi
+    build:
+      context: .
+      dockerfile: Item.API/Dockerfile
+
+
+  localisation.api:
+    image: ${DOCKER_REGISTRY-}localisationapi
+    build:
+      context: .
+      dockerfile: Localisation.API/Dockerfile
+
+
+  ocelotapigw:
+    image: ${DOCKER_REGISTRY-}ocelotapigw
+    depends_on: [localisation.api,item.api]
+    build:
+      context: .
+      dockerfile: OcelotApiGw/Dockerfile
+
+
+

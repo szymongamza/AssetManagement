@@ -3,6 +3,7 @@ version: '3.4'
 services:
   item.api:
     image: ${DOCKER_REGISTRY-}itemapi
+    depends_on: [localisation.api,rabbitmq]
     build:
       context: .
       dockerfile: Item.API/Dockerfile
@@ -10,6 +11,7 @@ services:
 
   localisation.api:
     image: ${DOCKER_REGISTRY-}localisationapi
+    depends_on: [rabbitmq]
     build:
       context: .
       dockerfile: Localisation.API/Dockerfile
@@ -17,10 +19,17 @@ services:
 
   ocelotapigw:
     image: ${DOCKER_REGISTRY-}ocelotapigw
-    depends_on: [localisation.api,item.api]
+    depends_on: [localisation.api,item.api,rabbitmq]
     build:
       context: .
       dockerfile: OcelotApiGw/Dockerfile
+      
 
-
-
+  rabbitmq: # login guest:guest
+    image: rabbitmq:3-management
+    hostname: "rabbitmq"
+    labels:
+      NAME: "rabbitmq"
+    ports:
+    - "5672:5672"
+    - "15672:15672"

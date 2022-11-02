@@ -10,6 +10,7 @@ namespace Localisation.API.Profiles
         {
             CreateMap<Room, RoomReadDto>();
             CreateMap<RoomCreateDto, Room>();
+            CreateMap<Room, RoomPublishedDto>();
         }
     }
 }

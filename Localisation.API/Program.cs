@@ -1,3 +1,4 @@
+using Localisation.API.AsyncDataServices;
 using Localisation.API.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 });
 builder.Services.AddScoped<IBuildingRepo, BuildingRepo>();
 builder.Services.AddScoped<IRoomRepo, RoomRepo>();
+builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

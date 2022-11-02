@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Localisation.API.AsyncDataServices;
 using Localisation.API.Data;
 using Localisation.API.Dtos;
 using Localisation.API.Model;
@@ -15,12 +16,14 @@ namespace Localisation.API.Controllers
         private readonly IRoomRepo _roomRepo;
         private readonly IBuildingRepo _buildingRepo;
         private readonly IMapper _mapper;
+        private readonly IMessageBusClient _messageBusClient;
 
-        public RoomsController(IRoomRepo roomRepo,IBuildingRepo buildingRepo, IMapper mapper)
+        public RoomsController(IRoomRepo roomRepo,IBuildingRepo buildingRepo, IMapper mapper, IMessageBusClient messageBusClient)
         {
             _roomRepo = roomRepo;
             _buildingRepo = buildingRepo;
             _mapper = mapper;
+            _messageBusClient = messageBusClient;
         }
 
         [HttpGet]
@@ -52,6 +55,10 @@ namespace Localisation.API.Controllers
 
             var roomModel = _mapper.Map<Room>(room);
             await _roomRepo.CreateRoom(roomModel);
+
+            var roomPublishedDto = _mapper.Map<RoomPublishedDto>(roomModel);
+            roomPublishedDto.Event = "Room_Published";
+            _messageBusClient.PublishNewRoom(roomPublishedDto);
 
             var roomReadDto = _mapper.Map<RoomReadDto>(roomModel);
             return CreatedAtRoute(nameof(GetRoomById), new { Id = roomReadDto.Id }, roomReadDto);

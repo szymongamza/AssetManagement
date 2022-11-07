@@ -31,5 +31,22 @@ namespace Item.API.Data
             var products = await _context.Products.ToListAsync();
             return products;
         }
+
+        public async Task CreateRoom(Room room)
+        {
+            if (room == null)
+            {
+                throw new ArgumentNullException(nameof(room));
+            }
+            _context.Rooms.Add(room);
+            await _context.SaveChangesAsync();
+        }
+
+        public bool ExternalRoomExists(int externalRoomId)
+        {
+            return _context.Rooms.Any(p => p.ExternalID == externalRoomId);
+        }
+
+
     }
 }

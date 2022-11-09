@@ -44,7 +44,7 @@ namespace Item.API.EventProcessing
                 {
                     var room = _mapper.Map<Room>(roomPublishedDto);
                     if (!repo.ExternalRoomExists(room.ExternalID)){
-                        repo.CreateRoom(room);
+                        await repo.CreateRoom(room);
                     }
                     else
                     {

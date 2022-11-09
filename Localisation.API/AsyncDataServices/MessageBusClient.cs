@@ -15,21 +15,32 @@ namespace Localisation.API.AsyncDataServices
         public MessageBusClient(IConfiguration configuration)
         {
             _configuration = configuration;
-            var factory = new ConnectionFactory() {HostName = _configuration["RabbitMQHost"],
+            var factory = new ConnectionFactory() 
+            {
+                HostName = _configuration["RabbitMQHost"],
                 Port = int.Parse(_configuration["RabbitMQPort"]),
                 UserName = _configuration["RabbitMQUser"],
-                Password = _configuration["RabbitMQPass"]};
+                Password = _configuration["RabbitMQPass"]
+            };
+
             try
             {
                 _connection = factory.CreateConnection();
                 _channel = _connection.CreateModel();
 
                 _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
+
+                _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void RabbitMQ_ConnectionShutdown(object? sender, ShutdownEventArgs e)
+        {
+            Console.WriteLine("=RabbitMQ=: Connection Shutdown");
         }
 
         public void PublishNewRoom(RoomPublishedDto roomPublishedDto)

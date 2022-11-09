@@ -5,7 +5,7 @@ namespace Localisation.API.Dtos
     public class RoomCreateDto
     {
         [Required]
-        public string RoomNumber { get; set; }
+        public string Name { get; set; }
         [Required]
         public int Floor { get; set; }
         [Required]

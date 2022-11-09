@@ -6,7 +6,7 @@ namespace Localisation.API.Model
     {
         public int Id { get; set; }
         [Required]
-        public string RoomNumber { get; set; }
+        public string Name { get; set; }
         [Required]
         public int Floor { get; set; }
         [Required]

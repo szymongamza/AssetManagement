@@ -7,5 +7,8 @@ namespace Item.API.Data
         Task<IEnumerable<Product>> GetAllProducts();
         Task<Product> GetProductById(int id);
         Task CreateProduct(Product product);
+        Task CreateRoom(Room room);
+        bool ExternalRoomExists(int externalRoomId);
+        Task<IEnumerable<Room>> GetAllRooms();
     }
 }

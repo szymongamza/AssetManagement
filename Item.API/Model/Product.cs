@@ -18,6 +18,7 @@ namespace Item.API.Model
         public string AdditionalDescription { get; set; }
         [Required]
         public int RoomId { get; set; }
+        public Room Room { get; set; }
         public Guid ItemGuid { get; set; } = Guid.NewGuid();
 
     }

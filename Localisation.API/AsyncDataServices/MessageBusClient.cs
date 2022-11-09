@@ -43,16 +43,6 @@ namespace Localisation.API.AsyncDataServices
             Console.WriteLine("=RabbitMQ=: Connection Shutdown");
         }
 
-        public void Dispose()
-        {
-            Console.WriteLine("=RabbitMQ=: MessageBus Disposed");
-            if (_channel.IsOpen)
-            {
-                _channel.Close();
-                _connection.Close();
-            }
-        }
-
         public void PublishNewRoom(RoomPublishedDto roomPublishedDto)
         {
             var message = JsonSerializer.Serialize(roomPublishedDto);

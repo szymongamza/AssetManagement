@@ -9,5 +9,6 @@ namespace Item.API.Data
         Task CreateProduct(Product product);
         Task CreateRoom(Room room);
         bool ExternalRoomExists(int externalRoomId);
+        Task<IEnumerable<Room>> GetAllRooms();
     }
 }

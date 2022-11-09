@@ -9,7 +9,9 @@ namespace Item.API.Profiles
         public RoomsProfile()
         {
             CreateMap<Room, RoomReadDto>();
-            CreateMap<RoomPublishedDto, Room>().ForMember(dest => dest.ExternalID, opt => opt.MapFrom(src => src.Id));
+            CreateMap<RoomPublishedDto, Room>()
+                .ForMember(dest => dest.ExternalID, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
         }
     }
 }

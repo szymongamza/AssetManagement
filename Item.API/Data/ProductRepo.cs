@@ -42,6 +42,11 @@ namespace Item.API.Data
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Room>> GetAllRooms()
+        {
+            return await _context.Rooms.ToListAsync();
+        }
+
         public bool ExternalRoomExists(int externalRoomId)
         {
             return _context.Rooms.Any(p => p.ExternalID == externalRoomId);

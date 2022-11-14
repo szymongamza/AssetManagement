@@ -33,7 +33,7 @@ namespace UnitTests
             _controller = new BuildingsController(_buildingRepo,_roomRepo, _mapper);
         }
 
-
+        // GET Methods
         [Fact]
         public async void GetBuildings_WhenCalled_ReturnsOkResult()
         {
@@ -79,6 +79,57 @@ namespace UnitTests
 
             Assert.IsType<BuildingReadDto>(okResult.Value);
             Assert.Equal(id, (okResult.Value as BuildingReadDto).Id);
+        }
+
+        //Post Method
+        [Fact]
+        public async void Add_InvalidObjectPassed_ReturnsBadRequest()
+        {
+            var nameMissingItem = new BuildingCreateDto()
+            {
+                BuildingCode = "B5",
+                MaxFloor = 5,
+                MinFloor = -1,
+            };
+            _controller.ModelState.AddModelError("Name", "Required");
+
+            var badResponse = await _controller.CreateBuilding(nameMissingItem);
+
+            Assert.IsType<BadRequestObjectResult>(badResponse as BadRequestObjectResult);
+        }    
+        
+        [Fact]
+        public async void Add_VaildObjectPassed_ReturnsCreatedRequest()
+        {
+            var buildingCreateDto = new BuildingCreateDto()
+            {
+                Name = "Test",
+                BuildingCode = "test",
+                MaxFloor = 5,
+                MinFloor = -1,
+            };
+
+            var createdResponse = await _controller.CreateBuilding(buildingCreateDto);
+
+            Assert.IsType<CreatedAtActionResult>(createdResponse);
+        }      
+        
+        [Fact]
+        public async void Add_VaildObjectPassed_ReturnedResponseHasCreatedBuilding()
+        {
+            var buildingCreateDto = new BuildingCreateDto()
+            {   
+                Name = "Test",
+                BuildingCode = "test",
+                MaxFloor = 5,
+                MinFloor = -1,
+            };
+
+            var createdResponse = await _controller.CreateBuilding(buildingCreateDto) as CreatedAtActionResult;
+            var building = createdResponse.Value as BuildingReadDto;
+
+            Assert.IsType<BuildingReadDto>(building);
+            Assert.Equal(buildingCreateDto.Name,building.Name);
         }
     }
 }

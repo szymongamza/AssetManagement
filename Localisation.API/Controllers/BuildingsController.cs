@@ -39,13 +39,17 @@ namespace Localisation.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBuilding(BuildingCreateDto building)
+        public async Task<IActionResult> CreateBuilding([FromBody]BuildingCreateDto building)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var buildingModel = _mapper.Map<Building>(building);
             await _buildingRepo.CreateBuilding(buildingModel);
 
             var buildingReadDto = _mapper.Map<BuildingReadDto>(buildingModel);
-            return CreatedAtRoute(nameof(GetBuildingById), new {Id = buildingReadDto.Id}, buildingReadDto);
+            return CreatedAtAction(nameof(GetBuildingById), new {Id = buildingReadDto.Id}, buildingReadDto);
         }
 
         [HttpGet("{id}/rooms")]

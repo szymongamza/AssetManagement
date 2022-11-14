@@ -25,6 +25,6 @@ jobs:
     - name: Build
       run: dotnet build ./InventoryUniversity.sln --configuration Release --no-restore
     - name: Test
-      run: dotnet test ./InventoryUniversity.sln --no-build --verbosity normal
+      run: dotnet test 
 
   

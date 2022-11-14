@@ -23,14 +23,14 @@ namespace Localisation.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BuildingReadDto>>> GetBuildings()
+        public async Task<IActionResult> GetBuildings()
         {
             var buildings = await _buildingRepo.GetAllBuildings();
             return  Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
         }    
         
         [HttpGet("{id}", Name = "GetBuildingById")]
-        public async Task<ActionResult<IEnumerable<BuildingReadDto>>> GetBuildingById(int id)
+        public async Task<IActionResult> GetBuildingById(int id)
         {
             var building = await _buildingRepo.GetBuildingById(id);
             if(building != null)
@@ -39,7 +39,7 @@ namespace Localisation.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateBuilding(BuildingCreateDto building)
+        public async Task<IActionResult> CreateBuilding(BuildingCreateDto building)
         {
             var buildingModel = _mapper.Map<Building>(building);
             await _buildingRepo.CreateBuilding(buildingModel);
@@ -49,7 +49,7 @@ namespace Localisation.API.Controllers
         }
 
         [HttpGet("{id}/rooms")]
-        public async Task<ActionResult> GetRoomsByBuildingId(int id)
+        public async Task<IActionResult> GetRoomsByBuildingId(int id)
         {
             var rooms = await _roomRepo.GetRoomsByBuildingId(id);
             return Ok(_mapper.Map<IEnumerable<RoomReadDto>>(rooms));

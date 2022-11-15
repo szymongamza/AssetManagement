@@ -28,6 +28,7 @@ namespace UnitTests
             _config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new BuildingsProfile());
+                cfg.AddProfile(new RoomsProfile());
             });
             _mapper = _config.CreateMapper();
             _controller = new BuildingsController(_buildingRepo,_roomRepo, _mapper);
@@ -130,6 +131,37 @@ namespace UnitTests
 
             Assert.IsType<BuildingReadDto>(building);
             Assert.Equal(buildingCreateDto.Name,building.Name);
+        }
+
+        [Fact]
+        public async void GetRoomsById_UnknownIdPassed_ReturnsNotFoundResult()
+        {
+            int id = -1;
+
+            var notFoundResult = await _controller.GetRoomsByBuildingId(id);
+
+            Assert.IsType<NotFoundResult>(notFoundResult);
+        }      
+        
+        [Fact]
+        public async void GetRoomsById_ExistingIdPassed_ReturnsOkResult()
+        {
+            int id = 1;
+
+            var okResult = await _controller.GetRoomsByBuildingId(id);
+
+            Assert.IsType<OkObjectResult>(okResult);
+        }     
+        
+        [Fact]
+        public async void GetRoomsById_ExistingIdPassed_ReturnsRooms()
+        {
+            int id = 1;
+
+            var okResult = await _controller.GetRoomsByBuildingId(id) as OkObjectResult;
+
+            var rooms = Assert.IsAssignableFrom<IEnumerable<RoomReadDto>>(okResult.Value);
+            Assert.Equal(2, rooms.Count());
         }
     }
 }

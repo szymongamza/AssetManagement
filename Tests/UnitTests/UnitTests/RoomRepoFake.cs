@@ -17,6 +17,7 @@ namespace UnitTests
             _rooms = new List<Room>()
             {
                 new Room(){Id = 1, BuildingId = 1, Floor = 3, Name = "301"},
+                new Room(){Id = 1, BuildingId = 1, Floor = 3, Name = "302"},
                 new Room(){Id = 2, BuildingId = 2, Floor = 3, Name = "301"},
                 new Room(){Id = 3, BuildingId = 3, Floor = 3, Name = "301"},
             };

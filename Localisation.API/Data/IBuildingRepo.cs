@@ -7,5 +7,6 @@ namespace Localisation.API.Data
         Task<IEnumerable<Building>> GetAllBuildings();
         Task<Building> GetBuildingById(int id);
         Task CreateBuilding(Building building);
+        Task<bool> IdExist(int id);
     }
 }

@@ -36,5 +36,11 @@ namespace UnitTests
             var building = _buildings.Find(x => x.Id == id);
             return building;
         }
+
+        public async Task<bool> IdExist(int id)
+        {
+            bool buildingExist = _buildings.Exists(x => x.Id == id);
+            return buildingExist;
+        }
     }
 }

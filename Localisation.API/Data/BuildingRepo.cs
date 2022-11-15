@@ -31,5 +31,10 @@ namespace Localisation.API.Data
             return building;
         }
 
+        public async Task<bool> IdExist(int id)
+        {
+            var buildingBool = await _context.Buildings.AnyAsync(x => x.Id == id);
+            return buildingBool;
+        }
     }
 }

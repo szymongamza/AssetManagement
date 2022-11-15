@@ -9,9 +9,9 @@ namespace Item.API.AsyncDataServices
     {
         private readonly IConfiguration _configuration;
         private readonly IEventProcessor _eventProcessor;
-        private IConnection _connection;
-        private IModel _channel;
-        private string _queueName;
+        private IConnection? _connection;
+        private IModel? _channel;
+        private string? _queueName;
 
         public MessageBusSubscriber(IConfiguration configuration, IEventProcessor eventProcessor)
         {

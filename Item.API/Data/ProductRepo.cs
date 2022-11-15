@@ -20,7 +20,7 @@ namespace Item.API.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Product> GetProductById(int id)
+        public async Task<Product?> GetProductById(int id)
         {
             var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
             return product;

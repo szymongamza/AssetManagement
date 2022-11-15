@@ -8,8 +8,8 @@ namespace Localisation.API.Model
         [Required]
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
-        public string BuildingCode { get; set; }
+        public string? Name { get; set; }
+        public string? BuildingCode { get; set; }
         [Required]
         public int MinFloor { get; set; }
         [Required]

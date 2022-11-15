@@ -8,7 +8,7 @@ namespace Localisation.API.Data
         {
             using(var serviceScope = app.ApplicationServices.CreateScope())
             {
-                SeedData(serviceScope.ServiceProvider.GetService<AppDbContext>());
+                SeedData(serviceScope.ServiceProvider.GetService<AppDbContext?>());
             }
         }
         private static void SeedData(AppDbContext context)

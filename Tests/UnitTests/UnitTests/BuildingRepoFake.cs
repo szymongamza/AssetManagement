@@ -21,6 +21,7 @@ namespace UnitTests
                 new Building() { Id = 3, Name = "Wydział Inżynierii Mechanicznej i Robotyki", BuildingCode = "B2", MinFloor = -1, MaxFloor = 4 }
             };
         }
+#pragma warning disable CS1998 // Metoda asynchroniczna nie zawiera operatorów „await” i zostanie uruchomiona synchronicznie
         public async Task CreateBuilding(Building building)
         {
             _buildings.Add(building);
@@ -31,7 +32,7 @@ namespace UnitTests
             return _buildings;
         }
 
-        public async Task<Building> GetBuildingById(int id)
+        public async Task<Building?> GetBuildingById(int id)
         {
             var building = _buildings.Find(x => x.Id == id);
             return building;
@@ -42,5 +43,6 @@ namespace UnitTests
             bool buildingExist = _buildings.Exists(x => x.Id == id);
             return buildingExist;
         }
+#pragma warning restore CS1998 // Metoda asynchroniczna nie zawiera operatorów „await” i zostanie uruchomiona synchronicznie
     }
 }

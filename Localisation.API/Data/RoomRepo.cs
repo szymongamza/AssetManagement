@@ -25,7 +25,7 @@ namespace Localisation.API.Data
             return rooms;
         }
 
-        public async Task<Room> GetRoomById(int id)
+        public async Task<Room?> GetRoomById(int id)
         {
             var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == id);
             return room;

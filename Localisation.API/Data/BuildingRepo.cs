@@ -25,7 +25,7 @@ namespace Localisation.API.Data
             return buildings;
         }
 
-        public async Task<Building> GetBuildingById(int id)
+        public async Task<Building?> GetBuildingById(int id)
         {
             var building = await _context.Buildings.FirstOrDefaultAsync(x => x.Id == id);
             return building;

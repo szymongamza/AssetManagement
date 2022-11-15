@@ -48,7 +48,7 @@ namespace UnitTests
         {
             var okResult = await _controller.GetBuildings() as OkObjectResult;
 
-            var buildings = Assert.IsAssignableFrom<IEnumerable<BuildingReadDto>>(okResult.Value);
+            var buildings = Assert.IsAssignableFrom<IEnumerable<BuildingReadDto>>(okResult?.Value);
 
             Assert.Equal(3, buildings.Count());
         }
@@ -78,8 +78,8 @@ namespace UnitTests
 
             var okResult = await _controller.GetBuildingById(id) as OkObjectResult;
 
-            Assert.IsType<BuildingReadDto>(okResult.Value);
-            Assert.Equal(id, (okResult.Value as BuildingReadDto).Id);
+            Assert.IsType<BuildingReadDto>(okResult?.Value);
+            Assert.Equal(id, (okResult?.Value as BuildingReadDto)?.Id);
         }
 
         //Post Method
@@ -127,10 +127,10 @@ namespace UnitTests
             };
 
             var createdResponse = await _controller.CreateBuilding(buildingCreateDto) as CreatedAtActionResult;
-            var building = createdResponse.Value as BuildingReadDto;
+            var building = createdResponse?.Value as BuildingReadDto;
 
             Assert.IsType<BuildingReadDto>(building);
-            Assert.Equal(buildingCreateDto.Name,building.Name);
+            Assert.Equal(buildingCreateDto.Name,building?.Name);
         }
 
         [Fact]
@@ -160,7 +160,7 @@ namespace UnitTests
 
             var okResult = await _controller.GetRoomsByBuildingId(id) as OkObjectResult;
 
-            var rooms = Assert.IsAssignableFrom<IEnumerable<RoomReadDto>>(okResult.Value);
+            var rooms = Assert.IsAssignableFrom<IEnumerable<RoomReadDto>>(okResult?.Value);
             Assert.Equal(2, rooms.Count());
         }
     }

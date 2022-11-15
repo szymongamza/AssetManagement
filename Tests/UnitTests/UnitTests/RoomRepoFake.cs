@@ -22,7 +22,9 @@ namespace UnitTests
                 new Room(){Id = 3, BuildingId = 3, Floor = 3, Name = "301"},
             };
         }
+#pragma warning disable CS1998 // Metoda asynchroniczna nie zawiera operatorów „await” i zostanie uruchomiona synchronicznie
         public async Task CreateRoom(Room room)
+
         {
             _rooms.Add(room);
         }
@@ -32,7 +34,7 @@ namespace UnitTests
             return _rooms;
         }
 
-        public async Task<Room> GetRoomById(int id)
+        public async Task<Room?> GetRoomById(int id)
         {
             return _rooms.Find(x => x.Id == id);
         }
@@ -41,5 +43,6 @@ namespace UnitTests
         {
             return _rooms.FindAll(x => x.BuildingId == id);
         }
+#pragma warning restore CS1998 // Metoda asynchroniczna nie zawiera operatorów „await” i zostanie uruchomiona synchronicznie
     }
 }

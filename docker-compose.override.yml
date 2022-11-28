@@ -1,16 +1,6 @@
 version: '3.4'
 
 services:
-  item.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://0.0.0.0:80
-      - identityUrl=http://item-api
-    ports:
-      - "5103:80"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
   localisation.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -28,7 +18,6 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
     depends_on:
       - localisation.api
-      - item.api
     ports:
       - "8010:80"
     volumes:

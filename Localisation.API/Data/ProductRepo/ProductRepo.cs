@@ -1,7 +1,7 @@
-﻿using Item.API.Model;
+﻿using Localisation.API.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace Item.API.Data
+namespace Localisation.API.Data
 {
     public class ProductRepo : IProductRepo
     {
@@ -32,24 +32,9 @@ namespace Item.API.Data
             return products;
         }
 
-        public async Task CreateRoom(Room room)
+        public bool RoomExists(int externalRoomId)
         {
-            if (room == null)
-            {
-                throw new ArgumentNullException(nameof(room));
-            }
-            _context.Rooms.Add(room);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<IEnumerable<Room>> GetAllRooms()
-        {
-            return await _context.Rooms.ToListAsync();
-        }
-
-        public bool ExternalRoomExists(int externalRoomId)
-        {
-            return _context.Rooms.Any(p => p.ExternalID == externalRoomId);
+            return _context.Rooms.Any(p => p.Id == externalRoomId);
         }
 
 

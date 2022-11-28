@@ -10,6 +10,7 @@ namespace Localisation.API.Data
         }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +24,18 @@ namespace Localisation.API.Data
                 .Entity<Room>()
                 .HasOne(p => p.Building)
                 .WithMany(p => p.Rooms);
+
+            modelBuilder
+                .Entity<Room>()
+                .HasMany(p => p.Products)
+                .WithOne(p => p.Room!)
+                .HasForeignKey(p => p.RoomId);
+
+            modelBuilder
+                .Entity<Product>()
+                .HasOne(p => p.Room)
+                .WithMany(p => p.Products)
+                .HasForeignKey(p => p.RoomId);
         }
     }
 

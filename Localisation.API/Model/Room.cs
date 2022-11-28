@@ -12,6 +12,7 @@ namespace Localisation.API.Model
         [Required]
         public int BuildingId { get; set; }
         public Building? Building { get; set; }
+        public IEnumerable<Product>? Products { get; set; }
 
     }
 }

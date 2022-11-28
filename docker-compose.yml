@@ -1,17 +1,9 @@
 version: '3.4'
 
 services:
-  item.api:
-    image: ${DOCKER_REGISTRY-}itemapi
-    depends_on: [rabbitmq,sql-server-db]
-    build:
-      context: .
-      dockerfile: Item.API/Dockerfile
-
-
   localisation.api:
     image: ${DOCKER_REGISTRY-}localisationapi
-    depends_on: [rabbitmq,sql-server-db]
+    depends_on: [sql-server-db]
     build:
       context: .
       dockerfile: Localisation.API/Dockerfile
@@ -19,20 +11,10 @@ services:
 
   ocelotapigw:
     image: ${DOCKER_REGISTRY-}ocelotapigw
-    depends_on: [localisation.api,item.api,rabbitmq]
+    depends_on: [localisation.api]
     build:
       context: .
       dockerfile: OcelotApiGw/Dockerfile
-      
-
-  rabbitmq: # login guest:guest
-    image: rabbitmq:3-management
-    hostname: "rabbitmq"
-    labels:
-      NAME: "rabbitmq"
-    ports:
-    - "5672:5672"
-    - "15672:15672"
 
   sql-server-db:
     container_name: sql-server-db

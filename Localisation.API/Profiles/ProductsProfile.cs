@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Item.API.Dtos;
-using Item.API.Model;
+using Localisation.API.Dtos;
+using Localisation.API.Model;
 
-namespace Item.API.Profiles
+namespace Localisation.API.Profiles
 {
     public class ProductsProfile : Profile
     {

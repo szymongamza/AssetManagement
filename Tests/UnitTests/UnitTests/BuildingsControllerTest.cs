@@ -72,7 +72,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public async void GetById_ExistingIdPassed_ReturnsRightItem()
+        public async void GetById_ExistingIdPassed_ReturnsRightBuilding()
         {
             int id = 1;
 
@@ -86,7 +86,7 @@ namespace UnitTests
         [Fact]
         public async void Add_InvalidObjectPassed_ReturnsBadRequest()
         {
-            var nameMissingItem = new BuildingCreateDto()
+            var nameMissingRoom = new BuildingCreateDto()
             {
                 BuildingCode = "B5",
                 MaxFloor = 5,
@@ -94,7 +94,7 @@ namespace UnitTests
             };
             _controller.ModelState.AddModelError("Name", "Required");
 
-            var badResponse = await _controller.CreateBuilding(nameMissingItem);
+            var badResponse = await _controller.CreateBuilding(nameMissingRoom);
 
             Assert.IsType<BadRequestObjectResult>(badResponse as BadRequestObjectResult);
         }    
@@ -133,8 +133,10 @@ namespace UnitTests
             Assert.Equal(buildingCreateDto.Name,building?.Name);
         }
 
+
+
         [Fact]
-        public async void GetRoomsById_UnknownIdPassed_ReturnsNotFoundResult()
+        public async void GetRoomsByBuildingId_UnknownIdPassed_ReturnsNotFoundResult()
         {
             int id = -1;
 
@@ -144,7 +146,7 @@ namespace UnitTests
         }      
         
         [Fact]
-        public async void GetRoomsById_ExistingIdPassed_ReturnsOkResult()
+        public async void GetRoomsByBuildingId_ExistingIdPassed_ReturnsOkResult()
         {
             int id = 1;
 
@@ -154,7 +156,7 @@ namespace UnitTests
         }     
         
         [Fact]
-        public async void GetRoomsById_ExistingIdPassed_ReturnsRooms()
+        public async void GetRoomsByBuildingId_ExistingIdPassed_ReturnsRooms()
         {
             int id = 1;
 

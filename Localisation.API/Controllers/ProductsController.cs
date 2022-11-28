@@ -32,9 +32,9 @@ namespace Localisation.API.Controllers
         public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetProductById(int id)
         {
             var product = await _productRepo.GetProductById(id);
-            if (product != null)
-                return Ok(_mapper.Map<ProductReadDto>(product));
-            return NotFound();
+            if (product == null)
+                return NotFound();
+            return Ok(_mapper.Map<ProductReadDto>(product));
         }
 
         [HttpPost]

@@ -33,9 +33,9 @@ namespace Localisation.API.Controllers
         public async Task<IActionResult> GetBuildingById(int id)
         {
             var building = await _buildingRepo.GetBuildingById(id);
-            if(building != null)
-                return  Ok(_mapper.Map<BuildingReadDto>(building));
-            return NotFound();
+            if(building == null)
+                return NotFound();
+            return Ok(_mapper.Map<BuildingReadDto>(building));
         }
 
         [HttpPost]
@@ -55,7 +55,8 @@ namespace Localisation.API.Controllers
         [HttpGet("{id}/rooms")]
         public async Task<IActionResult> GetRoomsByBuildingId(int id)
         {
-            if (!await _buildingRepo.IdExist(id))
+            var building = _buildingRepo.GetBuildingById(id);
+            if (building == null)
                 return NotFound();
             var rooms = await _roomRepo.GetRoomsByBuildingId(id);
             return Ok(_mapper.Map<IEnumerable<RoomReadDto>>(rooms));

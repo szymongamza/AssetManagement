@@ -37,12 +37,6 @@ namespace UnitTests
             var building = _buildings.Find(x => x.Id == id);
             return building;
         }
-
-        public async Task<bool> IdExist(int id)
-        {
-            bool buildingExist = _buildings.Exists(x => x.Id == id);
-            return buildingExist;
-        }
 #pragma warning restore CS1998 // Metoda asynchroniczna nie zawiera operatorów „await” i zostanie uruchomiona synchronicznie
     }
 }

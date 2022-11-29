@@ -49,30 +49,13 @@ namespace Localisation.API.Controllers
 
             if (building == null)
                 return NotFound($"There is no building with ID: {room.BuildingId}");
-            if(!await FloorInRange(building, room.Floor))
+            if(room.Floor >= building.MinFloor && room.Floor <= building.MaxFloor)
                 return BadRequest("Floor is out of building floors range.");
 
             var roomModel = _mapper.Map<Room>(room);
             await _roomRepo.CreateRoom(roomModel);
             var roomReadDto = _mapper.Map<RoomReadDto>(roomModel);
             return CreatedAtRoute(nameof(GetRoomById), new { Id = roomReadDto.Id }, roomReadDto);
-        }
-
-
-
-
-
-
-        public Task<bool> FloorInRange(Building building,  int floor)
-        {
-            if (floor >= building.MinFloor && floor <= building.MaxFloor)
-            {
-                return Task.FromResult(true);
-            }
-            else
-            {
-                return Task.FromResult(false);
-            }
         }
     }
 }

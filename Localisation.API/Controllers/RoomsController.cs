@@ -48,14 +48,14 @@ namespace Localisation.API.Controllers
             var building = await _buildingRepo.GetBuildingById(room.BuildingId);
 
             if (building == null)
-                return NotFound($"There is no building with ID: {room.BuildingId}");
-            if(room.Floor >= building.MinFloor && room.Floor <= building.MaxFloor)
-                return BadRequest("Floor is out of building floors range.");
+                return BadRequest("No such building");
+            if (!(room.Floor >= building.MinFloor && room.Floor <= building.MaxFloor))
+                return BadRequest("Floor out of range");
 
             var roomModel = _mapper.Map<Room>(room);
             await _roomRepo.CreateRoom(roomModel);
             var roomReadDto = _mapper.Map<RoomReadDto>(roomModel);
-            return CreatedAtRoute(nameof(GetRoomById), new { Id = roomReadDto.Id }, roomReadDto);
+            return CreatedAtAction(nameof(GetRoomById), new { Id = roomReadDto.Id }, roomReadDto);
         }
     }
 }

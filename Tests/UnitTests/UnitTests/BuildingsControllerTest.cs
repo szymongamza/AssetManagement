@@ -90,7 +90,7 @@ namespace UnitTests
             {
                 BuildingCode = "B5",
                 MaxFloor = 5,
-                MinFloor = -1,
+                MinFloor = -1
             };
             _controller.ModelState.AddModelError("Name", "Required");
 
@@ -107,7 +107,7 @@ namespace UnitTests
                 Name = "Test",
                 BuildingCode = "test",
                 MaxFloor = 5,
-                MinFloor = -1,
+                MinFloor = -1
             };
 
             var createdResponse = await _controller.CreateBuilding(buildingCreateDto);
@@ -123,7 +123,7 @@ namespace UnitTests
                 Name = "Test",
                 BuildingCode = "test",
                 MaxFloor = 5,
-                MinFloor = -1,
+                MinFloor = -1
             };
 
             var createdResponse = await _controller.CreateBuilding(buildingCreateDto) as CreatedAtActionResult;

@@ -55,7 +55,7 @@ namespace Localisation.API.Controllers
         [HttpGet("{id}/rooms")]
         public async Task<IActionResult> GetRoomsByBuildingId(int id)
         {
-            var building = _buildingRepo.GetBuildingById(id);
+            var building = await _buildingRepo.GetBuildingById(id);
             if (building == null)
                 return NotFound();
             var rooms = await _roomRepo.GetRoomsByBuildingId(id);

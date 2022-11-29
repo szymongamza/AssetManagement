@@ -86,14 +86,76 @@ namespace UnitTests
         {
             var nameMissingRoom = new RoomCreateDto()
             {
-                Name = "B5",
-                BuildingId = 5,
+                Name = "112",
+                BuildingId = 3
             };
             _controller.ModelState.AddModelError("Floor", "Required");
 
             var badResponse = await _controller.CreateRoom(nameMissingRoom);
 
             Assert.IsType<BadRequestObjectResult>(badResponse as BadRequestObjectResult);
+        }
+
+        [Fact]
+        public async void Add_VaildObjectPassedButBuildingDontExists_ReturnsNotFound()
+        {
+            var roomCreateDto = new RoomCreateDto()
+            {
+                Name = "112",
+                BuildingId = 5,
+                Floor = 3
+            };
+
+            var badResponse = await _controller.CreateRoom(roomCreateDto);
+
+            Assert.IsType<BadRequestObjectResult>(badResponse as BadRequestObjectResult);
+        }
+
+        [Fact]
+        public async void Add_VaildObjectPassedButFloorIsOutOfBuildingRange_ReturnsBadRequest()
+        {
+            var roomCreateDto = new RoomCreateDto()
+            {
+                Name = "122",
+                BuildingId = 3,
+                Floor = 33
+            };
+
+            var badResponse = await _controller.CreateRoom(roomCreateDto);
+
+            Assert.IsType<BadRequestObjectResult>(badResponse as BadRequestObjectResult);
+        }
+
+        [Fact]
+        public async void Add_VaildObjectPassed_ReturnsCreatedRequest()
+        {
+            var roomCreateDto = new RoomCreateDto()
+            {
+                Name = "122",
+                BuildingId = 3,
+                Floor = 3
+            };
+
+            var createdResponse = await _controller.CreateRoom(roomCreateDto);
+
+            Assert.IsType<CreatedAtActionResult>(createdResponse);
+        }
+
+        [Fact]
+        public async void Add_VaildObjectPassed_ReturnedResponseHasCreatedRoom()
+        {
+            var roomCreateDto = new RoomCreateDto()
+            {
+                Name = "122",
+                BuildingId = 3,
+                Floor = 2
+            };
+
+            var createdResponse = await _controller.CreateRoom(roomCreateDto) as CreatedAtActionResult;
+            var room = createdResponse?.Value as RoomReadDto;
+
+            Assert.IsType<RoomReadDto>(room);
+            Assert.Equal(roomCreateDto.Name, room?.Name);
         }
     }
 }

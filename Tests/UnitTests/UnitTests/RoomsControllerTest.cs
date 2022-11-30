@@ -16,6 +16,7 @@ namespace UnitTests
     {
         private readonly RoomRepoFake _roomRepo;
         private readonly BuildingRepoFake _buildingRepo;
+        private readonly ProductRepoFake _productRepo;
         private readonly MapperConfiguration _config;
         private readonly IMapper _mapper;
         private readonly RoomsController _controller;
@@ -25,12 +26,14 @@ namespace UnitTests
         {
             _roomRepo = new RoomRepoFake();
             _buildingRepo = new BuildingRepoFake();
+            _productRepo = new ProductRepoFake();
             _config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new RoomsProfile());
+                cfg.AddProfile(new ProductsProfile());
             });
             _mapper = _config.CreateMapper();
-            _controller = new RoomsController(_roomRepo, _buildingRepo, _mapper);
+            _controller = new RoomsController(_roomRepo, _buildingRepo, _productRepo, _mapper);
         }
 
         // GET Methods
@@ -156,6 +159,37 @@ namespace UnitTests
 
             Assert.IsType<RoomReadDto>(room);
             Assert.Equal(roomCreateDto.Name, room?.Name);
+        }
+
+        [Fact]
+        public async void GetProductsByRoomId_UnknownIdPassed_ReturnsNotFoundResult()
+        {
+            int id = -1;
+
+            var notFoundResult = await _controller.GetProductsByRoomId(id);
+
+            Assert.IsType<NotFoundResult>(notFoundResult);
+        }
+
+        [Fact]
+        public async void GetProductsByRoomId_ExistingIdPassed_ReturnsOkResult()
+        {
+            int id = 1;
+
+            var okResult = await _controller.GetProductsByRoomId(id);
+
+            Assert.IsType<OkObjectResult>(okResult);
+        }
+
+        [Fact]
+        public async void GetProductsByRoomId_ExistingIdPassed_ReturnsRooms()
+        {
+            int id = 1;
+
+            var okResult = await _controller.GetProductsByRoomId(id) as OkObjectResult;
+
+            var rooms = Assert.IsAssignableFrom<IEnumerable<ProductReadDto>>(okResult?.Value);
+            Assert.Equal(2, rooms.Count());
         }
     }
 }

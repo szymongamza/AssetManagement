@@ -31,5 +31,11 @@ namespace Localisation.API.Data
             var products = await _context.Products.ToListAsync();
             return products;
         }
+
+        public async Task<IEnumerable<Product>> GetProductsByRoomId(int id)
+        {
+            var products = await _context.Products.Where(x => x.RoomId == id).ToListAsync();
+            return products;
+        }
     }
 }

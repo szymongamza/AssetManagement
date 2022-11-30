@@ -14,12 +14,14 @@ namespace Localisation.API.Controllers
     {
         private readonly IRoomRepo _roomRepo;
         private readonly IBuildingRepo _buildingRepo;
+        private readonly IProductRepo _productRepo;
         private readonly IMapper _mapper;
 
-        public RoomsController(IRoomRepo roomRepo,IBuildingRepo buildingRepo, IMapper mapper)
+        public RoomsController(IRoomRepo roomRepo,IBuildingRepo buildingRepo,IProductRepo productRepo, IMapper mapper)
         {
             _roomRepo = roomRepo;
             _buildingRepo = buildingRepo;
+            _productRepo = productRepo;
             _mapper = mapper;
         }
         [HttpGet]
@@ -56,6 +58,16 @@ namespace Localisation.API.Controllers
             await _roomRepo.CreateRoom(roomModel);
             var roomReadDto = _mapper.Map<RoomReadDto>(roomModel);
             return CreatedAtAction(nameof(GetRoomById), new { Id = roomReadDto.Id }, roomReadDto);
+        }
+
+        [HttpGet("{id}/products")]
+        public async Task<IActionResult> GetProductsByRoomId(int id)
+        {
+            var room = await _roomRepo.GetRoomById(id);
+            if (room == null)
+                return NotFound();
+            var products = await _productRepo.GetProductsByRoomId(id);
+            return Ok(_mapper.Map<IEnumerable<ProductReadDto>>(products));
         }
     }
 }

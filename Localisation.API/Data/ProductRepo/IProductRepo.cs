@@ -7,5 +7,6 @@ namespace Localisation.API.Data
         Task<IEnumerable<Product>> GetAllProducts();
         Task<Product?> GetProductById(int id);
         Task CreateProduct(Product product);
+        Task <IEnumerable<Product>> GetProductsByRoomId(int id);
     }
 }

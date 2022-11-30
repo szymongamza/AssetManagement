@@ -31,12 +31,5 @@ namespace Localisation.API.Data
             var products = await _context.Products.ToListAsync();
             return products;
         }
-
-        public bool RoomExists(int externalRoomId)
-        {
-            return _context.Rooms.Any(p => p.Id == externalRoomId);
-        }
-
-
     }
 }

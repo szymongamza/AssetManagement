@@ -6,10 +6,10 @@ namespace Localisation.API.Data
     {
         public static void PrepPopulation(IApplicationBuilder app)
         {
-            using(var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                SeedData(serviceScope.ServiceProvider.GetService<AppDbContext?>());
-            }
+            using var serviceScope = app.ApplicationServices.CreateScope();
+#pragma warning disable CS8604 // Possible null reference argument.
+            SeedData(serviceScope.ServiceProvider.GetService<AppDbContext?>());
+#pragma warning restore CS8604 // Possible null reference argument.
         }
         private static void SeedData(AppDbContext context)
         {

@@ -58,13 +58,50 @@ namespace Localisation.API.Data
                         DateTimeOfEndOfGuarantee = DateTime.Parse("2023-10-26"),
                         DateTimeOfNextMaintainance = DateTime.Parse("2023-04-26"),
                         RoomId = 1
+                    },
+                    new Product()
+                    {
+                        Name = "Signal Pro 400",
+                        Manufacturer = "ATMAT",
+                        ManufacturerSerialNumber = "123-453-655",
+                        AdditionalDescription = "Drukarka 3D, dysze: 04 i 04",
+                        DateTimeOfBuy = DateTime.Parse("2021-10-26"),
+                        DateTimeOfEndOfGuarantee = DateTime.Parse("2022-10-26"),
+                        DateTimeOfNextMaintainance = DateTime.Parse("2023-04-26"),
+                        RoomId = 1
                     }
                     );
                 context.SaveChanges();
             }
             else
             {
-                Console.WriteLine("[][][][][] We already have rooms. [][][][][]");
+                Console.WriteLine("[][][][][] We already have products. [][][][][]");
+
+            }
+            if (!context.Maintenances.Any())
+            {
+                Console.WriteLine("[][][][][] Seeding Data. [][][][][]");
+                context.Maintenances.AddRange(
+                    new Maintenance()
+                    {
+                        DateStart = DateTime.Parse("2022-04-26"),
+                        DateEnd = DateTime.Parse("2022-04-30"),
+                        Description = "Wymiana pasków napędowych",
+                        ProductId = 2
+                    },
+                    new Maintenance()
+                    {
+                        DateStart = DateTime.Parse("2022-10-26"),
+                        DateEnd = DateTime.Parse("2022-11-05"),
+                        Description = "Przesmarowanie mechaniki",
+                        ProductId = 2
+                    }
+                    );
+                context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("[][][][][] We already have maintenances. [][][][][]");
 
             }
         }

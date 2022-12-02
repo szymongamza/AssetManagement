@@ -7,6 +7,6 @@ namespace Localisation.API.Data
         Task<IEnumerable<Maintenance>> GetMaintenancesOfProduct(int productId);
         Task<Maintenance?> GetMaintenanceById(int id);
         Task CreateMaintenance(Maintenance maintenance);
-        Task GetLastMaintenanceOfProduct(int productId);
+        Task<Maintenance?> GetLastMaintenanceOfProduct(int productId);
     }
 }

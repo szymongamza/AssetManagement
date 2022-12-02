@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Localisation.API.Dtos.MaintenanceDtos
+namespace Localisation.API.Dtos
 {
     public class MaintenanceCreateDto
     {

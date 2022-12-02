@@ -1,4 +1,4 @@
-﻿namespace Localisation.API.Dtos.MaintenanceDtos
+﻿namespace Localisation.API.Dtos
 {
     public class MaintenanceReadDto
     {

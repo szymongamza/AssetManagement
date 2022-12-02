@@ -14,7 +14,10 @@ namespace Localisation.API.Data
         public async Task CreateRoom(Room room)
         {
             if (room == null)
+            {
                 throw new ArgumentNullException(nameof(room));
+            }
+
             _context.Rooms.Add(room);
             await _context.SaveChangesAsync();  
         }

@@ -13,8 +13,11 @@ namespace Localisation.API.Data
         }
         public async Task CreateBuilding(Building building)
         {
-            if(building == null)
+            if (building == null)
+            {
                 throw new ArgumentNullException(nameof(building));
+            }
+
             _context.Buildings.Add(building);
             await _context.SaveChangesAsync();
         }

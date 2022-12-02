@@ -15,7 +15,10 @@ namespace Localisation.API.Data
         public async Task CreateProduct(Product product)
         {
             if (product == null)
+            {
                 throw new ArgumentNullException(nameof(product));
+            }
+
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }

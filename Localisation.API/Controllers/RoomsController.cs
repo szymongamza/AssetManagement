@@ -36,7 +36,10 @@ namespace Localisation.API.Controllers
         {
             var room = await _roomRepo.GetRoomById(id);
             if (room == null)
+            {
                 return NotFound();
+            }
+
             return Ok(_mapper.Map<RoomReadDto>(room));
         }
 
@@ -50,9 +53,14 @@ namespace Localisation.API.Controllers
             var building = await _buildingRepo.GetBuildingById(room.BuildingId);
 
             if (building == null)
+            {
                 return BadRequest("No such building");
+            }
+
             if (!(room.Floor >= building.MinFloor && room.Floor <= building.MaxFloor))
+            {
                 return BadRequest("Floor out of range");
+            }
 
             var roomModel = _mapper.Map<Room>(room);
             await _roomRepo.CreateRoom(roomModel);
@@ -65,7 +73,10 @@ namespace Localisation.API.Controllers
         {
             var room = await _roomRepo.GetRoomById(id);
             if (room == null)
+            {
                 return NotFound();
+            }
+
             var products = await _productRepo.GetProductsByRoomId(id);
             return Ok(_mapper.Map<IEnumerable<ProductReadDto>>(products));
         }

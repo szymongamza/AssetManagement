@@ -33,7 +33,10 @@ namespace Localisation.API.Controllers
         {
             var product = await _productRepo.GetProductById(id);
             if (product == null)
+            {
                 return NotFound();
+            }
+
             return Ok(_mapper.Map<ProductReadDto>(product));
         }
 

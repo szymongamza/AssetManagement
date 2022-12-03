@@ -4,9 +4,9 @@ using Localisation.API.Dtos;
 
 namespace Localisation.API.Profiles
 {
-    public class MaintenanceProfile : Profile
+    public class MaintenancesProfile : Profile
     {
-        public MaintenanceProfile()
+        public MaintenancesProfile()
         {
             CreateMap<Maintenance, MaintenanceReadDto>();
             CreateMap<MaintenanceCreateDto, Maintenance>();

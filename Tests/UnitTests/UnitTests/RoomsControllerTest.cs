@@ -182,14 +182,14 @@ namespace UnitTests
         }
 
         [Fact]
-        public async void GetProductsByRoomId_ExistingIdPassed_ReturnsRooms()
+        public async void GetProductsByRoomId_ExistingIdPassed_ReturnsProducts()
         {
             int id = 1;
 
             var okResult = await _controller.GetProductsByRoomId(id) as OkObjectResult;
 
-            var rooms = Assert.IsAssignableFrom<IEnumerable<ProductReadDto>>(okResult?.Value);
-            Assert.Equal(2, rooms.Count());
+            var products = Assert.IsAssignableFrom<IEnumerable<ProductReadDto>>(okResult?.Value);
+            Assert.Equal(2, products.Count());
         }
     }
 }

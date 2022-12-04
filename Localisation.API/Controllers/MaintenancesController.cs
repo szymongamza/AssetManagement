@@ -40,7 +40,7 @@ namespace Localisation.API.Controllers
             return Ok(_mapper.Map<MaintenanceReadDto>(maintenance));
         }
 
-        [HttpGet("{productId}", Name = "GetLastMaintenanceOfProduct")]
+        [HttpGet("/Product/{productId}", Name = "GetLastMaintenanceOfProduct")]
         public async Task<IActionResult> GetLastMaintenanceOfProduct(int productId)
         {
             var maintenance = await _maintenanceRepo.GetLastMaintenanceOfProduct(productId);

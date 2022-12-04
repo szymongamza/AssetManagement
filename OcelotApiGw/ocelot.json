@@ -8,7 +8,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localisation.api",
-          "Port": "80"
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Products",
@@ -20,7 +20,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localisation.api",
-          "Port": "80"
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Products/{id}",
@@ -35,7 +35,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localisation.api",
-          "Port": "80"
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Buildings",
@@ -47,7 +47,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localisation.api",
-          "Port": "80"
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Buildings/{id}",
@@ -59,7 +59,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localisation.api",
-          "Port": "80"
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Buildings/{id}/rooms",
@@ -74,7 +74,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localisation.api",
-          "Port": "80"
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Rooms",
@@ -87,11 +87,26 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localisation.api",
-          "Port": "80"
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Rooms/{id}",
       "UpstreamHttpMethod": [ "GET" ]
+
+    },
+
+    //Room API
+    {
+      "DownstreamPathTemplate": "/api/SmtpSettings",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "emailsender",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/SmtpSettings",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
 
     }
   ],

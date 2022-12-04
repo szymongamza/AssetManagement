@@ -3,15 +3,24 @@ version: '3.4'
 services:
   localisation.api:
     image: ${DOCKER_REGISTRY-}localisationapi
+    restart: always
     depends_on: [sql-server-db]
     build:
       context: .
       dockerfile: Localisation.API/Dockerfile
 
+  emailsender:
+    image: ${DOCKER_REGISTRY-}emailsender
+    restart: always
+    build:
+      context: .
+      dockerfile: EmailSender/Dockerfile
+
 
   ocelotapigw:
     image: ${DOCKER_REGISTRY-}ocelotapigw
     depends_on: [localisation.api]
+    restart: always
     build:
       context: .
       dockerfile: OcelotApiGw/Dockerfile
@@ -19,6 +28,7 @@ services:
   sql-server-db:
     container_name: sql-server-db
     image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
     ports:
       - "1433:1433"
     environment:

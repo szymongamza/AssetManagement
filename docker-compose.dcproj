@@ -6,7 +6,7 @@
     <ProjectGuid>a1355aca-527d-412d-a7f9-27d7f4273e44</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>item.api</DockerServiceName>
+    <DockerServiceName>localisation.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

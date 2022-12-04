@@ -16,6 +16,7 @@ namespace UnitTests
     {
         private readonly ProductRepoFake _productRepo;
         private readonly RoomRepoFake _roomRepo;
+        private readonly MaintenanceRepoFake _maintenanceRepo;
         private readonly MapperConfiguration _config;
         private readonly IMapper _mapper;
         private readonly ProductsController _controller;
@@ -25,13 +26,15 @@ namespace UnitTests
         {
             _productRepo = new ProductRepoFake();
             _roomRepo = new RoomRepoFake();
+            _maintenanceRepo = new MaintenanceRepoFake();
             _config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new ProductsProfile());
                 cfg.AddProfile(new RoomsProfile());
+                cfg.AddProfile(new MaintenancesProfile());
             });
             _mapper = _config.CreateMapper();
-            _controller = new ProductsController(_productRepo, _mapper);
+            _controller = new ProductsController(_productRepo, _maintenanceRepo, _mapper);
         }
 
         // GET Methods
@@ -143,6 +146,67 @@ namespace UnitTests
 
             Assert.IsType<ProductReadDto>(product);
             Assert.Equal(productCreateDto.Name,product?.Name);
+        }
+        [Fact]
+        public async void GetMaintenancesByProductId_UnknownIdPassed_ReturnsNotFoundResult()
+        {
+            int id = -1;
+
+            var notFoundResult = await _controller.GetMaintenancesByProductId(id);
+
+            Assert.IsType<NotFoundResult>(notFoundResult);
+        }
+
+        [Fact]
+        public async void GetMaintenancesByProductId_ExistingIdPassed_ReturnsOkResult()
+        {
+            int id = 1;
+
+            var okResult = await _controller.GetMaintenancesByProductId(id);
+
+            Assert.IsType<OkObjectResult>(okResult);
+        }
+
+        [Fact]
+        public async void GetMaintenancesByProductId_ExistingIdPassed_ReturnsRooms()
+        {
+            int id = 1;
+
+            var okResult = await _controller.GetMaintenancesByProductId(id) as OkObjectResult;
+
+            var maintenances = Assert.IsAssignableFrom<IEnumerable<MaintenanceReadDto>>(okResult?.Value);
+            Assert.Equal(2, maintenances.Count());
+        }
+
+        [Fact]
+        public async void GetLastMaintenanceByProductId_UnknownIdPassed_ReturnsNotFoundResult()
+        {
+            int id = -1;
+
+            var notFoundResult = await _controller.GetLastMaintenanceByProductId(id);
+
+            Assert.IsType<NotFoundResult>(notFoundResult);
+        }
+
+        [Fact]
+        public async void GetLastMaintenanceByProductId_ExistingIdPassed_ReturnsOkResult()
+        {
+            int id = 1;
+
+            var okResult = await _controller.GetLastMaintenanceByProductId(id);
+
+            Assert.IsType<OkObjectResult>(okResult);
+        }
+
+        [Fact]
+        public async void GetLastMaintenanceByProductId_ExistingIdPassed_ReturnsMaintenance()
+        {
+            int id = 1;
+
+            var okResult = await _controller.GetLastMaintenanceByProductId(id) as OkObjectResult;
+
+            var maintenance = Assert.IsAssignableFrom<MaintenanceReadDto>(okResult?.Value);
+            Assert.Equal(DateTime.Parse("2022-05-28"), maintenance.DateEnd);
         }
     }
 }

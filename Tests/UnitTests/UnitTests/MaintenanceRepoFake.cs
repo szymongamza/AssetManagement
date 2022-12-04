@@ -26,8 +26,8 @@ namespace UnitTests
                 new Maintenance() {
                     Id = 2,
                     Description = "Changed screws",
-                    DateStart = DateTime.Parse("2022-04-26"),
-                    DateEnd = DateTime.Parse("2022-04-28"),
+                    DateStart = DateTime.Parse("2022-05-26"),
+                    DateEnd = DateTime.Parse("2022-05-28"),
                     ProductId = 1
                 },
                 new Maintenance() {

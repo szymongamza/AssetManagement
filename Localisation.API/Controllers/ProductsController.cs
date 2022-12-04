@@ -13,11 +13,13 @@ namespace Localisation.API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepo _productRepo;
+        private readonly IMaintenanceRepo _maintenanceRepo;
         private readonly IMapper _mapper;
 
-        public ProductsController(IProductRepo productRepo, IMapper mapper)
+        public ProductsController(IProductRepo productRepo,IMaintenanceRepo maintenanceRepo, IMapper mapper)
         {
             _productRepo = productRepo;
+            _maintenanceRepo = maintenanceRepo;
             _mapper = mapper;
         }
 
@@ -52,6 +54,32 @@ namespace Localisation.API.Controllers
 
             var productReadDto = _mapper.Map<ProductReadDto>(productModel);
             return CreatedAtAction(nameof(GetProductById), new { Id = productReadDto.Id }, productReadDto);
+        }
+
+        [HttpGet("{id}/maintenances")]
+        public async Task<IActionResult> GetMaintenancesByProductId(int id)
+        {
+            var product = await _productRepo.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var maintenances = await _maintenanceRepo.GetMaintenancesOfProduct(id);
+            return Ok(_mapper.Map<IEnumerable<MaintenanceReadDto>>(maintenances));
+        }       
+        
+        [HttpGet("{id}/maintenances/last")]
+        public async Task<IActionResult> GetLastMaintenanceByProductId(int id)
+        {
+            var product = await _productRepo.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var maintenance = await _maintenanceRepo.GetLastMaintenanceOfProduct(id);
+            return Ok(_mapper.Map<MaintenanceReadDto>(maintenance));
         }
     }
 }

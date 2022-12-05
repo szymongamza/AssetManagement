@@ -1,6 +1,9 @@
 ![example workflow](https://github.com/szymongamza/InventoryUniversity/actions/workflows/dotnet.yml/badge.svg)
 
-Project that use microservice architecture.
+This project is for asset management in university. Knowing where is which machine or research equipment, have access to important information about it, when it was purchased and when maintenance is needed.
+
+It is build on .NET 6
+
 
 # Used technology:
 - [x] Docker

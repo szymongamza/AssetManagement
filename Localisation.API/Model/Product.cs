@@ -19,6 +19,8 @@ namespace Localisation.API.Model
         public int RoomId { get; set; }
         public Room? Room { get; set; }
         public Guid ItemGuid { get; set; } = Guid.NewGuid();
+        [Required]
+        public bool EmailNotification { get; set; }
         public IEnumerable<Maintenance>? Maintenances {get; set;}
 
     }

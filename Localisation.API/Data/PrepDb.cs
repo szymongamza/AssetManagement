@@ -57,6 +57,7 @@ namespace Localisation.API.Data
                         DateTimeOfBuy = DateTime.Parse("2022-10-26"),
                         DateTimeOfEndOfGuarantee = DateTime.Parse("2023-10-26"),
                         DateTimeOfNextMaintainance = DateTime.Parse("2023-04-26"),
+                        EmailNotification = true,
                         RoomId = 1
                     },
                     new Product()
@@ -68,6 +69,7 @@ namespace Localisation.API.Data
                         DateTimeOfBuy = DateTime.Parse("2021-10-26"),
                         DateTimeOfEndOfGuarantee = DateTime.Parse("2022-10-26"),
                         DateTimeOfNextMaintainance = DateTime.Parse("2023-04-26"),
+                        EmailNotification = true,
                         RoomId = 1
                     }
                     );

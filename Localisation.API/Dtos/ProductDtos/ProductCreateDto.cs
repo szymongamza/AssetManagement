@@ -15,5 +15,7 @@ namespace Localisation.API.Dtos
         public string? AdditionalDescription { get; set; }
         [Required]
         public int RoomId { get; set; }
+        [Required]
+        public bool EmailNotification { get; set; }
     }
 }

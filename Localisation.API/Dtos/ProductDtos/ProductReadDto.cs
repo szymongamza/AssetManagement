@@ -13,5 +13,6 @@
         public string? AdditionalDescription { get; set; }
         public int RoomId { get; set; }
         public Guid ItemGuid { get; set; } = Guid.NewGuid();
+        public bool EmailNotification { get; set; }
     }
 }

@@ -97,6 +97,7 @@ namespace UnitTests
                 DateTimeOfEndOfGuarantee = new DateTime(2023, 6, 12),
                 DateTimeOfNextMaintainance = new DateTime(2022, 12, 12),
                 ManufacturerSerialNumber = "2022/321534/34236",
+                EmailNotification = true,
                 RoomId = 2
             };
             _controller.ModelState.AddModelError("Name", "Required");
@@ -118,6 +119,7 @@ namespace UnitTests
                 DateTimeOfEndOfGuarantee = new DateTime(2023, 6, 12),
                 DateTimeOfNextMaintainance = new DateTime(2022, 12, 12),
                 ManufacturerSerialNumber = "2022/321534/34237",
+                EmailNotification = true,
                 RoomId = 3
             };
 
@@ -138,6 +140,7 @@ namespace UnitTests
                 DateTimeOfEndOfGuarantee = new DateTime(2023, 6, 12),
                 DateTimeOfNextMaintainance = new DateTime(2022, 12, 12),
                 ManufacturerSerialNumber = "2022/321534/34237",
+                EmailNotification = true,
                 RoomId = 3
             };
 

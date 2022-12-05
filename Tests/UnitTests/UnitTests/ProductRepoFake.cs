@@ -26,6 +26,7 @@ namespace UnitTests
                     DateTimeOfEndOfGuarantee = new DateTime(2023,6,12),
                     DateTimeOfNextMaintainance= new DateTime(2022,12,12),
                     ManufacturerSerialNumber = "2022/321534/34234",
+                    EmailNotification = true,
                     RoomId = 1
                 },       
                 new Product() {
@@ -37,6 +38,7 @@ namespace UnitTests
                     DateTimeOfEndOfGuarantee = new DateTime(2023,6,12),
                     DateTimeOfNextMaintainance= new DateTime(2022,12,12),
                     ManufacturerSerialNumber = "2022/321534/34235",
+                    EmailNotification = true,
                     RoomId = 1
                 },            
                 new Product() {
@@ -48,6 +50,7 @@ namespace UnitTests
                     DateTimeOfEndOfGuarantee = new DateTime(2023,6,12),
                     DateTimeOfNextMaintainance= new DateTime(2022,12,12),
                     ManufacturerSerialNumber = "2022/321534/34236",
+                    EmailNotification = true,
                     RoomId = 2
                 }
 

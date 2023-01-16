@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagementAPI", "src\AssetManagementAPI\AssetManagementAPI.csproj", "{608CED6D-3CE0-48FE-AFCE-0EB400B85F09}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagementAPIUnitTests", "tests\AssetManagementAPI.Tests\AssetManagementAPIUnitTests.csproj", "{FC61D542-4333-4FEA-86CE-AA047CB05A2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagementAPI.Tests", "tests\AssetManagementAPI.Tests\AssetManagementAPI.Tests.csproj", "{FC61D542-4333-4FEA-86CE-AA047CB05A2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagementFrontend", "src\AssetManagementFrontend\AssetManagementFrontend.csproj", "{D64BC590-7E69-4698-A407-22D98838C371}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagementFrontend", "src\AssetManagementFrontend\AssetManagementFrontend.csproj", "{D64BC590-7E69-4698-A407-22D98838C371}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

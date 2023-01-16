@@ -1,12 +1,9 @@
-﻿using AssetManagementAPI.Data;
-using AssetManagementAPI.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AssetManagementAPI.Data;
+using AssetManagementAPI.Model;
 
-namespace UnitTests
+namespace AssetManagementAPI.Tests
 {
     public class BuildingRepoFake : IBuildingRepo
     {

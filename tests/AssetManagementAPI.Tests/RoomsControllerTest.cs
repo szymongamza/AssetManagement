@@ -1,16 +1,13 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AssetManagementAPI.Controllers;
 using AssetManagementAPI.Dtos;
 using AssetManagementAPI.Profiles;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace UnitTests
+namespace AssetManagementAPI.Tests
 {
     public class RoomsControllerTest
     {

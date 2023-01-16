@@ -1,16 +1,14 @@
-using AutoMapper;
-using AssetManagementAPI.Controllers;
-using AssetManagementAPI.Dtos;
-using AssetManagementAPI.Model;
-using AssetManagementAPI.Profiles;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AssetManagementAPI.Controllers;
+using AssetManagementAPI.Dtos;
+using AssetManagementAPI.Profiles;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
-namespace UnitTests
+namespace AssetManagementAPI.Tests
 {
     public class ProductsControllerTest
     {

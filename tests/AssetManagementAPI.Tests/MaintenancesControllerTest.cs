@@ -1,17 +1,12 @@
-using AutoMapper;
+using System;
 using AssetManagementAPI.Controllers;
 using AssetManagementAPI.Dtos;
-using AssetManagementAPI.Model;
 using AssetManagementAPI.Profiles;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Moq;
-using Newtonsoft.Json.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
-namespace UnitTests
+namespace AssetManagementAPI.Tests
 {
     public class MaintenancesControllerTest
     {

@@ -7,10 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagementAPI", "src\A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagementAPIUnitTests", "tests\AssetManagementAPI.Tests\AssetManagementAPIUnitTests.csproj", "{FC61D542-4333-4FEA-86CE-AA047CB05A2C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EmailSender", "EmailSender", "{391FFB36-3198-485D-BBB5-03801C3E2CFB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSender", "EmailSender\EmailSender.csproj", "{F6D7C632-AFDC-46FD-B94A-B3E96869D110}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,17 +21,9 @@ Global
 		{FC61D542-4333-4FEA-86CE-AA047CB05A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC61D542-4333-4FEA-86CE-AA047CB05A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC61D542-4333-4FEA-86CE-AA047CB05A2C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6D7C632-AFDC-46FD-B94A-B3E96869D110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6D7C632-AFDC-46FD-B94A-B3E96869D110}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6D7C632-AFDC-46FD-B94A-B3E96869D110}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6D7C632-AFDC-46FD-B94A-B3E96869D110}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{391FFB36-3198-485D-BBB5-03801C3E2CFB} = {F14AE497-E63C-4912-80B6-143EB982054C}
-		{F6D7C632-AFDC-46FD-B94A-B3E96869D110} = {391FFB36-3198-485D-BBB5-03801C3E2CFB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F275B2C-A300-4C93-AB32-47A5F3681F82}

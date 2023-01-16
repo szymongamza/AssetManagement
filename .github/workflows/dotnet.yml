@@ -21,10 +21,10 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore ./InventoryUniversity.sln
+      run: dotnet restore ./AssetManagementAPI.sln
     - name: Build
-      run: dotnet build ./InventoryUniversity.sln --configuration Release --no-restore
+      run: dotnet build ./AssetManagementAPI.sln --configuration Release --no-restore
     - name: Test
-      run: dotnet test ./InventoryUniversity.sln
+      run: dotnet test ./AssetManagementAPI.sln
 
   

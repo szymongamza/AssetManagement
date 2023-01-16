@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace EmailSender.SettingsController
+namespace AssetManagementAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SettingsController : ControllerBase
+    public class EmailSettingsController : ControllerBase
     {
         private readonly IConfiguration _config;
 
-        public SettingsController(IConfiguration configuration)
+        public EmailSettingsController(IConfiguration configuration)
         {
             _config = configuration;
         }

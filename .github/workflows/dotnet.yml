@@ -21,10 +21,10 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore ./AssetManagementAPI.sln
+      run: dotnet restore ./AssetManagement.sln
     - name: Build
-      run: dotnet build ./AssetManagementAPI.sln --configuration Release --no-restore
+      run: dotnet build ./AssetManagement.sln --configuration Release --no-restore
     - name: Test
-      run: dotnet test ./AssetManagementAPI.sln
+      run: dotnet test ./AssetManagement.sln
 
   

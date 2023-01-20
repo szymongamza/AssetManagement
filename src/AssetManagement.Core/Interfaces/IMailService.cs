@@ -1,4 +1,4 @@
-﻿using AssetManagement.Core.Entities;
+﻿using AssetManagement.Core.Models;
 
 namespace AssetManagement.Core.Interfaces
 {

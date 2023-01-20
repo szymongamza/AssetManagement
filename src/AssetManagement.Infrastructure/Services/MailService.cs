@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using MimeKit;
-using AssetManagement.Core.Entities;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using AssetManagement.Core.Interfaces;
-
+using AssetManagement.Core.Models;
 
 namespace AssetManagement.Infrastructure.Services
 {

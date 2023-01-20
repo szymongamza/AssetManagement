@@ -1,4 +1,4 @@
-﻿namespace AssetManagement.Core.Entities
+﻿namespace AssetManagement.Core.Models
 {
     public class MailSettings
     {

@@ -6,7 +6,7 @@ using MediatR;
 
 namespace AssetManagement.Application.Common.Behaviors
 {
-    public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest,TResponse> where TRequest : IRequest<TResponse> where TResponse:AuthenticationResult
+    public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest,TResponse> where TRequest : IRequest<TResponse> where TResponse:Result
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 

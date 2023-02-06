@@ -1,7 +1,9 @@
 ﻿
+using AssetManagement.Domain.Contracts;
+
 namespace AssetManagement.Domain.Entities
 {
-    public class Building
+    public class Building : IEntity<int>
     {
         public int Id { get; set; }
         public string BuildingName { get; set; } = null!;

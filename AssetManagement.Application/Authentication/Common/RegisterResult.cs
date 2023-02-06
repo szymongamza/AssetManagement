@@ -2,5 +2,5 @@
 
 namespace AssetManagement.Application.Authentication.Common
 {
-    public record AuthenticationResult(User User, string Token) : Result;
+    public record RegisterResult(User User) : Result;
 }

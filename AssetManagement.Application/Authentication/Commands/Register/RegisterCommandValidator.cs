@@ -7,8 +7,7 @@ namespace AssetManagement.Application.Authentication.Commands.Register
     {
         public RegisterCommandValidator()
         {
-            RuleFor(x => x.FirstName).NotEmpty();
-            RuleFor(x => x.LastName).NotEmpty();
+            RuleFor(x => x.UserName).NotEmpty();
             RuleFor(x => x.Email).NotEmpty();
             RuleFor(x => x.Password).NotEmpty();
         }

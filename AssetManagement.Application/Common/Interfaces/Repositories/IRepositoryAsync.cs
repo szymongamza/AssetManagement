@@ -7,6 +7,7 @@ namespace AssetManagement.Application.Common.Interfaces.Repositories
 {
     public interface IRepositoryAsync<T, in TId> where T : class, IEntity<TId>
     {
+        IQueryable<T> Entities { get; }
         Task<T?> GetByIdAsync(TId id);
 
         Task<List<T>?> GetAllAsync();

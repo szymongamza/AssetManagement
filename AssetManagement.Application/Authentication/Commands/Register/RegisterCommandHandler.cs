@@ -1,26 +1,19 @@
 ﻿using AssetManagement.Application.Authentication.Common;
 using AssetManagement.Application.Common.Interfaces.Authentication;
-using AssetManagement.Application.Common.Interfaces.Persistence;
 using AssetManagement.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 
 namespace AssetManagement.Application.Authentication.Commands.Register
 {
-    public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AuthenticationResult>
+    public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterResult>
     {
-        private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly IUserRepository _userRepository;
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+        public async Task<RegisterResult> Handle(RegisterCommand command, CancellationToken cancellationToken)
         {
-            _jwtTokenGenerator = jwtTokenGenerator;
-            _userRepository = userRepository;
-        }
-
-        public async Task<AuthenticationResult> Handle(RegisterCommand command, CancellationToken cancellationToken)
-        {
-            await Task.CompletedTask;
-            if (_userRepository.GetUserByEmail(command.Email) is not null)
+            if (_userManager.FindByEmailAsync(command.Email) is not null)
             {
                 throw new Exception("User exists");
             }
@@ -28,18 +21,13 @@ namespace AssetManagement.Application.Authentication.Commands.Register
             var user = new User
             {
                 Email = command.Email,
-                Password = command.Password,
-                FirstName = command.FirstName,
-                LastName = command.LastName
+                UserName = command.UserName,
+                SecurityStamp = Guid.NewGuid().ToString()
             };
 
-            _userRepository.Add(user);
+            await _userManager.CreateAsync(user, command.Password);
 
-            var token = _jwtTokenGenerator.GenerateToken(user);
-
-            return new AuthenticationResult(
-                user,
-                token);
+            return new RegisterResult(user);
         }
     }
 }

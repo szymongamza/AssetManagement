@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AssetManagement.Domain.Entities
 {
-    public class Maintenance : IEntity<int>
+    public class Maintenance : Entity<int>
     {
-        public int Id { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public string? Description { get; set; }

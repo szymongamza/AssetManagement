@@ -1,40 +1,43 @@
 ﻿using AssetManagement.Application.Authentication.Common;
 using AssetManagement.Application.Common.Interfaces.Authentication;
-using AssetManagement.Application.Common.Interfaces.Persistence;
 using AssetManagement.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
+using System.Reflection;
+using System.Security.Claims;
 
 namespace AssetManagement.Application.Authentication.Queries.Login
 {
     public class LoginQueryHandler : IRequestHandler<LoginQuery, AuthenticationResult>
     {
-        private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly IUserRepository _userRepository;
+        private readonly UserManager<User> _userManager;
 
-        public LoginQueryHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+        public LoginQueryHandler(UserManager<User> userManager)
         {
-            _jwtTokenGenerator = jwtTokenGenerator;
-            _userRepository = userRepository;
+            _userManager = userManager;
         }
 
         public async Task<AuthenticationResult> Handle(LoginQuery query, CancellationToken cancellationToken)
         {
-            await Task.CompletedTask;
-            if (_userRepository.GetUserByEmail(query.Email) is not User user)
+            var user = await _userManager.FindByEmailAsync(query.Email);
+
+
+            if (user != null && await _userManager.CheckPasswordAsync(user, query.Password))
             {
-                throw new Exception("User does not exist");
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var authClaims = new List<Claim>
+                {
+                    new Claim("name", user.UserName),
+                    new Claim("email", user.Email)
+                };
+                foreach (var userRole in userRoles)
+                {
+                    authClaims.Add(new Claim("role", userRole));
+                }
+
             }
 
-            if (user.Password != query.Password)
-            {
-                throw new Exception("Invalid password");
-            }
-
-            var token = _jwtTokenGenerator.GenerateToken(user);
-
-            return new AuthenticationResult(
-                user,
-                token);
+            throw new UnauthorizedAccessException();
         }
     }
 }

@@ -3,9 +3,8 @@ using AssetManagement.Domain.Contracts;
 
 namespace AssetManagement.Domain.Entities
 {
-    public class Building : IEntity<int>
+    public class Building : Entity<int>
     {
-        public int Id { get; set; }
         public string BuildingName { get; set; } = null!;
         public string? PostCode { get; set; }
         public string? Street { get; set; }

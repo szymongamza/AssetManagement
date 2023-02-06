@@ -1,10 +1,8 @@
 ﻿using AssetManagement.Application.Common.Interfaces.Authentication;
-using AssetManagement.Application.Common.Interfaces.Persistence;
 using AssetManagement.Application.Common.Interfaces.Repositories;
 using AssetManagement.Application.Common.Interfaces.Services;
 using AssetManagement.Infrastructure.Authentication;
 using AssetManagement.Infrastructure.Contexts;
-using AssetManagement.Infrastructure.Persistence;
 using AssetManagement.Infrastructure.Repositories;
 using AssetManagement.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +23,6 @@ namespace AssetManagement.Infrastructure
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddTransient(typeof(IRepositoryAsync<,>),typeof(RepositoryAsync<,>));
 
             return services;

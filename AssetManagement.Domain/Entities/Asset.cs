@@ -7,9 +7,8 @@ using AssetManagement.Domain.Contracts;
 
 namespace AssetManagement.Domain.Entities
 {
-    public class Asset : IEntity<Guid>
+    public class Asset : Entity<Guid>
     {
-        public Guid Id { get; set; }
         public string AssetName { get; set; } = null!;
         public Manufacturer? Manufacturer { get; set; }
         public string? ManufacturerSerialNumber { get; set; }

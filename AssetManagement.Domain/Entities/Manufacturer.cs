@@ -1,8 +1,10 @@
 ﻿
 
+using AssetManagement.Domain.Contracts;
+
 namespace AssetManagement.Domain.Entities
 {
-    public class Manufacturer
+    public class Manufacturer : IEntity<int>
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

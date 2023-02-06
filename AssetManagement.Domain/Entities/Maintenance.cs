@@ -1,9 +1,10 @@
 ﻿
+using AssetManagement.Domain.Contracts;
 using System.ComponentModel.DataAnnotations;
 
 namespace AssetManagement.Domain.Entities
 {
-    public class Maintenance
+    public class Maintenance : IEntity<int>
     {
         public int Id { get; set; }
         public DateTime DateStart { get; set; }

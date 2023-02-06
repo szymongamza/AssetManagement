@@ -11,7 +11,7 @@ namespace AssetManagement.Domain.Entities
         public Guid Id { get; set; }
         public string AssetName { get; set; } = null!;
         public Manufacturer? Manufacturer { get; set; }
-        public string ManufacturerSerialNumber { get; set; }
+        public string? ManufacturerSerialNumber { get; set; }
         public DateTime? DateTimeOfBuy { get; set; }
         public DateTime? DateTimeOfNextMaintenance { get; set; }
         public DateTime? DateTimeOfEndOfGuarantee { get; set; }

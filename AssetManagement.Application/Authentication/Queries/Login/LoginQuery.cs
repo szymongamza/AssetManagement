@@ -8,5 +8,9 @@ using System.Threading.Tasks;
 
 namespace AssetManagement.Application.Authentication.Queries.Login
 {
-    public record LoginQuery(string Email, string Password) : IRequest<AuthenticationResult>;
+    public record LoginQuery : IRequest<AuthenticationResult>
+    {
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+    }
 }

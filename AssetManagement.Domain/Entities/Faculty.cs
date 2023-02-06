@@ -1,8 +1,10 @@
 ﻿
 
+using AssetManagement.Domain.Contracts;
+
 namespace AssetManagement.Domain.Entities
 {
-    public class Faculty
+    public class Faculty : Entity<int>
     {
         public int Id { get; set; }
         public string FacultyCode { get; set; } = null!;

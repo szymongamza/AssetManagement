@@ -1,7 +1,6 @@
-﻿
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace AssetManagement.Application.Authentication.Commands.Register
+namespace AssetManagement.Application.Identity.Authentication.Commands.Register
 {
     public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {

@@ -1,6 +1,4 @@
-﻿
-
-using AssetManagement.Domain.Entities;
+﻿using AssetManagement.Domain.Entities.Identity;
 
 namespace AssetManagement.Application.Common.Interfaces.Authentication
 {

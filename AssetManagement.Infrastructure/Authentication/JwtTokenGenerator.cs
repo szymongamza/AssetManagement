@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using AssetManagement.Application.Common.Interfaces.Authentication;
 using AssetManagement.Application.Common.Interfaces.Services;
-using AssetManagement.Domain.Entities;
+using AssetManagement.Domain.Entities.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 

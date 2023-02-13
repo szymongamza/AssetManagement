@@ -1,13 +1,13 @@
-﻿using AssetManagement.Application.Authentication.Commands.Register;
-using AssetManagement.Application.Authentication.Queries.Login;
+﻿using AssetManagement.Application.Identity.Authentication.Commands.Register;
+using AssetManagement.Application.Identity.Authentication.Queries.Login;
 using AssetManagement.Contracts;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AssetManagement.Api.Controllers
+namespace AssetManagement.Api.Controllers.Identity
 {
-    [Route("auth")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
@@ -34,9 +34,8 @@ namespace AssetManagement.Api.Controllers
         public async Task<IActionResult> Login(LoginRequest request)
         {
             var command = _mapper.Map<LoginQuery>(request);
-            var authResult = await _mediator.Send(command);
+            var response = await _mediator.Send(command);
 
-            var response = _mapper.Map<AuthenticationResponse>(authResult);
             return Ok(response);
         }
 

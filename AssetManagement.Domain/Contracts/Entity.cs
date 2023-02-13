@@ -8,6 +8,6 @@ namespace AssetManagement.Domain.Contracts
 {
     public class Entity<TId> : IEntity<TId>
     {
-        public TId Id { get; set; }
+        public TId Id { get; set; } = default!;
     }
 }

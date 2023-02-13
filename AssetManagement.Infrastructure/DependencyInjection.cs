@@ -8,6 +8,9 @@ using AssetManagement.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using System;
+using AssetManagement.Domain.Entities.Identity;
 
 namespace AssetManagement.Infrastructure
 {
@@ -24,6 +27,12 @@ namespace AssetManagement.Infrastructure
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
             services.AddTransient(typeof(IRepositoryAsync<,>),typeof(RepositoryAsync<,>));
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<AssetManagementContext>()
+                .AddDefaultTokenProviders();
+            services.Configure<IdentityOptions>(options =>
+                options.User.RequireUniqueEmail = true);
 
             return services;
         }

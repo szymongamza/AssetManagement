@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-using AssetManagement.Application.Authentication.Commands.Register;
-using AssetManagement.Application.Authentication.Common;
+﻿using AssetManagement.Application.Identity.Authentication.Common;
 using FluentValidation;
 using MediatR;
 

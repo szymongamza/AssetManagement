@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using AssetManagement.Application.Authentication.Commands.Register;
-using AssetManagement.Application.Authentication.Common;
+using AssetManagement.Application.Identity.Authentication.Commands.Register;
+using AssetManagement.Application.Identity.Authentication.Common;
 using AssetManagement.Application.Common.Behaviors;
 using FluentValidation;
 using MediatR;

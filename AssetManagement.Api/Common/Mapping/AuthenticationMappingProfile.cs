@@ -1,6 +1,6 @@
-﻿using AssetManagement.Application.Authentication.Commands.Register;
-using AssetManagement.Application.Authentication.Common;
-using AssetManagement.Application.Authentication.Queries.Login;
+﻿using AssetManagement.Application.Identity.Authentication.Commands.Register;
+using AssetManagement.Application.Identity.Authentication.Common;
+using AssetManagement.Application.Identity.Authentication.Queries.Login;
 using AssetManagement.Contracts;
 using AssetManagement.Domain.Entities;
 using AutoMapper;

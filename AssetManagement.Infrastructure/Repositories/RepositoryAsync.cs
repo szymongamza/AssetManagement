@@ -53,8 +53,11 @@ namespace AssetManagement.Infrastructure.Repositories
 
         public Task UpdateAsync(T entity)
         {
-            T exist = _dbContext.Set<T>().Find(entity.Id);
-            _dbContext.Entry(exist).CurrentValues.SetValues(entity);
+            T? exist = _dbContext.Set<T>().Find(entity.Id);
+            if (exist != null)
+            {
+                _dbContext.Entry(exist).CurrentValues.SetValues(entity);
+            }
             return Task.CompletedTask;
         }
     }

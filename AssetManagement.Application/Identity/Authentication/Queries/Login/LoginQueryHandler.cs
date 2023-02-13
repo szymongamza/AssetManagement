@@ -1,12 +1,12 @@
-﻿using AssetManagement.Application.Authentication.Common;
-using AssetManagement.Application.Common.Interfaces.Authentication;
-using AssetManagement.Domain.Entities;
+﻿using AssetManagement.Application.Common.Interfaces.Authentication;
+using AssetManagement.Application.Identity.Authentication.Common;
+using AssetManagement.Domain.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 using System.Security.Claims;
 
-namespace AssetManagement.Application.Authentication.Queries.Login
+namespace AssetManagement.Application.Identity.Authentication.Queries.Login
 {
     public class LoginQueryHandler : IRequestHandler<LoginQuery, AuthenticationResult>
     {
@@ -27,8 +27,8 @@ namespace AssetManagement.Application.Authentication.Queries.Login
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var authClaims = new List<Claim>
                 {
-                    new Claim("name", user.UserName),
-                    new Claim("email", user.Email)
+                    new Claim("name", user.UserName = null!),
+                    new Claim("email", user.Email = null!)
                 };
                 foreach (var userRole in userRoles)
                 {

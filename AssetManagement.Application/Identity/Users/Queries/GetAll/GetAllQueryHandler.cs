@@ -4,6 +4,7 @@ using AssetManagement.Domain.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssetManagement.Application.Identity.Users.Queries.GetAll
 {
@@ -18,8 +19,8 @@ namespace AssetManagement.Application.Identity.Users.Queries.GetAll
 
         public async Task<List<User>> Handle(GetAllQuery request, CancellationToken cancellationToken)
         {
-            await Task.CompletedTask;
-            return _userManager.Users.ToList();
+            var users = await _userManager.Users.ToListAsync(); //TODO
+            return users;
         }
     }
 }

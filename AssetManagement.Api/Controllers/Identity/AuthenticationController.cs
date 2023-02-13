@@ -26,7 +26,7 @@ namespace AssetManagement.Api.Controllers.Identity
             var command = _mapper.Map<RegisterCommand>(request);
             var authResult = await _mediator.Send(command);
 
-            var response = _mapper.Map<AuthenticationResponse>(authResult);
+            var response = _mapper.Map<RegisterResponse>(authResult);
             return Ok(response);
         }
 

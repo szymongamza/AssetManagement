@@ -3,7 +3,6 @@ using AssetManagement.Application.Identity.Authentication.Common;
 using AssetManagement.Domain.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using System.Reflection;
 using System.Security.Claims;
 
 namespace AssetManagement.Application.Identity.Authentication.Queries.Login

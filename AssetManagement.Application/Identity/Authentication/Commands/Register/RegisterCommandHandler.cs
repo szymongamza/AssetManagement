@@ -9,12 +9,10 @@ namespace AssetManagement.Application.Identity.Authentication.Commands.Register
     public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterResult>
     {
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RegisterCommandHandler(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public RegisterCommandHandler(UserManager<User> userManager)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
         }
 
         public async Task<RegisterResult> Handle(RegisterCommand command, CancellationToken cancellationToken)

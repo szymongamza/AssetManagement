@@ -8,16 +8,16 @@ namespace AssetManagement.Application.Identity.Authentication.Commands.Register
 {
     public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterResult>
     {
-        private readonly UserManager<User> _userManager;
+        private readonly IIdentityService _identityService;
 
-        public RegisterCommandHandler(UserManager<User> userManager)
+        public RegisterCommandHandler(IIdentityService identityService)
         {
-            _userManager = userManager;
+            _identityService = identityService;
         }
 
         public async Task<RegisterResult> Handle(RegisterCommand command, CancellationToken cancellationToken)
         {
-            if (await _userManager.FindByEmailAsync(command.Email) is not null)
+            if (await _identityService.FindByEmailAsync(command.Email, cancellationToken) is not null)
             {
                 throw new Exception("User exists");
             }
@@ -29,7 +29,7 @@ namespace AssetManagement.Application.Identity.Authentication.Commands.Register
                 SecurityStamp = Guid.NewGuid().ToString()
             };
 
-            await _userManager.CreateAsync(user, command.Password);
+            await _identityService.CreateAsync(user, command.Password,cancellationToken);
 
             return new RegisterResult(user);
         }

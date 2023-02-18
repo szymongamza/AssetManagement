@@ -27,6 +27,7 @@ namespace AssetManagement.Infrastructure
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
             services.AddTransient(typeof(IRepositoryAsync<,>),typeof(RepositoryAsync<,>));
+            services.AddSingleton<IIdentityService, IdentityService>();
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AssetManagementContext>()

@@ -26,10 +26,15 @@ namespace AssetManagement.Infrastructure.Authentication
             return user;
         }
 
-        public async Task<IdentityResult> CreateAsync(User user, string pass, CancellationToken cancellationToken)
+        public async Task<User> CreateAsync(User user, string pass, CancellationToken cancellationToken)
         {
             var result = await _userManager.CreateAsync(user, pass);
-            return result;
+            if (result.Succeeded)
+            {
+                return user;
+            }
+
+            throw new Exception(message:"Error. User not created.");
         }
     }
 }

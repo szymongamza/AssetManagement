@@ -1,10 +1,6 @@
-﻿
-
-using AssetManagement.Domain.Contracts;
-
-namespace AssetManagement.Domain.Entities
+﻿namespace AssetManagement.Domain.Entities
 {
-    public class Manufacturer : Entity<int>
+    public class Manufacturer : BaseEntity
     {
         public string Name { get; set; } = null!;
         public string? Email { get; set; }

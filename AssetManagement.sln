@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagement.Api", "AssetManagement.Api\AssetManagement.Api.csproj", "{1A1EB631-CC75-48E6-B70F-BD156D77392C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Api", "AssetManagement.Api\AssetManagement.Api.csproj", "{1A1EB631-CC75-48E6-B70F-BD156D77392C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagement.Application", "AssetManagement.Application\AssetManagement.Application.csproj", "{9D5F07A4-2B3D-430E-A1AD-786C22CA976B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Application", "AssetManagement.Application\AssetManagement.Application.csproj", "{9D5F07A4-2B3D-430E-A1AD-786C22CA976B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagement.Domain", "AssetManagement.Domain\AssetManagement.Domain.csproj", "{30C88209-99F2-4515-9CF9-C5F3DF140DBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Domain", "AssetManagement.Domain\AssetManagement.Domain.csproj", "{30C88209-99F2-4515-9CF9-C5F3DF140DBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagement.Infrastructure", "AssetManagement.Infrastructure\AssetManagement.Infrastructure.csproj", "{F38B1961-3D29-47D9-99EF-DA3DE050E70B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagement.Contracts", "AssetManagement.Contracts\AssetManagement.Contracts.csproj", "{4FCAB69F-41C8-49B2-AB1E-6E1E01F9B267}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Infrastructure", "AssetManagement.Infrastructure\AssetManagement.Infrastructure.csproj", "{F38B1961-3D29-47D9-99EF-DA3DE050E70B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{F38B1961-3D29-47D9-99EF-DA3DE050E70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F38B1961-3D29-47D9-99EF-DA3DE050E70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F38B1961-3D29-47D9-99EF-DA3DE050E70B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4FCAB69F-41C8-49B2-AB1E-6E1E01F9B267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4FCAB69F-41C8-49B2-AB1E-6E1E01F9B267}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4FCAB69F-41C8-49B2-AB1E-6E1E01F9B267}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4FCAB69F-41C8-49B2-AB1E-6E1E01F9B267}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

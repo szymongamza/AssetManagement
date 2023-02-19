@@ -1,10 +1,8 @@
-﻿
-using AssetManagement.Domain.Contracts;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AssetManagement.Domain.Entities
 {
-    public class Maintenance : Entity<int>
+    public class Maintenance : BaseEntity
     {
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }

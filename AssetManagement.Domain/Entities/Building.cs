@@ -1,9 +1,6 @@
-﻿
-using AssetManagement.Domain.Contracts;
-
-namespace AssetManagement.Domain.Entities
+﻿namespace AssetManagement.Domain.Entities
 {
-    public class Building : Entity<int>
+    public class Building : BaseEntity
     {
         public string BuildingName { get; set; } = null!;
         public string? PostCode { get; set; }

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AssetManagement.Domain.Contracts;
-
+﻿
 namespace AssetManagement.Domain.Entities
 {
-    public class Asset : Entity<Guid>
+    public class Asset : BaseEntity
     {
         public string AssetName { get; set; } = null!;
         public Manufacturer? Manufacturer { get; set; }

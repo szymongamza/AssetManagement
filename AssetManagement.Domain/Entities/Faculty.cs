@@ -1,10 +1,6 @@
-﻿
-
-using AssetManagement.Domain.Contracts;
-
-namespace AssetManagement.Domain.Entities
+﻿namespace AssetManagement.Domain.Entities
 {
-    public class Faculty : Entity<int>
+    public class Faculty : BaseEntity
     {
         public string FacultyCode { get; set; } = null!;
         public string FacultyName { get; set; } = null!;

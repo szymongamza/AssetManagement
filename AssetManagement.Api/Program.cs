@@ -1,6 +1,9 @@
 using AssetManagement.Api.Helpers;
 using AssetManagement.Infrastructure;
 using Microsoft.OpenApi.Models;
+using System;
+using AssetManagement.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -19,6 +22,12 @@ var app = builder.Build();
     app.UseSwaggerUI();
     app.UseHttpsRedirection();
     app.MapControllers();
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<AssetManagementContext>();
+        db.Database.Migrate();
+    }
 
     app.Run();
 }

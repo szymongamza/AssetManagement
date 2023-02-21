@@ -4,14 +4,15 @@ namespace AssetManagement.Api.Dtos
 {
     public class RegisterDto
     {
+        [Required] 
+        public string DisplayName { get; set; } = null!;
+
+        [Required] 
+        [EmailAddress] 
+        public string Email { get; set; } = null!;
         [Required]
-        public string DisplayName { get; set; }
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-        [Required]
-        [RegularExpression("(?=^.{6,10}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\\s).*$",
-            ErrorMessage = "Passord Must have Atleast 1 Lower 1 Uppera nd 1 Special Character")]
-        public string Password { get; set; }
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
+            ErrorMessage = "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character")]
+        public string Password { get; set; } = null!;
     }
 }

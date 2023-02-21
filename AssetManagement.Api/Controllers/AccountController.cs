@@ -2,7 +2,6 @@
 using AssetManagement.Application.Services;
 using AssetManagement.Domain.Entities.Identity;
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssetManagement.Api.Controllers
@@ -38,22 +37,24 @@ namespace AssetManagement.Api.Controllers
             var result = await _identityService.CreateAsync(user, registerDto.Password);
             if (!result.result.Succeeded)
             {
-                return BadRequest("Error. User not created");
+                return BadRequest(result.result.Errors);
             }
-
-            return Ok(new UserDto
+            else
             {
-                UserId = result.userId,
-                DisplayName = user.DisplayName,
-                Email = user.Email,
-                Token = _tokenService.CreateToken(user)
+                return Ok(new UserDto
+                {
+                    UserId = result.userId!,
+                    DisplayName = user.DisplayName,
+                    Email = user.Email,
+                    Token = _tokenService.CreateToken(user)
 
-            });
+                });
+            }
         }
         [HttpGet("emailexists")]
-        public async Task<ActionResult<bool>> CheckEmailExistAsync([FromQuery] string Email)
+        public async Task<ActionResult<bool>> CheckEmailExistAsync([FromQuery] string email)
         {
-            return await _identityService.FindByEmailAsync(Email) != null;
+            return await _identityService.FindByEmailAsync(email) != null;
         }
 
         // [HttpPost("login")]

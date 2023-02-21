@@ -3,15 +3,10 @@ using AssetManagement.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AssetManagement.Infrastructure.Contexts
+namespace AssetManagement.Infrastructure.Data
 {
-    public class AssetManagementContext : DbContext
+    public class AssetManagementContext : IdentityDbContext<AppUser>
     {
-        public AssetManagementContext(DbContextOptions<AssetManagementContext> options) : base(options)
-        {
-
-        }
-
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Building> Buildings { get; set; }
@@ -20,5 +15,16 @@ namespace AssetManagement.Infrastructure.Contexts
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Maintenance> Maintenances { get; set; }
 
+        public AssetManagementContext(DbContextOptions<AssetManagementContext> options) : base(options)
+        {
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
+
 }

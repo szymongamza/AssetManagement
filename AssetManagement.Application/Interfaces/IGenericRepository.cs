@@ -1,19 +1,18 @@
-﻿using AssetManagement.Domain.Entities;
+﻿using AssetManagement.Domain.Common;
 
-namespace AssetManagement.Application.Interfaces
+namespace AssetManagement.Application.Interfaces;
+
+public interface IGenericRepository<T> where T : BaseEntity
 {
-    public interface IGenericRepository<T> where T : BaseEntity
-    {
-        public Task<T> AddAsync(T entity);
+    public Task<T> AddAsync(T entity);
 
-        public Task DeleteAsync(T entity);
+    public Task DeleteAsync(T entity);
 
-        public Task<List<T>?> GetAllAsync();
+    public Task<List<T>?> GetAllAsync();
 
-        public Task<T?> GetByIdAsync(int id);
+    public Task<T?> GetByIdAsync(int id);
 
-        public Task<List<T>?> GetPagedResponseAsync(int pageNumber, int pageSize);
+    public Task<List<T>?> GetPagedResponseAsync(int pageNumber, int pageSize);
 
-        public Task UpdateAsync(T entity);
-    }
+    public Task UpdateAsync(T entity);
 }

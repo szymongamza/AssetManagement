@@ -1,9 +1,11 @@
-﻿namespace AssetManagement.Domain.Entities
+﻿using AssetManagement.Domain.Common;
+
+namespace AssetManagement.Domain.Entities;
+
+public class Room : BaseAuditableEntity
 {
-    public class Room : BaseEntity
-    {
-        public string RoomName { get; set; } = null!;
-        public int BuildingId { get; set; }
-        public Building Building { get; set; } = null!;
-    }
+    public string RoomName { get; set; } = null!;
+    public int BuildingId { get; set; }
+    public Building Building { get; set; } = null!;
+    public ICollection<Asset> Assets { get; set; } = new List<Asset>();
 }

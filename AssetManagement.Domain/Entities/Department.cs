@@ -1,12 +1,11 @@
 ﻿
+using AssetManagement.Domain.Common;
 
+namespace AssetManagement.Domain.Entities;
 
-namespace AssetManagement.Domain.Entities
+public class Department : BaseAuditableEntity
 {
-    public class Department : BaseEntity
-    {
-        public string Name { get; set; } = null!;
-        public int FacultyId { get; set; }
-        public Faculty Faculty { get; set; } = null!;
-    }
+    public string Name { get; set; } = null!;
+    public int FacultyId { get; set; }
+    public Faculty Faculty { get; set; } = null!;
 }

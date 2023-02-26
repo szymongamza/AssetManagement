@@ -25,10 +25,50 @@ public class FacultyController : BaseApiController
         return Ok(faculty.Id);
     }   
     
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetFacultyById(int id)
     {
-        var faculty = _facultyRepository.GetByIdAsync(id);
+        var faculty = await _facultyRepository.GetByIdAsync(id);
         return Ok(faculty);
+    }   
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllFaculties()
+    {
+        var faculties = await _facultyRepository.GetAllAsync();
+        return Ok(faculties);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllFaculties([FromQuery]int pageNumber, int pageSize)
+    {
+        var faculties = await _facultyRepository.GetPagedResponseAsync(pageNumber, pageSize);
+        return Ok(faculties);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, Faculty faculty)
+    {
+        if (id != faculty.Id)
+        {
+            return BadRequest();
+        }
+
+        await _facultyRepository.UpdateAsync(faculty);
+
+        return NoContent();
+    }   
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id, Faculty faculty)
+    {
+        if (id != faculty.Id)
+        {
+            return BadRequest();
+        }
+
+        await _facultyRepository.UpdateAsync(faculty);
+
+        return NoContent();
+    }
+
 }

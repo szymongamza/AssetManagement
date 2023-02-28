@@ -1,4 +1,5 @@
-﻿using AssetManagement.Domain.Common;
+﻿using AssetManagement.Application.Models;
+using AssetManagement.Domain.Common;
 
 namespace AssetManagement.Application.Interfaces;
 
@@ -12,7 +13,7 @@ public interface IGenericRepository<T> where T : BaseEntity
 
     public Task<T?> GetByIdAsync(int id);
 
-    public Task<List<T>?> GetPagedResponseAsync(int pageNumber, int pageSize);
+    public Task<PaginatedList<T>?> GetPagedResponseAsync(int pageNumber, int pageSize);
 
     public Task UpdateAsync(T entity);
 }

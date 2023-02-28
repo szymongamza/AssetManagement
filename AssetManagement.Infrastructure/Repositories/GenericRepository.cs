@@ -1,4 +1,5 @@
 ﻿using AssetManagement.Application.Interfaces;
+using AssetManagement.Application.Models;
 using AssetManagement.Domain.Common;
 using AssetManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -21,10 +22,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return entity;
     }
 
-    public Task DeleteAsync(T entity)
+    public async Task DeleteAsync(T entity)
     {
         _dbContext.Set<T>().Remove(entity);
-        return Task.CompletedTask;
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task<List<T>?> GetAllAsync()
@@ -39,23 +40,27 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return await _dbContext.Set<T>().FindAsync(id);
     }
 
-    public async Task<List<T>?> GetPagedResponseAsync(int pageNumber, int pageSize)
+    public async Task<PaginatedList<T>?> GetPagedResponseAsync(int pageNumber, int pageSize)
     {
-        return await _dbContext
+
+        var pagedList = await _dbContext
             .Set<T>()
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .AsNoTracking()
             .ToListAsync();
+        var count = _dbContext.Set<T>().Count();
+
+        return new PaginatedList<T>(pagedList, count, pageNumber,pageSize);
     }
 
-    public Task UpdateAsync(T entity)
+    public async Task UpdateAsync(T entity)
     {
         T? exist = _dbContext.Set<T>().Find(entity.Id);
         if (exist != null)
         {
             _dbContext.Entry(exist).CurrentValues.SetValues(entity);
+            await _dbContext.SaveChangesAsync();
         }
-        return Task.CompletedTask;
     }
 }

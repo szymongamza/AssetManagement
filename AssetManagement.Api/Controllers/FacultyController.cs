@@ -16,6 +16,39 @@ public class FacultyController : BaseApiController
         _facultyRepository = facultyRepository;
         _mapper = mapper;
     }
+    
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(Faculty), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetFacultyById(int id)
+    {
+        var faculty = await _facultyRepository.GetByIdAsync(id);
+        if(faculty is not Faculty)
+        {
+            return NotFound("Faculty not found");
+        }
+        return Ok(faculty);
+    }   
+
+    [HttpGet]
+    [ProducesResponseType(typeof(List<Faculty>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetFaculties()
+    {
+        var faculties = await _facultyRepository.GetAllAsync();
+        if(faculties == null || faculties.Count <= 0)
+        {
+            return NotFound("Faculty not found");
+        }
+        return Ok(faculties);
+    }
+
+    [HttpGet("paged")]
+    public async Task<IActionResult> GetPagedFaculties([FromQuery]int pageNumber, int pageSize)
+    {
+        var faculties = await _facultyRepository.GetPagedResponseAsync(pageNumber, pageSize);
+        return Ok(faculties);
+    }
 
     [HttpPost]
     public async Task<IActionResult> CreateFaculty(FacultyCreateDto facultyDto)
@@ -23,27 +56,6 @@ public class FacultyController : BaseApiController
         var faculty = _mapper.Map<FacultyCreateDto, Faculty>(facultyDto);
         await _facultyRepository.AddAsync(faculty);
         return Ok(faculty.Id);
-    }   
-    
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetFacultyById(int id)
-    {
-        var faculty = await _facultyRepository.GetByIdAsync(id);
-        return Ok(faculty);
-    }   
-
-    [HttpGet]
-    public async Task<IActionResult> GetAllFaculties()
-    {
-        var faculties = await _facultyRepository.GetAllAsync();
-        return Ok(faculties);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetAllFaculties([FromQuery]int pageNumber, int pageSize)
-    {
-        var faculties = await _facultyRepository.GetPagedResponseAsync(pageNumber, pageSize);
-        return Ok(faculties);
     }
 
     [HttpPut("{id}")]
@@ -51,24 +63,26 @@ public class FacultyController : BaseApiController
     {
         if (id != faculty.Id)
         {
-            return BadRequest();
+            return BadRequest("id and faculty.id aren't equal");
+        }
+        if (await _facultyRepository.GetByIdAsync(id) is not Faculty)
+        {
+            return BadRequest("Faculty not found");
         }
 
         await _facultyRepository.UpdateAsync(faculty);
-
         return NoContent();
     }   
+
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id, Faculty faculty)
+    public async Task<IActionResult> Delete(int id)
     {
-        if (id != faculty.Id)
+        var faculty = await _facultyRepository.GetByIdAsync(id);
+        if (faculty is not Faculty)
         {
-            return BadRequest();
+            return BadRequest("Faculty not found");
         }
-
-        await _facultyRepository.UpdateAsync(faculty);
-
+        await _facultyRepository.DeleteAsync(faculty);
         return NoContent();
     }
-
 }

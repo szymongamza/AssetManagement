@@ -25,8 +25,9 @@ public class FacultyController : BaseApiController
         var faculty = await _facultyRepository.GetByIdAsync(id);
         if(faculty is not Faculty)
         {
-            return NotFound("Faculty not found");
+            return NotFound();
         }
+        
         return Ok(faculty);
     }   
 
@@ -47,6 +48,10 @@ public class FacultyController : BaseApiController
     public async Task<IActionResult> GetPagedFaculties([FromQuery]int pageNumber, int pageSize)
     {
         var faculties = await _facultyRepository.GetPagedResponseAsync(pageNumber, pageSize);
+        if(faculties.TotalCount <= 0)
+        {
+
+        }
         return Ok(faculties);
     }
 

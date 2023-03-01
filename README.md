@@ -12,26 +12,26 @@ It's simplified clean architecture as it is small project.
 :heavy_check_mark: AutoMapper
 
 # Will be used:
-:x: Docker
+:x: Docker  
 :x: Quartz  
 :x: xUnit  
-:x: Angular
-:x: MailKit
+:x: Angular  
+:x: MailKit  
 
 # Actual schedule (may change while coding):
-:heavy_check_mark: Craete Domain
-:heavy_check_mark: Create Infrastructure
-:heavy_check_mark: Create Database
-:heavy_check_mark: Create GenericRepository
-:heavy_check_mark: Create Faculty Controller
-:heavy_check_mark: Create Department Controller 
-:x: Create Building Controller 
-:x: Create Room Controller 
-:x: Create Manufacturer Controller 
-:x: Create Asset Controller 
-:x: Create Maintenance Controller 
-:x: Web UI for managment of app and infrastructure 
-:x: EmailSender service
+:heavy_check_mark: Craete Domain  
+:heavy_check_mark: Create Infrastructure  
+:heavy_check_mark: Create Database  
+:heavy_check_mark: Create GenericRepository  
+:heavy_check_mark: Create Faculty Controller  
+:heavy_check_mark: Create Department Controller  
+:x: Create Building Controller  
+:x: Create Room Controller  
+:x: Create Manufacturer Controller  
+:x: Create Asset Controller  
+:x: Create Maintenance Controller  
+:x: Web UI for managment of app and infrastructure  
+:x: EmailSender service  
 :x: Scheduler service to check everyday (Quartz?) if email should be sent(API call db?). If so, It will prepare email and send it to EmailSender  
 :x: Real SQL Database - Drop Sqlite aproach  
 :x: Web QR code generator base on product GUID (call printing from web?)  

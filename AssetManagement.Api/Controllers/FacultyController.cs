@@ -16,20 +16,20 @@ public class FacultyController : BaseApiController
         _facultyRepository = facultyRepository;
         _mapper = mapper;
     }
-    
+
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(Faculty), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetFacultyById(int id)
     {
         var faculty = await _facultyRepository.GetByIdAsync(id);
-        if(faculty is not Faculty)
+        if (faculty is not Faculty)
         {
-            return NotFound();
+            return NotFound("Faculty not found");
         }
-        
+
         return Ok(faculty);
-    }   
+    }
 
     [HttpGet]
     [ProducesResponseType(typeof(List<Faculty>), StatusCodes.Status200OK)]
@@ -37,33 +37,40 @@ public class FacultyController : BaseApiController
     public async Task<IActionResult> GetFaculties()
     {
         var faculties = await _facultyRepository.GetAllAsync();
-        if(faculties == null || faculties.Count <= 0)
+        if (faculties == null || faculties.Count <= 0)
         {
-            return NotFound("Faculty not found");
+            return NotFound("Faculties not found");
         }
         return Ok(faculties);
     }
 
     [HttpGet("paged")]
-    public async Task<IActionResult> GetPagedFaculties([FromQuery]int pageNumber, int pageSize)
+    [ProducesResponseType(typeof(List<Faculty>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetPagedFaculties([FromQuery] int pageNumber, int pageSize)
     {
         var faculties = await _facultyRepository.GetPagedResponseAsync(pageNumber, pageSize);
-        if(faculties.TotalCount <= 0)
+        if (faculties.TotalCount <= 0)
         {
-
+            return NotFound("Faculties not found")
         }
         return Ok(faculties);
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateFaculty(FacultyCreateDto facultyDto)
     {
         var faculty = _mapper.Map<FacultyCreateDto, Faculty>(facultyDto);
         await _facultyRepository.AddAsync(faculty);
-        return Ok(faculty.Id);
+
+        return CreatedAtAction(nameof(GetFacultyById), new { id = faculty.Id }, facultyDto);
     }
 
     [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Update(int id, Faculty faculty)
     {
         if (id != faculty.Id)
@@ -72,7 +79,7 @@ public class FacultyController : BaseApiController
         }
         if (await _facultyRepository.GetByIdAsync(id) is not Faculty)
         {
-            return BadRequest("Faculty not found");
+            return NotFound("Faculty not found");
         }
 
         await _facultyRepository.UpdateAsync(faculty);
@@ -80,12 +87,14 @@ public class FacultyController : BaseApiController
     }   
 
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Delete(int id)
     {
         var faculty = await _facultyRepository.GetByIdAsync(id);
         if (faculty is not Faculty)
         {
-            return BadRequest("Faculty not found");
+            return NotFound("Faculty not found");
         }
         await _facultyRepository.DeleteAsync(faculty);
         return NoContent();

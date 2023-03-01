@@ -20,6 +20,7 @@ public static class DependencyInjection
         services.AddDbContext<AssetManagementContext>(options => options
             .UseSqlite(configuration.GetConnectionString("AssetManagementDatabase")));
         services.AddScoped<IGenericRepository<Faculty>, GenericRepository<Faculty>>();
+        services.AddScoped<IGenericRepository<Department>, GenericRepository<Department>>();
         services.AddTransient<IDateTime, DateTimeService>();
 
         return services;

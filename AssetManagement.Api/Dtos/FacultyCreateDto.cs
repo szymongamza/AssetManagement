@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace AssetManagement.Api.Dtos;
 
 public class FacultyCreateDto

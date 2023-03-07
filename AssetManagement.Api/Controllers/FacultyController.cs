@@ -50,7 +50,7 @@ public class FacultyController : BaseApiController
     public async Task<IActionResult> GetPagedFaculties([FromQuery] int pageNumber, int pageSize)
     {
         var faculties = await _facultyRepository.GetPagedResponseAsync(pageNumber, pageSize);
-        if (faculties == null || faculties.Items.Count() <= 0)
+        if (faculties == null || !faculties.Items.Any())
         {
             return NotFound("Faculties not found");
         }

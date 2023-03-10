@@ -4,7 +4,8 @@ namespace AssetManagement.Domain.Entities;
 
 public class Building : BaseAuditableEntity
 {
-    public string BuildingName { get; set; } = null!;
+    public string? Code { get; set; }
+    public string Name { get; set; } = null!;
     public string? PostCode { get; set; }
     public string? Street { get; set; }
     public string? City { get; set; }

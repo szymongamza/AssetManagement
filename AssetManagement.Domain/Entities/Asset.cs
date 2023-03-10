@@ -4,7 +4,7 @@ namespace AssetManagement.Domain.Entities;
 
 public class Asset : BaseAuditableEntity
 {
-    public string AssetName { get; set; } = null!;
+    public string Name { get; set; } = null!;
     public Manufacturer? Manufacturer { get; set; }
     public string? ManufacturerSerialNumber { get; set; }
     public DateTime? DateTimeOfBuy { get; set; }

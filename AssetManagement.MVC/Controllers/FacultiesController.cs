@@ -2,6 +2,7 @@
 using AssetManagement.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssetManagement.MVC.Controllers;
 public class FacultiesController : Controller
@@ -19,13 +20,18 @@ public class FacultiesController : Controller
     }
 
     // GET: FacultiesController/Details/5
-    public ActionResult Details(int id)
+    public async Task<IActionResult> Details(int id)
     {
-        return View();
+        var faculty = await _facultyRepository.GetByIdAsync(id);
+        if (faculty is null)
+        {
+            return NotFound();
+        }
+        return View(faculty);
     }
 
     // GET: FacultiesController/Create
-    public ActionResult Create()
+    public IActionResult Create()
     {
         return View();
     }
@@ -33,57 +39,66 @@ public class FacultiesController : Controller
     // POST: FacultiesController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
+    public async Task<IActionResult> Create([Bind("Code,Name")]Faculty faculty)
     {
-        try
+        if (ModelState.IsValid)
         {
+            await _facultyRepository.AddAsync(faculty);
             return RedirectToAction(nameof(Index));
         }
-        catch
-        {
-            return View();
-        }
+        return View(faculty);
     }
 
     // GET: FacultiesController/Edit/5
-    public ActionResult Edit(int id)
+    public async Task<IActionResult> Edit(int id)
     {
-        return View();
+        var faculty = await _facultyRepository.GetByIdAsync(id);
+        if (faculty is null)
+        {
+            return NotFound();
+        }
+        return View(faculty);
     }
 
     // POST: FacultiesController/Edit/5
-    [HttpPost]
+    [HttpPost, ActionName("Edit")]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public async Task<IActionResult> Edit(int id,[Bind("Id,Code,Name,Departments")] Faculty faculty)
     {
-        try
+        if(id != faculty.Id)
         {
+            return NotFound();
+        }
+        if (ModelState.IsValid)
+        {
+            await _facultyRepository.UpdateAsync(faculty);
             return RedirectToAction(nameof(Index));
         }
-        catch
-        {
-            return View();
-        }
+        return View(faculty);
     }
 
     // GET: FacultiesController/Delete/5
-    public ActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        return View();
+        var faculty = await _facultyRepository.GetByIdAsync(id);
+        if (faculty is null)
+        {
+            return NotFound();
+        }
+        return View(faculty);
     }
 
     // POST: FacultiesController/Delete/5
-    [HttpPost]
+    [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
+    public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        try
+        var faculty = await _facultyRepository.GetByIdAsync(id);
+        if (faculty is not null)
         {
-            return RedirectToAction(nameof(Index));
+            await _facultyRepository.DeleteAsync(faculty);
         }
-        catch
-        {
-            return View();
-        }
+        return RedirectToAction(nameof(Index));
     }
 }
+

@@ -1,31 +1,25 @@
 ﻿@model IEnumerable<AssetManagement.Domain.Entities.Faculty>
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Faculties";
 }
 
-<h1>View</h1>
+<h1>Faculties</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><input type="button" value="Create" class="btn btn-success" /></a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FacultyCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FacultyName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedUtc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastModifiedUtc)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th></th>
         </tr>
@@ -34,24 +28,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FacultyCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FacultyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedUtc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModifiedUtc)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                    <a asp-action="Details" asp-route-id="@item.Id"><input type="button" value="Details" class="btn btn-primary" /></a>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><input type="button" value="Edit" class="btn btn-warning" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><input type="button" value="Delete" class="btn btn-danger" /></a>
             </td>
         </tr>
 }

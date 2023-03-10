@@ -9,7 +9,7 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<FacultyCreateDto, Faculty>()
-            .ForMember(dest => dest.FacultyCode, act => act.MapFrom(src => src.FacultyCode))
-            .ForMember(dest => dest.FacultyName, act => act.MapFrom(src => src.FacultyName));
+            .ForMember(dest => dest.Code, act => act.MapFrom(src => src.Code))
+            .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name));
     }
 }

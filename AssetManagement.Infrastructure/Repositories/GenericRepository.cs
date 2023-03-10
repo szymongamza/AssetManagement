@@ -40,6 +40,11 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return await _dbContext.Set<T>().FindAsync(id);
     }
 
+    public async Task<int> GetCount()
+    {
+        return await _dbContext.Set<T>().CountAsync();
+    }
+
     public async Task<PaginatedList<T>?> GetPagedResponseAsync(int pageNumber, int pageSize)
     {
 

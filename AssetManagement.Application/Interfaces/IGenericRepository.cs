@@ -16,4 +16,5 @@ public interface IGenericRepository<T> where T : BaseEntity
     public Task<PaginatedList<T>?> GetPagedResponseAsync(int pageNumber, int pageSize);
 
     public Task UpdateAsync(T entity);
+    public Task<int> GetCount();
 }

@@ -140,11 +140,11 @@ namespace AssetManagement.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedUtc")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FacultyCode")
+                    b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FacultyName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

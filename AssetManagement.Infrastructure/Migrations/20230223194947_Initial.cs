@@ -54,8 +54,8 @@ namespace AssetManagement.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FacultyCode = table.Column<string>(type: "TEXT", nullable: false),
-                    FacultyName = table.Column<string>(type: "TEXT", nullable: false),
+                    Code = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     BuildingId = table.Column<int>(type: "INTEGER", nullable: true),
                     CreatedUtc = table.Column<DateTime>(type: "TEXT", nullable: false),
                     LastModifiedUtc = table.Column<DateTime>(type: "TEXT", nullable: false)

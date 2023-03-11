@@ -2,16 +2,19 @@
 using AssetManagement.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace AssetManagement.MVC.Controllers;
 public class DepartmentsController : Controller
 {
     private readonly IGenericRepository<Department> _departmentRepository;
+    private readonly IGenericRepository<Faculty> _facultyRepository;
     // GET: DepartmentsController
-    public DepartmentsController(IGenericRepository<Department> departmentRepository)
+    public DepartmentsController(IGenericRepository<Department> departmentRepository, IGenericRepository<Faculty> facultyRepository)
     {
         _departmentRepository = departmentRepository;
+        _facultyRepository = facultyRepository;
     }
 
     public async Task<IActionResult> Index()
@@ -31,21 +34,23 @@ public class DepartmentsController : Controller
     }
 
     // GET: DepartmentsController/Create
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
+        ViewData["FacultyId"] = new SelectList(await _facultyRepository.GetAllAsync(), "Id", "Name");
         return View();
     }
 
     // POST: DepartmentsController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("DepartmentCode,DepartmentName")]Department department)
+    public async Task<IActionResult> Create([Bind("Code,Name,FacultyId")]Department department)
     {
         if (ModelState.IsValid)
         {
             await _departmentRepository.AddAsync(department);
             return RedirectToAction(nameof(Index));
         }
+        ViewData["FacultyId"] = new SelectList(await _facultyRepository.GetAllAsync(), "Id", "Name");
         return View(department);
     }
 
@@ -63,7 +68,7 @@ public class DepartmentsController : Controller
     // POST: DepartmentsController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id,[Bind("DepartmentCode,DepartmentName")] Department department)
+    public async Task<IActionResult> Edit(int id,[Bind("Id,Code,Name")] Department department)
     {
         if(id != department.Id)
         {

@@ -63,7 +63,7 @@ public class FacultiesController : Controller
     // POST: FacultiesController/Edit/5
     [HttpPost, ActionName("Edit")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id,[Bind("Id,Code,Name,Departments")] Faculty faculty)
+    public async Task<IActionResult> Edit(int id,[Bind("Id,Code,Name")] Faculty faculty)
     {
         if(id != faculty.Id)
         {

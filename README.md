@@ -10,12 +10,12 @@ It's simplified clean architecture as it is small project.
 :heavy_check_mark: Entity Framework  
 :heavy_check_mark: Swagger  
 :heavy_check_mark: AutoMapper
+:heavy_check_mark: MVC  
 
 # Will be used:
 :x: Docker  
 :x: Quartz  
 :x: xUnit  
-:x: Angular  
 :x: MailKit  
 
 # Actual schedule (may change while coding):

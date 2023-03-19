@@ -2,7 +2,7 @@
 
 This project is for asset management in university. Knowing where is which machine or research equipment, have access to important information about it, when it was purchased and when maintenance is needed.
 
-It is build on .NET 6
+It is build on .NET 7
 # Used Archictecture: Clean Architecture
 It's simplified clean architecture as it is small project.
 

@@ -1,4 +1,4 @@
-﻿using AssetManagement.Api.Dtos;
+﻿using AssetManagement.Application.Dtos;
 using AssetManagement.Application.Interfaces;
 using AssetManagement.Domain.Entities;
 using AutoMapper;

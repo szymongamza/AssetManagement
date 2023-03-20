@@ -1,5 +1,7 @@
-﻿using AssetManagement.Application.Interfaces;
+﻿using AssetManagement.Application.Dtos;
+using AssetManagement.Application.Interfaces;
 using AssetManagement.Domain.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,11 +12,13 @@ public class DepartmentsController : Controller
 {
     private readonly IGenericRepository<Department> _departmentRepository;
     private readonly IGenericRepository<Faculty> _facultyRepository;
+    private readonly IMapper _mapper;
     // GET: DepartmentsController
-    public DepartmentsController(IGenericRepository<Department> departmentRepository, IGenericRepository<Faculty> facultyRepository)
+    public DepartmentsController(IGenericRepository<Department> departmentRepository, IGenericRepository<Faculty> facultyRepository, IMapper mapper)
     {
         _departmentRepository = departmentRepository;
         _facultyRepository = facultyRepository;
+        _mapper = mapper;
     }
 
     public async Task<IActionResult> Index()
@@ -43,22 +47,22 @@ public class DepartmentsController : Controller
     // POST: DepartmentsController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Code,Name,FacultyId")]CreateDepartmentViewModel departmentView)
+    public async Task<IActionResult> Create([Bind("Code,Name,FacultyId")]DepartmentCreateDto departmentCreateDto)
     {
         if (ModelState.IsValid)
         {
-			var faculty = await _facultyRepository.GetByIdAsync(departmentView.FacultyId);
+			var faculty = await _facultyRepository.GetByIdAsync(departmentCreateDto.FacultyId);
 			if (faculty is not null)
 			{
-                Department department = 
-				department.Faculty = faculty;
+                var department = _mapper.Map<DepartmentCreateDto, Department>(departmentCreateDto);
+                department.Faculty = faculty;
 				await _departmentRepository.AddAsync(department);
 				return RedirectToAction(nameof(Index));
 			}
 		}
 
         ViewData["FacultyId"] = new SelectList(await _facultyRepository.GetAllAsync(), "Id", "Name");
-        return View(department);
+        return View(_mapper.Map<DepartmentCreateDto, Department>(departmentCreateDto));
     }
 
     // GET: DepartmentsController/Edit/5

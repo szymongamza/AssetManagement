@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace AssetManagement.Api.Dtos;
+namespace AssetManagement.Application.Dtos;
 
 public class FacultyCreateDto
 {

@@ -43,13 +43,20 @@ public class DepartmentsController : Controller
     // POST: DepartmentsController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Code,Name,FacultyId")]Department department)
+    public async Task<IActionResult> Create([Bind("Code,Name,FacultyId")]CreateDepartmentViewModel departmentView)
     {
         if (ModelState.IsValid)
         {
-            await _departmentRepository.AddAsync(department);
-            return RedirectToAction(nameof(Index));
-        }
+			var faculty = await _facultyRepository.GetByIdAsync(departmentView.FacultyId);
+			if (faculty is not null)
+			{
+                Department department = 
+				department.Faculty = faculty;
+				await _departmentRepository.AddAsync(department);
+				return RedirectToAction(nameof(Index));
+			}
+		}
+
         ViewData["FacultyId"] = new SelectList(await _facultyRepository.GetAllAsync(), "Id", "Name");
         return View(department);
     }

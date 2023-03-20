@@ -15,7 +15,7 @@ public class DashboardController : Controller
         _departmentRepository = departmentRepository;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(CancellationToken token)
     {
         var countOfFaculties = await _facultyRepository.GetCount();
         var countOfDepartments = await _departmentRepository.GetCount();

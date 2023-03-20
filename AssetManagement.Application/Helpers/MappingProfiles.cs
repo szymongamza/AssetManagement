@@ -1,8 +1,8 @@
-﻿using AssetManagement.Api.Dtos;
+﻿using AssetManagement.Application.Dtos;
 using AssetManagement.Domain.Entities;
 using AutoMapper;
 
-namespace AssetManagement.Api.Helpers;
+namespace AssetManagement.Application.Helpers;
 
 public class MappingProfiles : Profile
 {

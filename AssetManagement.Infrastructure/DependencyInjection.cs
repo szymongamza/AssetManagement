@@ -19,8 +19,13 @@ public static class DependencyInjection
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
         services.AddDbContext<AssetManagementContext>(options => options
             .UseSqlite(configuration.GetConnectionString("AssetManagementDatabase")));
-        services.AddScoped<IGenericRepository<Faculty>, GenericRepository<Faculty>>();
-        services.AddScoped<IGenericRepository<Department>, GenericRepository<Department>>();
+        services.AddScoped<IFacultyRepository, FacultyRepository>();
+        services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        services.AddScoped<IBuildingRepository, BuildingRepository>();
+        services.AddScoped<IRoomRepository, RoomRepository>();
+        services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
+        services.AddScoped<IAssetRepository, AssetRepository>();
+        services.AddScoped<IMaintenanceRepository, MaintenanceRepository>();
         services.AddTransient<IDateTime, DateTimeService>();
 
         return services;

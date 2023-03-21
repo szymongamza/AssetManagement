@@ -6,7 +6,7 @@ namespace AssetManagement.Infrastructure.Repositories;
 
 public class RoomRepository : GenericRepository<Room>, IRoomRepository
 {
-    protected RoomRepository(AssetManagementContext dbContext) : base(dbContext)
+    public RoomRepository(AssetManagementContext dbContext) : base(dbContext)
     {
     }
 }

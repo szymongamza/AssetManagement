@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 namespace AssetManagement.MVC.Controllers;
 public class FacultiesController : Controller
 {
-    private readonly IGenericRepository<Faculty> _facultyRepository;
+    private readonly IFacultyRepository _facultyRepository;
     // GET: FacultiesController
-    public FacultiesController(IGenericRepository<Faculty> facultyRepository)
+    public FacultiesController(IFacultyRepository facultyRepository)
     {
         _facultyRepository = facultyRepository;
     }
@@ -27,6 +27,7 @@ public class FacultiesController : Controller
         {
             return NotFound();
         }
+        ViewData["Departments"] = await _facultyRepository.GetDepartmentsOfFaculty(id);
         return View(faculty);
     }
 

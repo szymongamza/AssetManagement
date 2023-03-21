@@ -8,10 +8,10 @@ namespace AssetManagement.Api.Controllers;
 
 public class DepartmentController : BaseApiController
 {
-    private readonly IGenericRepository<Department> _departmentRepository;
+    private readonly IDepartmentRepository _departmentRepository;
     private readonly IMapper _mapper;
 
-    public DepartmentController(IGenericRepository<Department> departmentRepository, IMapper mapper)
+    public DepartmentController(IDepartmentRepository departmentRepository, IMapper mapper)
     {
         _departmentRepository = departmentRepository;
         _mapper = mapper;

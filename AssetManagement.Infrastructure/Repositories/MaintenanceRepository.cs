@@ -6,7 +6,7 @@ namespace AssetManagement.Infrastructure.Repositories;
 
 public class MaintenanceRepository : GenericRepository<Maintenance>, IMaintenanceRepository
 {
-    protected MaintenanceRepository(AssetManagementContext dbContext) : base(dbContext)
+    public MaintenanceRepository(AssetManagementContext dbContext) : base(dbContext)
     {
     }
 }

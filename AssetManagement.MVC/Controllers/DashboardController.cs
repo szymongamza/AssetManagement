@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace AssetManagement.MVC.Controllers;
 public class DashboardController : Controller
 {
-    private readonly IGenericRepository<Faculty> _facultyRepository;
-    private readonly IGenericRepository<Department> _departmentRepository;
-    public DashboardController(IGenericRepository<Faculty> facultyRepository, IGenericRepository<Department> departmentRepository)
+    private readonly IFacultyRepository _facultyRepository;
+    private readonly IDepartmentRepository _departmentRepository;
+    public DashboardController(IFacultyRepository facultyRepository, IDepartmentRepository departmentRepository)
     {
         _facultyRepository = facultyRepository;
         _departmentRepository = departmentRepository;

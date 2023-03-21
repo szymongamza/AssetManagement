@@ -8,10 +8,10 @@ namespace AssetManagement.Api.Controllers;
 
 public class FacultyController : BaseApiController
 {
-    private readonly IGenericRepository<Faculty> _facultyRepository;
+    private readonly IFacultyRepository _facultyRepository;
     private readonly IMapper _mapper;
 
-    public FacultyController(IGenericRepository<Faculty> facultyRepository, IMapper mapper)
+    public FacultyController(IFacultyRepository facultyRepository, IMapper mapper)
     {
         _facultyRepository = facultyRepository;
         _mapper = mapper;

@@ -6,7 +6,7 @@ namespace AssetManagement.Infrastructure.Repositories;
 
 public class AssetRepository : GenericRepository<Asset>, IAssetRepository
 {
-    protected AssetRepository(AssetManagementContext dbContext) : base(dbContext)
+    public AssetRepository(AssetManagementContext dbContext) : base(dbContext)
     {
     }
 }

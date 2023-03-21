@@ -10,11 +10,11 @@ using Microsoft.EntityFrameworkCore;
 namespace AssetManagement.MVC.Controllers;
 public class DepartmentsController : Controller
 {
-    private readonly IGenericRepository<Department> _departmentRepository;
-    private readonly IGenericRepository<Faculty> _facultyRepository;
+    private readonly IDepartmentRepository _departmentRepository;
+    private readonly IFacultyRepository _facultyRepository;
     private readonly IMapper _mapper;
     // GET: DepartmentsController
-    public DepartmentsController(IGenericRepository<Department> departmentRepository, IGenericRepository<Faculty> facultyRepository, IMapper mapper)
+    public DepartmentsController(IDepartmentRepository departmentRepository, IFacultyRepository facultyRepository, IMapper mapper)
     {
         _departmentRepository = departmentRepository;
         _facultyRepository = facultyRepository;

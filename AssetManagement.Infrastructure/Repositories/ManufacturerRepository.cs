@@ -6,7 +6,7 @@ namespace AssetManagement.Infrastructure.Repositories;
 
 public class ManufacturerRepository : GenericRepository<Manufacturer>, IManufacturerRepository
 {
-    protected ManufacturerRepository(AssetManagementContext dbContext) : base(dbContext)
+    public ManufacturerRepository(AssetManagementContext dbContext) : base(dbContext)
     {
     }
 }

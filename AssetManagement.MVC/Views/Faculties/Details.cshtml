@@ -1,7 +1,10 @@
-﻿@model AssetManagement.Domain.Entities.Faculty
+﻿@using AssetManagement.Domain.Entities
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model AssetManagement.Domain.Entities.Faculty
 
 @{
     ViewData["Title"] = "Details";
+    var departments = (List<Department>)ViewData["Departments"];
 }
 
 <h1>Details</h1>
@@ -35,11 +38,15 @@
             @Html.DisplayFor(model => model.LastModifiedUtc)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+            @Html.DisplayNameFor(model => model.Departments)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
+            @foreach (var department in departments)
+            {
+                <div>@department.Code - @department.Name</div>
+            }
         </dd>
+
     </dl>
 </div>
 <div>

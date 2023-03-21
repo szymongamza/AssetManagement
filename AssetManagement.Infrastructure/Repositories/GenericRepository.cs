@@ -8,9 +8,9 @@ namespace AssetManagement.Infrastructure.Repositories;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 {
-    private readonly AssetManagementContext _dbContext;
+    protected readonly AssetManagementContext _dbContext;
 
-    public GenericRepository(AssetManagementContext dbContext)
+    protected GenericRepository(AssetManagementContext dbContext)
     {
         _dbContext = dbContext;
     }

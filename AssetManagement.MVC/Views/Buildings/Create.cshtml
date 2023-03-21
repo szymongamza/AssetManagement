@@ -1,0 +1,68 @@
+﻿@model AssetManagement.Domain.Entities.Building
+
+@{
+    ViewData["Title"] = "Create";
+    var faculties = ViewData["Faculties"];
+
+}
+
+<h1>Create</h1>
+
+<h4>Building</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Faculties" class="control-label"></label>
+                <select asp-for="Faculties" asp-items="ViewBag.Faculties"></select>
+                <select id="example-getting-started" multiple="multiple">
+                    <option value="cheese">Cheese</option>
+                    <option value="tomatoes">Tomatoes</option>
+                    <option value="mozarella">Mozzarella</option>
+                    <option value="mushrooms">Mushrooms</option>
+                    <option value="pepperoni">Pepperoni</option>
+                    <option value="onions">Onions</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostCode" class="control-label"></label>
+                <input asp-for="PostCode" class="form-control" />
+                <span asp-validation-for="PostCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Street" class="control-label"></label>
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetNumber" class="control-label"></label>
+                <input asp-for="StreetNumber" class="form-control" />
+                <span asp-validation-for="StreetNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -37,8 +37,8 @@ public class BuildingsController : Controller
     // GET: BuildingsController/Create
     public async Task<IActionResult> Create()
     {
-        ViewData["FacultyId"] = new MultiSelectList(await _facultyRepository.GetAllAsync(), "Id", "Name");
-        ViewData["RoomId"] = new MultiSelectList(await _roomRepository.GetAllAsync(), "Id", "Name");
+        ViewData["Faculties"] = new MultiSelectList(await _facultyRepository.GetAllAsync(), "Id", "Name");
+        ViewData["Rooms"] = new MultiSelectList(await _roomRepository.GetAllAsync(), "Id", "Name");
         return View();
     }
 

@@ -9,11 +9,9 @@ public class BuildingsController : Controller
 {
     private readonly IBuildingRepository _buildingRepository;
     private readonly IFacultyRepository _facultyRepository;
-    private readonly IRoomRepository _roomRepository;
     // GET: BuildingsController
-    public BuildingsController(IRoomRepository roomRepository, IFacultyRepository facultyRepository, IBuildingRepository buildingRepository)
+    public BuildingsController(IFacultyRepository facultyRepository, IBuildingRepository buildingRepository)
     {
-        _roomRepository = roomRepository;
         _facultyRepository = facultyRepository;
         _buildingRepository = buildingRepository;
     }
@@ -38,7 +36,6 @@ public class BuildingsController : Controller
     public async Task<IActionResult> Create()
     {
         ViewData["Faculties"] = new MultiSelectList(await _facultyRepository.GetAllAsync(), "Id", "Name");
-        ViewData["Rooms"] = new MultiSelectList(await _roomRepository.GetAllAsync(), "Id", "Name");
         return View();
     }
 

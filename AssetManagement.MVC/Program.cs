@@ -1,6 +1,8 @@
 using AssetManagement.Application;
 using AssetManagement.Infrastructure;
 using AssetManagement.Infrastructure.Data;
+using AssetManagement.MVC.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
-
+builder.Services.AddAutoMapper(typeof(MvcMappingProfiles).Assembly);
 var app = builder.Build();
 
 
@@ -32,5 +34,10 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Dashboard}/{action=Index}/{id?}");
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AssetManagementContext>();
+    db.Database.Migrate();
+}
 
 app.Run();

@@ -9,18 +9,22 @@ public class DashboardController : Controller
 {
     private readonly IFacultyRepository _facultyRepository;
     private readonly IDepartmentRepository _departmentRepository;
-    public DashboardController(IFacultyRepository facultyRepository, IDepartmentRepository departmentRepository)
+    private readonly IBuildingRepository _buildingRepository;
+    public DashboardController(IFacultyRepository facultyRepository, IDepartmentRepository departmentRepository, IBuildingRepository buildingRepository)
     {
         _facultyRepository = facultyRepository;
         _departmentRepository = departmentRepository;
+        _buildingRepository = buildingRepository;
     }
 
-    public async Task<IActionResult> Index(CancellationToken token)
+    public async Task<IActionResult> Index()
     {
         var countOfFaculties = await _facultyRepository.GetCount();
         var countOfDepartments = await _departmentRepository.GetCount();
+        var countOfBuildings = await _buildingRepository.GetCount();
         ViewBag.CountOfFaculties = countOfFaculties;
         ViewBag.CountOfDepartments = countOfDepartments;
+        ViewBag.CountOfBuildings = countOfBuildings;
         return View();
     }
 

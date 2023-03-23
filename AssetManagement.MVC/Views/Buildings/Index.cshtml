@@ -9,12 +9,9 @@
 <p>
     <a asp-action="Create"><input type="button" value="Create" class="btn btn-success" /></a>
 </p>
-<table class="table">
+<table class="table table-hover">
     <thead>
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Code)
         </th>
@@ -28,7 +25,7 @@
             @Html.DisplayNameFor(model => model.City)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StreetNumber)
+            @Html.DisplayNameFor(model => model.Faculties)
         </th>
         <th></th>
     </tr>
@@ -36,9 +33,6 @@
     <tbody>
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Code)
         </td>
@@ -52,7 +46,10 @@
             @Html.DisplayFor(modelItem => item.City)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StreetNumber)
+            @foreach (var faculty in item.Faculties)
+            {
+                <div>@faculty.Name</div>
+            }
         </td>
         <td>
             <a asp-action="Details" asp-route-id="@item.Id"><input type="button" value="Details" class="btn btn-primary" /></a>

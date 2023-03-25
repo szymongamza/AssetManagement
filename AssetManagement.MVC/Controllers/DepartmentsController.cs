@@ -47,7 +47,7 @@ public class DepartmentsController : Controller
     // POST: DepartmentsController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Code,Name,FacultyId")]DepartmentCreateDto departmentCreateDto)
+    public async Task<IActionResult> Create([Bind]DepartmentCreateDto departmentCreateDto)
     {
         if (ModelState.IsValid)
         {
@@ -73,24 +73,39 @@ public class DepartmentsController : Controller
         {
             return NotFound();
         }
-        return View(department);
+
+        var faculties = await _facultyRepository.GetAllAsync();
+        var selectedFaculty = faculties.FirstOrDefault(x => x.Id == department.FacultyId);
+        ViewData["FacultyId"] = new SelectList(faculties, "Id", "Name",selectedFaculty);
+        return View(_mapper.Map<Department, DepartmentCreateDto>(department));
     }
 
     // POST: DepartmentsController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id,[Bind("Id,Code,Name")] Department department)
+    public async Task<IActionResult> Edit(int id,[Bind] DepartmentCreateDto departmentCreateDto)
     {
-        if(id != department.Id)
+        if(id != departmentCreateDto.Id)
+        {
+            return BadRequest();
+        }
+
+        var department = await _departmentRepository.GetDepartmentByIdIncludeFaculty(id);
+        if (department is null)
         {
             return NotFound();
         }
+
+        var faculties = await _facultyRepository.GetAllAsync();
         if (ModelState.IsValid)
         {
+            department = _mapper.Map<DepartmentCreateDto, Department>(departmentCreateDto);
+            department.Faculty = faculties.FirstOrDefault(x => x.Id == department.FacultyId);
             await _departmentRepository.UpdateAsync(department);
             return RedirectToAction(nameof(Index));
         }
-        return View(department);
+        ViewData["FacultyId"] = new SelectList(faculties, "Id", "Name", faculties.FirstOrDefault(x => x.Id == departmentCreateDto.FacultyId));
+        return View(departmentCreateDto);
     }
 
     // GET: DepartmentsController/Delete/5

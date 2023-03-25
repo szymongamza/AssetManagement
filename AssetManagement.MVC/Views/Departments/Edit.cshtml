@@ -1,4 +1,4 @@
-﻿@model AssetManagement.Domain.Entities.Department
+﻿@model AssetManagement.Application.Dtos.DepartmentCreateDto
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,7 +12,10 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FacultyId" class="control-label"></label>
+                <select asp-for="FacultyId" class="form-control" asp-items="ViewBag.FacultyId"></select>
+            </div>
             <div class="form-group">
                 <label asp-for="Code" class="control-label"></label>
                 <input asp-for="Code" class="form-control" />
@@ -24,7 +27,7 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group" style="margin-top: 5px">
-                <input type="submit" value="Save" class="btn btn-warning" />
+                <input type="submit" value="Save" class="btn btn-success" />
                 <a asp-action="Index"><input type="button" value="Back To List" class="btn btn-primary" /></a>
             </div>
         </form>

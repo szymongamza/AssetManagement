@@ -16,5 +16,11 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.Code, act => act.MapFrom(src => src.Code))
             .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
             .ForMember(dest => dest.FacultyId, act => act.MapFrom(src => src.FacultyId));
+
+        CreateMap<Department, DepartmentCreateDto>()
+            .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Code, act => act.MapFrom(src => src.Code))
+            .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
+            .ForMember(dest => dest.FacultyId, act => act.MapFrom(src => src.FacultyId));
     }
 }

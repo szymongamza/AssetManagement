@@ -53,9 +53,10 @@ public class BuildingsController : Controller
         {
             var building = _mapper.Map<BuildingViewModel, Building>(buildingView);
             var listOfFaculties = new List<Faculty>();
+            var faculties = await _facultyRepository.GetAllAsync();
             foreach (var selectedFaculty in buildingView.SelectedFaculties)
             {
-                var faculty = await _facultyRepository.GetByIdAsync(int.Parse(selectedFaculty));
+                var faculty = faculties.FirstOrDefault(x=>x.Id == int.Parse(selectedFaculty));
                 listOfFaculties.Add(faculty);
             }
 
@@ -80,7 +81,7 @@ public class BuildingsController : Controller
         var faculties = await _facultyRepository.GetAllAsync();
         var buildingView = _mapper.Map<Building, BuildingViewModel>(building);
         buildingView.SelectedFaculties = ((List<int>)(building.Faculties.Select(x => x.Id).ToList())).ConvertAll<string>(x => x.ToString());
-        ViewData["Faculties"] = new MultiSelectList(faculties, "Id", "Name");
+        ViewData["Faculties"] = new MultiSelectList(faculties, "Id", "Name",buildingView.SelectedFaculties);
         return View(buildingView);
     }
 
@@ -93,13 +94,17 @@ public class BuildingsController : Controller
         {
             return NotFound();
         }
+
+        var building =await _buildingRepository.GetBuildingByIdIncludeFaculties(id);
+        var faculties = await _facultyRepository.GetAllAsync();
         if (ModelState.IsValid)
         {
-            var building = _mapper.Map<BuildingViewModel, Building>(buildingView);
+            _mapper.Map<BuildingViewModel, Building>(buildingView,building);
             var listOfFaculties = new List<Faculty>();
+
             foreach (var selectedFaculty in buildingView.SelectedFaculties)
             {
-                var faculty = await _facultyRepository.GetByIdAsync(int.Parse(selectedFaculty));
+                var faculty = faculties.FirstOrDefault(x=> x.Id ==int.Parse(selectedFaculty));
                 listOfFaculties.Add(faculty);
             }
 
@@ -107,6 +112,8 @@ public class BuildingsController : Controller
             await _buildingRepository.UpdateAsync(building);
             return RedirectToAction(nameof(Index));
         }
+        buildingView.SelectedFaculties = ((List<int>)(building.Faculties.Select(x => x.Id).ToList())).ConvertAll<string>(x => x.ToString());
+        ViewData["Faculties"] = new MultiSelectList(faculties, "Id", "Name", buildingView.SelectedFaculties);
         return View(buildingView);
     }
 

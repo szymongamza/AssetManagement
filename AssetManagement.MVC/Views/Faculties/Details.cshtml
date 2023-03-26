@@ -4,7 +4,6 @@
 
 @{
     ViewData["Title"] = "Details";
-    var departments = (List<Department>)ViewData["Departments"];
 }
 
 <h1>Details</h1>
@@ -41,7 +40,7 @@
             @Html.DisplayNameFor(model => model.Departments)
         </dt>
         <dd class = "col-sm-10">
-            @foreach (var department in departments)
+            @foreach (var department in Model.Departments)
             {
                 <div>@department.Code - @department.Name</div>
             }

@@ -15,4 +15,9 @@ public class DepartmentRepository : GenericRepository<Department>, IDepartmentRe
     {
         return await _dbContext.Departments.Include(b => b.Faculty).FirstOrDefaultAsync(b => b.Id == id);
     }
+
+    public async Task<List<Department>> GetDepartmentsByFacultyId(int facultyId)
+    {
+        return await _dbContext.Departments.Where(x => x.FacultyId == facultyId).ToListAsync();
+    }
 }

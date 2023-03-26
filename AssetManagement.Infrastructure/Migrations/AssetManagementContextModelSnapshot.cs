@@ -63,7 +63,7 @@ namespace AssetManagement.Infrastructure.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Assets");
+                    b.ToTable("Assets", (string)null);
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Building", b =>
@@ -93,7 +93,7 @@ namespace AssetManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Buildings");
+                    b.ToTable("Buildings", (string)null);
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Department", b =>
@@ -122,7 +122,7 @@ namespace AssetManagement.Infrastructure.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Faculty", b =>
@@ -146,7 +146,8 @@ namespace AssetManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Faculties");
+                    b.ToTable("Faculties", (string)null);
+
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Maintenance", b =>
@@ -177,7 +178,7 @@ namespace AssetManagement.Infrastructure.Migrations
 
                     b.HasIndex("AssetId");
 
-                    b.ToTable("Maintenances");
+                    b.ToTable("Maintenances", (string)null);
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Manufacturer", b =>
@@ -204,7 +205,7 @@ namespace AssetManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Manufacturers");
+                    b.ToTable("Manufacturers", (string)null);
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Room", b =>
@@ -233,7 +234,7 @@ namespace AssetManagement.Infrastructure.Migrations
 
                     b.HasIndex("BuildingId");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("BuildingFaculty", b =>
@@ -248,7 +249,7 @@ namespace AssetManagement.Infrastructure.Migrations
 
                     b.HasIndex("FacultiesId");
 
-                    b.ToTable("BuildingFaculty");
+                    b.ToTable("BuildingFaculty", (string)null);
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Asset", b =>

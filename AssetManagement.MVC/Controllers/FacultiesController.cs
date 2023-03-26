@@ -8,26 +8,27 @@ namespace AssetManagement.MVC.Controllers;
 public class FacultiesController : Controller
 {
     private readonly IFacultyRepository _facultyRepository;
+    private readonly IDepartmentRepository _departmentRepository;
     // GET: FacultiesController
-    public FacultiesController(IFacultyRepository facultyRepository)
+    public FacultiesController(IFacultyRepository facultyRepository, IDepartmentRepository departmentRepository)
     {
         _facultyRepository = facultyRepository;
+        _departmentRepository = departmentRepository;
     }
 
     public async Task<IActionResult> Index()
     {
-        return View(await _facultyRepository.GetAllAsync());
+        return View(await _facultyRepository.GetFacultiesIncludeBuildingsAndDepartments());
     }
 
     // GET: FacultiesController/Details/5
     public async Task<IActionResult> Details(int id)
     {
-        var faculty = await _facultyRepository.GetByIdAsync(id);
+        var faculty = await _facultyRepository.GetFacultyIncludeBuildingsAndDepartments(id);
         if (faculty is null)
         {
             return NotFound();
         }
-        ViewData["Departments"] = await _facultyRepository.GetDepartmentsOfFaculty(id);
         return View(faculty);
     }
 
@@ -68,11 +69,19 @@ public class FacultiesController : Controller
     {
         if(id != faculty.Id)
         {
+            return BadRequest();
+        }
+        var orgFaculty = await _facultyRepository.GetByIdAsync(id);
+        if (orgFaculty is null)
+        {
             return NotFound();
         }
         if (ModelState.IsValid)
         {
-            await _facultyRepository.UpdateAsync(faculty);
+
+            orgFaculty.Code = faculty.Code;
+            orgFaculty.Name = faculty.Name;
+            await _facultyRepository.UpdateAsync(orgFaculty);
             return RedirectToAction(nameof(Index));
         }
         return View(faculty);
@@ -81,7 +90,7 @@ public class FacultiesController : Controller
     // GET: FacultiesController/Delete/5
     public async Task<IActionResult> Delete(int id)
     {
-        var faculty = await _facultyRepository.GetByIdAsync(id);
+        var faculty = await _facultyRepository.GetFacultyIncludeBuildingsAndDepartments(id);
         if (faculty is null)
         {
             return NotFound();

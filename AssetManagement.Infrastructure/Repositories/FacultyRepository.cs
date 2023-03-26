@@ -11,16 +11,24 @@ public class FacultyRepository : GenericRepository<Faculty>, IFacultyRepository
     {
     }
 
-    public async Task<List<Department>> GetDepartmentsOfFaculty(int facultyId)
+    public async Task<List<Faculty>> GetFacultiesIncludeBuildingsAndDepartments()
     {
-        return await _dbContext.Departments.Where(x => x.FacultyId == facultyId).ToListAsync();
+        return await _dbContext.Faculties
+            .Include(x => x.Buildings)
+            .AsSplitQuery()
+            .Include(x=>x.Departments)
+            .AsSplitQuery()
+            .ToListAsync();
     }
 
-    public async Task<List<Building>> GetBuildingsOfFaculty(int facultyId)
+    public async Task<Faculty?> GetFacultyIncludeBuildingsAndDepartments(int facultyId)
     {
-        var faculty = await _dbContext.Faculties.Where(x => x.Id == facultyId).Include(x=> x.Buildings).FirstOrDefaultAsync();
-
-        return faculty.Buildings.ToList();
-
+        return await _dbContext.Faculties
+            .Where(x => x.Id == facultyId)
+            .Include(x => x.Buildings)
+            .AsSplitQuery()
+            .Include(x => x.Departments)
+            .AsSplitQuery()
+            .FirstOrDefaultAsync();
     }
 }

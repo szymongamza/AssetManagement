@@ -9,8 +9,9 @@ It's simplified clean architecture as it is small project.
 # Used technology:
 :heavy_check_mark: Entity Framework  
 :heavy_check_mark: Swagger  
-:heavy_check_mark: AutoMapper
+:heavy_check_mark: AutoMapper  
 :heavy_check_mark: MVC  
+:heavy_check_mark: Bootstrap-Multiselect  
 
 # Will be used:
 :x: Docker  
@@ -25,7 +26,7 @@ It's simplified clean architecture as it is small project.
 :heavy_check_mark: Create GenericRepository  
 :heavy_check_mark: Create Faculty Controller  
 :heavy_check_mark: Create Department Controller  
-:x: Create Building Controller  
+:heavy_check_mark: Create Building Controller  
 :x: Create Room Controller  
 :x: Create Manufacturer Controller  
 :x: Create Asset Controller  

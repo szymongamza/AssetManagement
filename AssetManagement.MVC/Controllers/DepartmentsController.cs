@@ -23,7 +23,9 @@ public class DepartmentsController : Controller
 
     public async Task<IActionResult> Index()
     {
-        return View(await _departmentRepository.GetAllAsync());
+        var faculties =await _facultyRepository.GetAllAsync();
+        var departments =await _departmentRepository.GetAllAsync();
+        return View(departments);
     }
 
     // GET: DepartmentsController/Details/5
@@ -34,6 +36,7 @@ public class DepartmentsController : Controller
         {
             return NotFound();
         }
+        var facultyOfDepartment = await _facultyRepository.GetByIdAsync(department.FacultyId);
         return View(department);
     }
 
@@ -116,6 +119,8 @@ public class DepartmentsController : Controller
         {
             return NotFound();
         }
+        var facultyOfDepartment = await _facultyRepository.GetByIdAsync(department.FacultyId);
+
         return View(department);
     }
 

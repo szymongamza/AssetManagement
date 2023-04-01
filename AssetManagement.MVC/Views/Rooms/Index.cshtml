@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Rooms</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><input type="button" value="Create" class="btn btn-success" /></a>
 </p>
 <table class="table">
     <thead>
@@ -21,15 +21,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.BuildingId)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedUtc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastModifiedUtc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -43,21 +35,12 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BuildingId)
+                @Html.DisplayFor(modelItem => item.Building.Code)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreatedUtc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModifiedUtc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <a asp-action="Details" asp-route-id="@item.Id"><input type="button" value="Details" class="btn btn-primary" /></a>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><input type="button" value="Edit" class="btn btn-warning" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><input type="button" value="Delete" class="btn btn-danger" /></a>
             </td>
         </tr>
 }

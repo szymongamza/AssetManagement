@@ -1,19 +1,25 @@
 ﻿using AssetManagement.Application.Interfaces;
+using AssetManagement.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AssetManagement.MVC.Controllers;
 public class RoomsController : Controller
 {
     private readonly IRoomRepository _roomRepository;
+
+    private readonly IBuildingRepository _buildingRepository;
     // GET: RoomsController
-    public RoomsController(IRoomRepository roomRepository)
+    public RoomsController(IRoomRepository roomRepository, IBuildingRepository buildingRepository)
     {
         _roomRepository = roomRepository;
+        _buildingRepository = buildingRepository;
     }
 
     public async Task<IActionResult> Index()
     {
+        var buildings = await _buildingRepository.GetAllAsync();
         return View(await _roomRepository.GetAllAsync());
     }
 
@@ -24,8 +30,9 @@ public class RoomsController : Controller
     }
 
     // GET: RoomsController/Create
-    public ActionResult Create()
+    public async Task<IActionResult> Create()
     {
+        ViewData["BuildingId"] = new SelectList(await _buildingRepository.GetAllAsync(), "Id", "Code");
         return View();
     }
 

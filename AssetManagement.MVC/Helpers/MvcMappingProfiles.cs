@@ -20,5 +20,13 @@ public class MvcMappingProfiles : Profile
             .ForMember(dest => dest.City, act => act.MapFrom(src => src.City))
             .ForMember(dest => dest.PostCode, act => act.MapFrom(src => src.PostCode))
             .ForMember(dest => dest.Street, act => act.MapFrom(src => src.Street));
+        CreateMap<RoomViewModel, Room>()
+            .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Code, act => act.MapFrom(src => src.Code))
+            .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name));
+        CreateMap<Room, RoomViewModel>()
+            .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Code, act => act.MapFrom(src => src.Code))
+            .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name));
     }
 }

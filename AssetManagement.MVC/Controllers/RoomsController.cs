@@ -88,16 +88,29 @@ public class RoomsController : Controller
     // POST: RoomsController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public async Task<IActionResult> Edit(int id, [Bind] RoomViewModel roomViewModel)
     {
-        try
+        if (id != roomViewModel.Id)
         {
+            return BadRequest();
+        }
+
+        var room = await _roomRepository.GetByIdAsync(id);
+        if (room is null)
+        {
+            return NotFound();
+        }
+
+        var buildings = await _buildingRepository.GetAllAsync();
+        if (ModelState.IsValid)
+        {
+            _mapper.Map<RoomViewModel, Room>(room, roomViewModel);
+            room.Building = buildings.FirstOrDefault(x => x.Id == room.BuildingId);
+            await _roomRepository.UpdateAsync(room);
             return RedirectToAction(nameof(Index));
         }
-        catch
-        {
-            return View();
-        }
+        ViewData["BuildingId"] = new SelectList(buildings, "Id", "Name", buildings.FirstOrDefault(x => x.Id == roomViewModel.BuildingId));
+        return View(roomViewModel);
     }
 
     // GET: RoomsController/Delete/5

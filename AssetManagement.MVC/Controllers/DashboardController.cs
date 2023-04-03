@@ -10,10 +10,12 @@ public class DashboardController : Controller
     private readonly IFacultyRepository _facultyRepository;
     private readonly IDepartmentRepository _departmentRepository;
     private readonly IBuildingRepository _buildingRepository;
-    public DashboardController(IFacultyRepository facultyRepository, IDepartmentRepository departmentRepository, IBuildingRepository buildingRepository)
+    private readonly IRoomRepository _roomRepository;
+    public DashboardController(IRoomRepository roomRepository, IDepartmentRepository departmentRepository, IFacultyRepository facultyRepository, IBuildingRepository buildingRepository)
     {
-        _facultyRepository = facultyRepository;
+        _roomRepository = roomRepository;
         _departmentRepository = departmentRepository;
+        _facultyRepository = facultyRepository;
         _buildingRepository = buildingRepository;
     }
 
@@ -22,9 +24,12 @@ public class DashboardController : Controller
         var countOfFaculties = await _facultyRepository.GetCount();
         var countOfDepartments = await _departmentRepository.GetCount();
         var countOfBuildings = await _buildingRepository.GetCount();
+        var countOfRooms = await _roomRepository.GetCount();
         ViewBag.CountOfFaculties = countOfFaculties;
         ViewBag.CountOfDepartments = countOfDepartments;
         ViewBag.CountOfBuildings = countOfBuildings;
+        ViewBag.CountOfRooms = countOfRooms;
+
         return View();
     }
 

@@ -7,6 +7,7 @@ public class Asset : BaseAuditableEntity
     public string Name { get; set; } = null!;
     public int? ManufacturerId { get; set; }
     public Manufacturer? Manufacturer { get; set; }
+    public string? Model { get; set; }
     public string? ManufacturerSerialNumber { get; set; }
     public DateTime? DateTimeOfBuy { get; set; }
     public DateTime? DateTimeOfNextMaintenance { get; set; }

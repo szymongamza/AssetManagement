@@ -104,7 +104,7 @@ public class RoomsController : Controller
         var buildings = await _buildingRepository.GetAllAsync();
         if (ModelState.IsValid)
         {
-            _mapper.Map<RoomViewModel, Room>(room, roomViewModel);
+            _mapper.Map<RoomViewModel, Room>(roomViewModel, room);
             room.Building = buildings.FirstOrDefault(x => x.Id == room.BuildingId);
             await _roomRepository.UpdateAsync(room);
             return RedirectToAction(nameof(Index));
@@ -114,23 +114,28 @@ public class RoomsController : Controller
     }
 
     // GET: RoomsController/Delete/5
-    public ActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        return View();
+        var room = await _roomRepository.GetByIdAsync(id);
+        if (room is null)
+        {
+            return NotFound();
+        }
+
+        var buildingOfRoom = await _buildingRepository.GetByIdAsync(room.BuildingId);
+        return View(room);
     }
 
     // POST: RoomsController/Delete/5
-    [HttpPost]
+    [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
+    public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        try
+        var room = await _roomRepository.GetByIdAsync(id);
+        if (room is not null)
         {
-            return RedirectToAction(nameof(Index));
+            await _roomRepository.DeleteAsync(room);
         }
-        catch
-        {
-            return View();
-        }
+        return RedirectToAction(nameof(Index));
     }
 }

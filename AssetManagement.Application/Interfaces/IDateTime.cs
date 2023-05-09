@@ -1,8 +1,7 @@
 ﻿
-namespace AssetManagement.Application.Interfaces
+namespace AssetManagement.Application.Interfaces;
+
+public interface IDateTime
 {
-    public interface IDateTime
-    {
-        DateTime UtcNow { get; }
-    }
+    DateTime UtcNow { get; }
 }

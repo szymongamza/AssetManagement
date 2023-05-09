@@ -1,24 +1,30 @@
 ﻿using AssetManagement.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AssetManagement.MVC.Controllers;
-public class AssetController : Controller
+public class AssetsController : Controller
 {
     private readonly IAssetRepository _assetRepository;
     private readonly IRoomRepository _roomRepository;
     private readonly IBuildingRepository _buildingRepository;
+    private readonly IDepartmentRepository _departmentRepository;
+    private readonly IFacultyRepository _facultyRepository;
     // GET: AssetController
-    public AssetController(IAssetRepository assetRepository, IRoomRepository roomRepository, IBuildingRepository buildingRepository)
+    public AssetsController(IAssetRepository assetRepository, IRoomRepository roomRepository, IBuildingRepository buildingRepository, IDepartmentRepository departmentRepository, IFacultyRepository facultyRepository)
     {
         _assetRepository = assetRepository;
         _roomRepository = roomRepository;
         _buildingRepository = buildingRepository;
+        _departmentRepository = departmentRepository;
+        _facultyRepository = facultyRepository;
     }
 
     public async Task<IActionResult> Index()
     {
-        return View(await _assetRepository.GetAllAsync());
+        var assets = await _assetRepository.GetAllAsync();
+        return View(assets);
     }
 
     // GET: AssetController/Details/5
@@ -28,8 +34,12 @@ public class AssetController : Controller
     }
 
     // GET: AssetController/Create
-    public ActionResult Create()
+    public async Task<IActionResult> Create()
     {
+        ViewData["FacultyId"] = new SelectList(await _roomRepository.GetAllAsync(), "Id", "Name");
+        ViewData["DepartmentId"] = new SelectList(await _roomRepository.GetAllAsync(), "Id", "Name");
+        ViewData["RoomId"] = new SelectList(await _roomRepository.GetAllAsync(), "Id", "Code");
+        ViewData["BuildingId"] = new SelectList(await _buildingRepository.GetAllAsync(), "Id", "Code");
         return View();
     }
 

@@ -1,5 +1,4 @@
-﻿using AssetManagement.Application.Dtos;
-using AssetManagement.Application.Interfaces;
+﻿using AssetManagement.Application.Interfaces;
 using AssetManagement.Domain.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;

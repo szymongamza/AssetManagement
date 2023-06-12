@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Domain", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Infrastructure", "AssetManagement.Infrastructure\AssetManagement.Infrastructure.csproj", "{F38B1961-3D29-47D9-99EF-DA3DE050E70B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagement.MVC", "AssetManagement.MVC\AssetManagement.MVC.csproj", "{6CA7A501-2171-4EF0-BAA6-AE40810DF47E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{F38B1961-3D29-47D9-99EF-DA3DE050E70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F38B1961-3D29-47D9-99EF-DA3DE050E70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F38B1961-3D29-47D9-99EF-DA3DE050E70B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6CA7A501-2171-4EF0-BAA6-AE40810DF47E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6CA7A501-2171-4EF0-BAA6-AE40810DF47E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6CA7A501-2171-4EF0-BAA6-AE40810DF47E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6CA7A501-2171-4EF0-BAA6-AE40810DF47E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

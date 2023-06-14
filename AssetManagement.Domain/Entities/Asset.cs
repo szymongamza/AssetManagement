@@ -16,6 +16,4 @@ public class Asset : BaseAuditableEntity
     public Guid QrCode { get; set; } = Guid.NewGuid();
     public int RoomId { get; set; }
     public Room Room { get; set; } = null!;
-    public ICollection<Maintenance> Maintenances { get; set; } = new List<Maintenance>();
-
 }

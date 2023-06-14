@@ -1,5 +1,4 @@
-﻿using AssetManagement.Application.Interfaces;
-using AssetManagement.Application.Models;
+﻿using AssetManagement.Application.Interfaces.Repositories;
 using AssetManagement.Domain.Common;
 using AssetManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -15,57 +14,39 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         _dbContext = dbContext;
     }
 
-    public async Task<T> AddAsync(T entity)
+    public async Task<T> AddAsync(T entity, CancellationToken token)
     {
-        await _dbContext.Set<T>().AddAsync(entity);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.Set<T>().AddAsync(entity,token);
+        await _dbContext.SaveChangesAsync(token);
         return entity;
     }
 
-    public async Task DeleteAsync(T entity)
+    public async Task DeleteAsync(T entity, CancellationToken token)
     {
         _dbContext.Set<T>().Remove(entity);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(token);
     }
 
-    public async Task<List<T>?> GetAllAsync()
+    public async Task<List<T>> ToListAsync(CancellationToken token)
     {
         return await _dbContext
             .Set<T>()
-            .ToListAsync();
-    }
-
-    public async Task<T?> GetByIdAsync(int id)
-    {
-        return await _dbContext.Set<T>().FindAsync(id);
-    }
-
-    public async Task<int> GetCount()
-    {
-        return await _dbContext.Set<T>().CountAsync();
-    }
-
-    public async Task<PaginatedList<T>?> GetPagedResponseAsync(int pageNumber, int pageSize)
-    {
-
-        var pagedList = await _dbContext
-            .Set<T>()
-            .Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
             .AsNoTracking()
-            .ToListAsync();
-        var count = _dbContext.Set<T>().Count();
-
-        return new PaginatedList<T>(pagedList, count, pageNumber,pageSize);
+            .ToListAsync(token);
     }
 
-    public async Task UpdateAsync(T entity)
+    public async Task<T?> FindByIdAsync(int id, CancellationToken token)
     {
-        T? exist = _dbContext.Set<T>().Find(entity.Id);
+        return await _dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id, token);
+    }
+
+    public async Task UpdateAsync(T entity, CancellationToken token)
+    {
+        T? exist = await _dbContext.Set<T>().FirstOrDefaultAsync(x=> x.Id == entity.Id, token);
         if (exist != null)
         {
             _dbContext.Entry(exist).CurrentValues.SetValues(entity);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(token);
         }
     }
 }

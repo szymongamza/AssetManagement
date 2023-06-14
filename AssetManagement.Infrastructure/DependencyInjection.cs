@@ -1,4 +1,5 @@
 ﻿using AssetManagement.Application.Interfaces;
+using AssetManagement.Application.Interfaces.Repositories;
 using AssetManagement.Domain.Entities;
 using AssetManagement.Infrastructure.Data;
 using AssetManagement.Infrastructure.Repositories;

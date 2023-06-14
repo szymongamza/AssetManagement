@@ -21,10 +21,10 @@ public class FacultyController : BaseApiController
 
     [HttpGet]
     [ProducesResponseType(typeof(QueryResultResource<FacultyResource>), 200)]
-    public async Task<QueryResultResource<FacultyResource>> ListAsync([FromQuery] FacultyQueryResource query)
+    public async Task<QueryResultResource<FacultyResource>> ListAsync([FromQuery] FacultyQueryResource query, CancellationToken token)
     {
         var facultyQuery = _mapper.Map<FacultyQueryResource, FacultyQuery>(query);
-        var queryResult = await _facultyService.ListAsync(facultyQuery);
+        var queryResult = await _facultyService.ListAsync(facultyQuery,token);
 
         var resource = _mapper.Map<QueryResult<Faculty>, QueryResultResource<FacultyResource>>(queryResult);
         return resource;

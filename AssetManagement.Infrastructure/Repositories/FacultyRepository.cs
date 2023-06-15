@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using AssetManagement.Application.Interfaces.Repositories;
+﻿using AssetManagement.Application.Interfaces.Repositories;
 using AssetManagement.Domain.Common.Query;
 using AssetManagement.Domain.Entities;
 using AssetManagement.Infrastructure.Data;
@@ -8,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AssetManagement.Infrastructure.Repositories;
 public class FacultyRepository : GenericRepository<Faculty>, IFacultyRepository
 {
-    protected FacultyRepository(AssetManagementContext dbContext) : base(dbContext)
+    public FacultyRepository(AssetManagementContext dbContext) : base(dbContext)
     {
     }
 

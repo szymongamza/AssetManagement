@@ -29,4 +29,54 @@ public class FacultyController : BaseApiController
         var resource = _mapper.Map<QueryResult<Faculty>, QueryResultResource<FacultyResource>>(queryResult);
         return resource;
     }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(FacultyResource), 201)]
+    [ProducesResponseType(typeof(ErrorResource), 400)]
+    public async Task<IActionResult> PostAsync([FromBody] SaveFacultyResource resource, CancellationToken token)
+    {
+        var faculty = _mapper.Map<SaveFacultyResource, Faculty>(resource);
+        var result = await _facultyService.AddAsync(faculty, token);
+
+        if (!result.Success)
+        {
+            return BadRequest(new ErrorResource(result.Message));
+        }
+
+        var facultyResource = _mapper.Map<Faculty, FacultyResource>(result.Resource);
+        return Ok(facultyResource);
+    }
+
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(FacultyResource), 201)]
+    [ProducesResponseType(typeof(ErrorResource), 400)]
+    public async Task<IActionResult> PutAsync(int id, [FromBody] SaveFacultyResource resource, CancellationToken token)
+    {
+        var faculty = _mapper.Map<SaveFacultyResource, Faculty>(resource);
+        var result = await _facultyService.UpdateAsync(id, faculty, token);
+
+        if (!result.Success)
+        {
+            return BadRequest(new ErrorResource(result.Message));
+        }
+
+        var facultyResource = _mapper.Map<Faculty, FacultyResource>(result.Resource);
+        return Ok(facultyResource);
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(FacultyResource), 200)]
+    [ProducesResponseType(typeof(ErrorResource), 400)]
+    public async Task<IActionResult> DeleteAsync(int id, CancellationToken token)
+    {
+        var result = await _facultyService.DeleteAsync(id,token);
+
+        if (!result.Success)
+        {
+            return BadRequest(new ErrorResource(result.Message));
+        }
+
+        var facultyResource = _mapper.Map<Faculty, FacultyResource>(result.Resource);
+        return Ok(facultyResource);
+    }
 }

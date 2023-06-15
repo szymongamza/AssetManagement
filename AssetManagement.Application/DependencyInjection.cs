@@ -13,7 +13,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         ConfigurationManager configuration)
     {
-        services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+        services.AddAutoMapper(typeof(FacultyMappingProfile).Assembly);
 
         return services;
     }

@@ -1,5 +1,6 @@
 ﻿using AssetManagement.Application.Interfaces;
 using AssetManagement.Application.Interfaces.Repositories;
+using AssetManagement.Application.Interfaces.Services;
 using AssetManagement.Domain.Entities;
 using AssetManagement.Infrastructure.Data;
 using AssetManagement.Infrastructure.Repositories;
@@ -21,7 +22,11 @@ public static class DependencyInjection
         services.AddDbContext<AssetManagementContext>(options => options
             .UseSqlite(configuration.GetConnectionString("AssetManagementDatabase")));
         services.AddScoped<IFacultyRepository, FacultyRepository>();
+        services.AddScoped<IFacultyService, FacultyService>();
+        services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        services.AddScoped<IDepartmentService, DepartmentService>();
         services.AddTransient<IDateTime, DateTimeService>();
+        services.AddMemoryCache();
 
         return services;
     }

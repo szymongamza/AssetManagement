@@ -18,7 +18,7 @@ public class FacultyService : IFacultyService
         _cache = cache;
     }
 
-    public async Task<QueryResult<Faculty>?> ListAsync(FacultyQuery query, CancellationToken token)
+    public async Task<QueryResult<Faculty>> ListAsync(FacultyQuery query, CancellationToken token)
     {
         string cacheKey = GetCacheKeyForFacultyQuery(query);
 

@@ -23,7 +23,7 @@ public class DepartmentService : IDepartmentService
         _faultyRepository = faultyRepository;
     }
 
-    public async Task<QueryResult<Department>?> ListAsync(DepartmentQuery query, CancellationToken token)
+    public async Task<QueryResult<Department>> ListAsync(DepartmentQuery query, CancellationToken token)
     {
         string cacheKey = GetCacheKeyForDepartmentQuery(query);
 

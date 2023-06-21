@@ -10,7 +10,7 @@ public interface IGenericRepository<T> where T : BaseEntity
 
     public Task<List<T>> ToListAsync(CancellationToken token);
 
-    public Task<T?> FindByIdAsync(int id, CancellationToken token);
+    public Task<T> FindByIdAsync(int id, CancellationToken token);
 
     public Task UpdateAsync(T entity, CancellationToken token);
 }

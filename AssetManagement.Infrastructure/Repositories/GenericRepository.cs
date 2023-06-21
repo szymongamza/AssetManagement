@@ -35,14 +35,14 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
             .ToListAsync(token);
     }
 
-    public async Task<T?> FindByIdAsync(int id, CancellationToken token)
+    public async Task<T> FindByIdAsync(int id, CancellationToken token)
     {
         return await _dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id, token);
     }
 
     public async Task UpdateAsync(T entity, CancellationToken token)
     {
-        T? exist = await _dbContext.Set<T>().FirstOrDefaultAsync(x=> x.Id == entity.Id, token);
+        T exist = await _dbContext.Set<T>().FirstOrDefaultAsync(x=> x.Id == entity.Id, token);
         if (exist != null)
         {
             _dbContext.Entry(exist).CurrentValues.SetValues(entity);

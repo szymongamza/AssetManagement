@@ -6,8 +6,8 @@ namespace AssetManagement.Application.Interfaces.Services;
 
 public interface IBuildingService
 {
-    Task<QueryResult<Building>> ListAsync(BuildingQuery query);
-    Task<BuildingResponse> AddAsync(Building building);
-    Task<BuildingResponse> UpdateAsync(int id, Building building);
-    Task<BuildingResponse> DeleteAsync(int id);
+    Task<QueryResult<Building>> ListAsync(BuildingQuery query, CancellationToken token);
+    Task<BuildingResponse> AddAsync(Building building, CancellationToken token);
+    Task<BuildingResponse> UpdateAsync(int id, Building building, CancellationToken token);
+    Task<BuildingResponse> DeleteAsync(int id, CancellationToken token);
 }

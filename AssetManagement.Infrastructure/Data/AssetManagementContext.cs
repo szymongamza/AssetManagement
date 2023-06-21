@@ -7,7 +7,7 @@ public class AssetManagementContext : DbContext
 {
     private readonly AuditableEntitySaveChangesInterceptor _interceptor;
     public DbSet<Faculty> Faculties { get; set; }
-    public DbSet<Department> Departments { get; set; }
+    public DbSet<Department> Departments { get; set; } 
     public DbSet<Building> Buildings { get; set; }
     public DbSet<Room> Rooms { get; set; }
     public DbSet<Asset> Assets { get; set; }

@@ -4,4 +4,5 @@ public enum CacheKeys : byte
 {
     FacultyList,
     DepartmentList,
+    BuildingList,
 }

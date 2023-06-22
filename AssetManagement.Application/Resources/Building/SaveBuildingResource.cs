@@ -7,5 +7,5 @@ public class SaveBuildingResource
     public string City { get; set; }
     public string PostCode { get; set; }
     public string Street { get; set; }
-    public ICollection<FacultyResource> Faculties { get; set; } = new List<FacultyResource>();
+    public ICollection<int> FacultiesIds { get; set; } = new List<int>();
 }

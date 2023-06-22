@@ -14,6 +14,8 @@ public static class DependencyInjection
         ConfigurationManager configuration)
     {
         services.AddAutoMapper(typeof(FacultyMappingProfile).Assembly);
+        services.AddAutoMapper(typeof(DepartmentMappingProfile).Assembly);
+        services.AddAutoMapper(typeof(BuildingMappingProfile).Assembly);
 
         return services;
     }

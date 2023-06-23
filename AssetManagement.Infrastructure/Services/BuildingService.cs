@@ -39,18 +39,22 @@ public class BuildingService : IBuildingService
 
     public async Task<BuildingResponse> AddAsync(Building building, CancellationToken token)
     {
-        foreach (Faculty buildingFaculty in building.Faculties)
+        IList<Faculty> selectedFaculties = new List<Faculty>();
+        foreach (Faculty buildingFaculty in building.Faculties) 
         {
             var existingFaculty = await _facultyRepository.FindByIdAsync(buildingFaculty.Id, token);
             if (existingFaculty is null)
             {
                 return new BuildingResponse("Invalid faculty.");
             }
+            selectedFaculties.Add(existingFaculty);
         }
+
+        building.Faculties = selectedFaculties;
 
         try
         {
-            await _buildingRepository.AddAsync(building, token);
+            await _buildingRepository.AddAsync(building, token); //TODO https://dev.to/_patrickgod/many-to-many-relationship-with-entity-framework-core-4059
 
             return new BuildingResponse(building);
         }
@@ -115,7 +119,7 @@ public class BuildingService : IBuildingService
         }
     }
 
-    private string GetCacheKeyForBuildingQuery(BuildingQuery query)
+    private static string GetCacheKeyForBuildingQuery(BuildingQuery query)
     {
         string key = CacheKeys.BuildingList.ToString();
         key = string.Concat(key, "_", query.Page, "_", query.ItemsPerPage);

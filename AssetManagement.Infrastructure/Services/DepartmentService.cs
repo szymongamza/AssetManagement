@@ -1,12 +1,9 @@
-﻿
-
-using AssetManagement.Application.Interfaces.Repositories;
+﻿using AssetManagement.Application.Interfaces.Repositories;
 using AssetManagement.Application.Interfaces.Services;
 using AssetManagement.Domain.Common.Query;
 using AssetManagement.Domain.Common.Responses;
 using AssetManagement.Domain.Entities;
 using AssetManagement.Domain.Enums;
-using AssetManagement.Infrastructure.Repositories;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace AssetManagement.Infrastructure.Services;
@@ -104,7 +101,7 @@ public class DepartmentService : IDepartmentService
         }
     }
 
-    private string GetCacheKeyForDepartmentQuery(DepartmentQuery query)
+    private static string GetCacheKeyForDepartmentQuery(DepartmentQuery query)
     {
         string key = CacheKeys.DepartmentList.ToString();
         key = string.Concat(key, "_", query.Page, "_", query.ItemsPerPage);

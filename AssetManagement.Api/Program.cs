@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddInfrastructure(builder.Configuration);
-    builder.Services.AddApplication(builder.Configuration);
+    builder.Services.AddApplication();
 
     builder.Services.AddControllers();
     builder.Services.AddSwaggerGen(c =>

@@ -37,7 +37,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 
     public async Task<T> FindByIdAsync(int id, CancellationToken token)
     {
-        return await _dbContext.Set<T>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, token);
+        return await _dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id, token);
     }
 
     public async Task UpdateAsync(T entity, CancellationToken token)

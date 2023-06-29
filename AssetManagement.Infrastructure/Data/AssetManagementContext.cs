@@ -25,6 +25,8 @@ public class AssetManagementContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Faculty>().HasMany(e => e.Buildings).WithMany(e => e.Faculties)
+            .UsingEntity<BuildingFaculty>();
         base.OnModelCreating(modelBuilder);
     }
 

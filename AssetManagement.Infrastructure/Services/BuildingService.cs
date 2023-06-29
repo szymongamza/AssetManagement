@@ -39,7 +39,10 @@ public class BuildingService : IBuildingService
 
     public async Task<BuildingResponse> AddAsync(Building building, CancellationToken token)
     {
-        IList<Faculty> selectedFaculties = new List<Faculty>();
+        Building newBuilding = new Building()
+        {
+            City = building.City, Code = building.Code, PostCode = building.PostCode, Street = building.Street,
+        };
         foreach (Faculty buildingFaculty in building.Faculties) 
         {
             var existingFaculty = await _facultyRepository.FindByIdAsync(buildingFaculty.Id, token);
@@ -47,16 +50,15 @@ public class BuildingService : IBuildingService
             {
                 return new BuildingResponse("Invalid faculty.");
             }
-            selectedFaculties.Add(existingFaculty);
+            newBuilding.Faculties.Add(existingFaculty);
         }
 
-        building.Faculties = selectedFaculties;
 
         try
         {
-            await _buildingRepository.AddAsync(building, token); //TODO https://dev.to/_patrickgod/many-to-many-relationship-with-entity-framework-core-4059
+            await _buildingRepository.AddAsync(newBuilding, token);
 
-            return new BuildingResponse(building);
+            return new BuildingResponse(newBuilding);
         }
         catch (Exception ex)
         {
@@ -72,6 +74,9 @@ public class BuildingService : IBuildingService
         {
             return new BuildingResponse("Building not found");
         }
+
+        List<Faculty> selectedFaculties = new List<Faculty>();
+
         foreach (Faculty buildingFaculty in building.Faculties)
         {
             var existingFaculty = await _facultyRepository.FindByIdAsync(buildingFaculty.Id, token);
@@ -79,9 +84,10 @@ public class BuildingService : IBuildingService
             {
                 return new BuildingResponse("Invalid faculty.");
             }
+            selectedFaculties.Add(existingFaculty);
         }
 
-        existingBuilding.Faculties = building.Faculties;
+        existingBuilding.Faculties = selectedFaculties;
         existingBuilding.Code = building.Code;
         existingBuilding.City = building.City;
         existingBuilding.PostCode = building.PostCode;

@@ -23,4 +23,9 @@ public class BuildingRepository : GenericRepository<Building>, IBuildingReposito
 
         return new QueryResult<Building> { Items = buildings, TotalItems = totalItems };
     }
+
+    public async Task<Building> FindByIdAsync(int id, CancellationToken token)
+    {
+        return await _dbContext.Buildings.Include(x=>x.BuildingFaculty).Include(x=>x.Faculties).FirstOrDefaultAsync(x => x.Id == id, token);
+    }
 }

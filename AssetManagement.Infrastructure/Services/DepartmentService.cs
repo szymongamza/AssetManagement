@@ -10,14 +10,14 @@ namespace AssetManagement.Infrastructure.Services;
 public class DepartmentService : IDepartmentService
 {
     private readonly IDepartmentRepository _departmentRepository;
-    private readonly IFacultyRepository _faultyRepository;
+    private readonly IFacultyRepository _facultyRepository;
     private readonly IMemoryCache _memoryCache;
 
-    public DepartmentService(IDepartmentRepository departmentRepository, IMemoryCache memoryCache, IFacultyRepository faultyRepository)
+    public DepartmentService(IDepartmentRepository departmentRepository, IMemoryCache memoryCache, IFacultyRepository facultyRepository)
     {
         _departmentRepository = departmentRepository;
         _memoryCache = memoryCache;
-        _faultyRepository = faultyRepository;
+        _facultyRepository = facultyRepository;
     }
 
     public async Task<QueryResult<Department>> ListAsync(DepartmentQuery query, CancellationToken token)
@@ -35,7 +35,7 @@ public class DepartmentService : IDepartmentService
 
     public async Task<DepartmentResponse> AddAsync(Department department, CancellationToken token)
     {
-        var existingFaculty = await _faultyRepository.FindByIdAsync(department.FacultyId, token);
+        var existingFaculty = await _facultyRepository.FindByIdAsync(department.FacultyId, token);
         if (existingFaculty == null)
         {
             return new DepartmentResponse("Invalid faculty.");
@@ -60,7 +60,7 @@ public class DepartmentService : IDepartmentService
         {
             return new DepartmentResponse("Department not found");
         }
-        var existingFaculty = await _faultyRepository.FindByIdAsync(department.FacultyId, token);
+        var existingFaculty = await _facultyRepository.FindByIdAsync(department.FacultyId, token);
         if (existingFaculty == null)
         {
             return new DepartmentResponse("Invalid faculty.");

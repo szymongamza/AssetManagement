@@ -27,6 +27,8 @@ public static class DependencyInjection
         services.AddScoped<IDepartmentService, DepartmentService>();
         services.AddScoped<IBuildingRepository, BuildingRepository>();
         services.AddScoped<IBuildingService, BuildingService>();
+        services.AddScoped<IRoomRepository, RoomRepository>();
+        services.AddScoped<IRoomService, RoomService>();
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddMemoryCache();
 

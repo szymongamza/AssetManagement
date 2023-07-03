@@ -6,8 +6,8 @@ namespace AssetManagement.Application.Interfaces.Services;
 
 public interface IManufacturerService
 {
-    Task<QueryResult<Manufacturer>> ListAsync(ManufacturerQuery query);
-    Task<ManufacturerResponse> AddAsync(Manufacturer manufacturer);
-    Task<ManufacturerResponse> UpdateAsync(int id, Manufacturer manufacturer);
-    Task<ManufacturerResponse> DeleteAsync(int id);
+    Task<QueryResult<Manufacturer>> ListAsync(ManufacturerQuery query, CancellationToken token);
+    Task<ManufacturerResponse> AddAsync(Manufacturer manufacturer, CancellationToken token);
+    Task<ManufacturerResponse> UpdateAsync(int id, Manufacturer manufacturer, CancellationToken token);
+    Task<ManufacturerResponse> DeleteAsync(int id, CancellationToken token);
 }

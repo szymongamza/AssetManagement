@@ -6,4 +6,6 @@ public enum CacheKeys : byte
     DepartmentList,
     BuildingList,
     RoomList,
+    ManufacturerList,
+
 }

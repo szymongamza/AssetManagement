@@ -12,6 +12,7 @@ public class AssetManagementContext : DbContext
     public DbSet<Room> Rooms { get; set; }
     public DbSet<Asset> Assets { get; set; }
     public DbSet<Manufacturer> Manufacturers { get; set; }
+    public DbSet<Stocktaking> Stocktakings { get; set; }
 
     public AssetManagementContext(DbContextOptions<AssetManagementContext> options, AuditableEntitySaveChangesInterceptor interceptor) : base(options)
     {
@@ -27,7 +28,10 @@ public class AssetManagementContext : DbContext
     {
         modelBuilder.Entity<Faculty>().HasMany(e => e.Buildings).WithMany(e => e.Faculties)
             .UsingEntity<BuildingFaculty>();
+        modelBuilder.Entity<Stocktaking>().HasMany(e => e.StockTakedAssets).WithMany(e => e.Stocktakings)
+            .UsingEntity<AssetStocktaking>();
         base.OnModelCreating(modelBuilder);
+        
     }
 
 }

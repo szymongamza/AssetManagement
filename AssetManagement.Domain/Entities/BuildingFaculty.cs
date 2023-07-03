@@ -1,6 +1,8 @@
 ﻿
+using AssetManagement.Domain.Common;
+
 namespace AssetManagement.Domain.Entities;
-public class BuildingFaculty
+public class BuildingFaculty : BaseEntity
 {
     public int FacultyId { get; set; }
     public int BuildingId { get; set; }

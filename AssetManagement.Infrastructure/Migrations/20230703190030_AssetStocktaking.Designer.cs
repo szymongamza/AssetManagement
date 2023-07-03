@@ -3,6 +3,7 @@ using System;
 using AssetManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AssetManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AssetManagementContext))]
-    partial class AssetManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20230703190030_AssetStocktaking")]
+    partial class AssetStocktaking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
@@ -38,6 +41,9 @@ namespace AssetManagement.Infrastructure.Migrations
                     b.Property<DateTime?>("DateTimeOfNextMaintenance")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("Hidden")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("LastModifiedUtc")
                         .HasColumnType("TEXT");
 
@@ -57,9 +63,6 @@ namespace AssetManagement.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("RoomId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<byte>("Status")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

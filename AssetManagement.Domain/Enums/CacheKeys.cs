@@ -7,5 +7,5 @@ public enum CacheKeys : byte
     BuildingList,
     RoomList,
     ManufacturerList,
-
+    AssetList,
 }

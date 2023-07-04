@@ -20,6 +20,14 @@ namespace AssetManagement.Application.Helpers
                 .ForMember(x => x.Room, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedUtc, opt => opt.Ignore())
                 .ForMember(x => x.CreatedUtc, opt => opt.Ignore());
+            CreateMap<Asset, Asset>()
+                .ForMember(x => x.Id, opt => opt.Ignore())
+                .ForMember(x => x.QrCode, opt => opt.Ignore())
+                .ForMember(x => x.AssetStocktakings, opt => opt.Ignore())
+                .ForMember(x => x.Manufacturer, opt => opt.Ignore())
+                .ForMember(x => x.Room, opt => opt.Ignore())
+                .ForMember(x => x.LastModifiedUtc, opt => opt.Ignore())
+                .ForMember(x => x.CreatedUtc, opt => opt.Ignore());
         }
     }
 }

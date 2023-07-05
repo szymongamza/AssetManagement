@@ -107,7 +107,7 @@ public class AssetService : IAssetService
     private static string GetCacheKeyForAssetQuery(AssetQuery query)
     {
         string key = CacheKeys.AssetList.ToString();
-        key = string.Concat(key, "_", query.Page, "_", query.ItemsPerPage);
+        key = string.Concat(key, "_", query.QRCode.ToString() ,"_", query.Page, "_", query.ItemsPerPage);
         return key;
     }
 

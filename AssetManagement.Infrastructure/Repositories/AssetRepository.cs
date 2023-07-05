@@ -18,6 +18,10 @@ public class AssetRepository : GenericRepository<Asset>, IAssetRepository
             .Include(d => d.Room.Building.Faculties)
             .Include(d => d.Manufacturer)
             .AsNoTracking();
+        if(query.QRCode is not null)
+        {
+            queryable = queryable.Where(x=>x.QrCode == query.QRCode);
+        }
         int totalItems = await queryable.CountAsync(token);
         List<Asset> assets = await queryable.Skip((query.Page - 1) * query.ItemsPerPage).Take(query.ItemsPerPage).ToListAsync(token);
 

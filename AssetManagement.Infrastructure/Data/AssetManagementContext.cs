@@ -29,6 +29,8 @@ public class AssetManagementContext : DbContext
         modelBuilder.Entity<Faculty>().HasMany(e => e.Buildings).WithMany(e => e.Faculties)
             .UsingEntity<BuildingFaculty>();
         modelBuilder.Entity<Stocktaking>().HasMany(e => e.StockTakedAssets).WithMany(e => e.Stocktakings)
+            .UsingEntity<AssetStocktakingComplete>();
+        modelBuilder.Entity<Stocktaking>().HasMany(e => e.AssetsToStocktake).WithMany(e => e.Stocktakings)
             .UsingEntity<AssetStocktaking>();
         base.OnModelCreating(modelBuilder);
         

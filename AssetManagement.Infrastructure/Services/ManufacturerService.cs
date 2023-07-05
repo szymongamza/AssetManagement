@@ -88,7 +88,7 @@ public class ManufacturerService : IManufacturerService
             return new ManufacturerResponse($"An error occurred when deleting the manufacturer: {ex.Message}");
         }
     }
-    private string GetCacheKeyForManufacturerQuery(ManufacturerQuery query)
+    private static string GetCacheKeyForManufacturerQuery(ManufacturerQuery query)
     {
         string key = CacheKeys.ManufacturerList.ToString();
         key = string.Concat(key, "_", query.Page, "_", query.ItemsPerPage);

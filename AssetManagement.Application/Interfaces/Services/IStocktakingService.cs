@@ -6,7 +6,8 @@ namespace AssetManagement.Application.Interfaces.Services;
 public interface IStocktakingService
 {
     Task<QueryResult<Stocktaking>> ListAsync(StocktakingQuery query, CancellationToken token);
-    Task<StocktakingResponse> AddAsync(int roomId, CancellationToken token);
-    Task<StocktakingResponse> UpdateAsync(int id, Stocktaking stocktaking, CancellationToken token);
+    Task<StocktakingResponse> OpenStockTakingAsync(int roomId, CancellationToken token);
+    Task<StocktakingResponse> RegisterAssetAsync(Guid guid, CancellationToken token);
+    Task<StocktakingResponse> CloseStocktakingAsync(int id, CancellationToken token);
     Task<StocktakingResponse> DeleteAsync(int id, CancellationToken token);
 }

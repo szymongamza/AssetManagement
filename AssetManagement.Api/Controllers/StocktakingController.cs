@@ -7,6 +7,7 @@ using AssetManagement.Infrastructure.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using AssetManagement.Application.Resources.Stocktaking;
+using AssetManagement.Application.Resources.Building;
 
 namespace AssetManagement.Api.Controllers;
 
@@ -32,6 +33,20 @@ public class StocktakingController : BaseApiController
         return resource;
     }
 
-    
+    [HttpPost]
+    [ProducesResponseType(typeof(StocktakingResource), 201)]
+    [ProducesResponseType(typeof(ErrorResource), 400)]
+    public async Task<IActionResult> NewStocktakingAsync(int roomId, CancellationToken token)
+    {
+        var result = await _stocktakingService.NewStocktakingAsync(roomId, token);
+
+        if (!result.Success)
+        {
+            return BadRequest(new ErrorResource(result.Message));
+        }
+
+        var stocktakingResource = _mapper.Map<Stocktaking, StocktakingResource>(result.Resource);
+        return Ok(stocktakingResource);
+    }
 
 }

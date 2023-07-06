@@ -22,4 +22,9 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
 
         return new QueryResult<Room> { Items = rooms, TotalItems = totalItems };
     }
+    public new async Task<Room> FindByIdAsync (int id, CancellationToken token)
+    {
+        var room = await _dbContext.Rooms.Include(x=>x.Assets).FirstOrDefaultAsync(d => d.Id == id);
+        return room;
+    }
 }

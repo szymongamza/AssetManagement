@@ -33,6 +33,8 @@ public static class DependencyInjection
         services.AddScoped<IManufacturerService, ManufacturerService>();
         services.AddScoped<IAssetRepository, AssetRepository>();
         services.AddScoped<IAssetService, AssetService>();
+        services.AddScoped<IStocktakingRepository, StocktakingRepository>();
+        services.AddScoped<IStocktakingService, StocktakingService>();
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddMemoryCache();
 

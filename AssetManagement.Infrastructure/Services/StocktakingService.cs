@@ -27,7 +27,7 @@ public class StocktakingService : IStocktakingService
 
     public async Task<StocktakingResponse> NewStocktakingAsync(int roomId, CancellationToken token)
     {
-        var existingRoom = _roomRepository.FindByIdAsync(roomId, token);
+        var existingRoom = await _roomRepository.FindByIdAsync(roomId, token);
         if (existingRoom == null)
         {
             return new StocktakingResponse("There is no such room.");
@@ -35,7 +35,7 @@ public class StocktakingService : IStocktakingService
 
         try
         {
-            var stockTaking = new Stocktaking { RoomId = roomId };
+            var stockTaking = new Stocktaking { RoomId = existingRoom.Id, Assets =  existingRoom.Assets};
             await _stocktakingRepository.AddAsync(stockTaking, token);
 
             return new StocktakingResponse(stockTaking);

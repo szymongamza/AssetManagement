@@ -3,6 +3,7 @@ using System;
 using AssetManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AssetManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AssetManagementContext))]
-    partial class AssetManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20230706114547_AssetStocktakingRefactor")]
+    partial class AssetStocktakingRefactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
@@ -95,7 +98,7 @@ namespace AssetManagement.Infrastructure.Migrations
 
                     b.HasIndex("StocktakingId");
 
-                    b.ToTable("AssetStocktaking");
+                    b.ToTable("AssetStocktakings");
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Building", b =>
@@ -281,6 +284,21 @@ namespace AssetManagement.Infrastructure.Migrations
                     b.ToTable("Stocktakings");
                 });
 
+            modelBuilder.Entity("AssetStocktaking", b =>
+                {
+                    b.Property<int>("AssetsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StocktakingsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("AssetsId", "StocktakingsId");
+
+                    b.HasIndex("StocktakingsId");
+
+                    b.ToTable("AssetStocktaking");
+                });
+
             modelBuilder.Entity("AssetManagement.Domain.Entities.Asset", b =>
                 {
                     b.HasOne("AssetManagement.Domain.Entities.Manufacturer", "Manufacturer")
@@ -367,6 +385,21 @@ namespace AssetManagement.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("AssetStocktaking", b =>
+                {
+                    b.HasOne("AssetManagement.Domain.Entities.Asset", null)
+                        .WithMany()
+                        .HasForeignKey("AssetsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AssetManagement.Domain.Entities.Stocktaking", null)
+                        .WithMany()
+                        .HasForeignKey("StocktakingsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Asset", b =>

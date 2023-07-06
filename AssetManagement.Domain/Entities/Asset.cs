@@ -20,5 +20,4 @@ public class Asset : BaseAuditableEntity
     public Room Room { get; set; }
     public ICollection<Stocktaking> Stocktakings { get; set; } = new List<Stocktaking>();
     public ICollection<AssetStocktaking> AssetStocktakings { get; set; } = new List<AssetStocktaking>();
-    public ICollection<AssetStocktakingComplete> AssetStocktakingsComplete { get; set; } = new List<AssetStocktakingComplete>();
 }

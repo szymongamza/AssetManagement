@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using AssetManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using AssetManagement.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -28,6 +29,7 @@ var app = builder.Build();
     {
         var db = scope.ServiceProvider.GetRequiredService<AssetManagementContext>();
         db.Database.Migrate();
+        DataSeed.SeedFaculties(db);
     }
 
     app.Run();

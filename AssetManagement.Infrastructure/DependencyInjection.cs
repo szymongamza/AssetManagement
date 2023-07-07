@@ -1,5 +1,4 @@
-﻿using AssetManagement.Application.Interfaces;
-using AssetManagement.Application.Interfaces.Repositories;
+﻿using AssetManagement.Application.Interfaces.Repositories;
 using AssetManagement.Application.Interfaces.Services;
 using AssetManagement.Domain.Entities;
 using AssetManagement.Infrastructure.Data;
@@ -35,7 +34,7 @@ public static class DependencyInjection
         services.AddScoped<IAssetService, AssetService>();
         services.AddScoped<IStocktakingRepository, StocktakingRepository>();
         services.AddScoped<IStocktakingService, StocktakingService>();
-        services.AddTransient<IDateTime, DateTimeService>();
+        services.AddTransient<IDateTimeService, DateTimeService>();
         services.AddMemoryCache();
 
         return services;

@@ -12,6 +12,12 @@ public class AssetRepository : GenericRepository<Asset>, IAssetRepository
     {
     }
 
+    public async Task<Asset> FindByQrCodeAsync(Guid guid, CancellationToken token)
+    {
+        var asset = await _dbContext.Assets.FirstOrDefaultAsync(x=>x.QrCode == guid, token);
+        return asset;
+    }
+
     public async Task<QueryResult<Asset>> ToListAsync(AssetQuery query, CancellationToken token)
     {
         IQueryable<Asset> queryable = _dbContext.Assets

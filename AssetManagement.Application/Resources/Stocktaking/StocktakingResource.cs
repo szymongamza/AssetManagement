@@ -13,4 +13,6 @@ public class StocktakingResource
     public bool IsClosed { get; set; } = false;
     public RoomResource Room { get; set; }
     public ICollection<AssetStocktakingResource> Assets { get; set; } = new List<AssetStocktakingResource>();
+    public int ScannedAssets { get; set; }
+    public int TotalAssets { get; set; }
 }

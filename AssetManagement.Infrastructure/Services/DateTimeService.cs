@@ -1,8 +1,8 @@
-﻿using AssetManagement.Application.Interfaces;
+﻿using AssetManagement.Application.Interfaces.Services;
 
 namespace AssetManagement.Infrastructure.Services;
 
-public class DateTimeService : IDateTime
+public class DateTimeService : IDateTimeService
 {
     public DateTime UtcNow => DateTime.UtcNow;
 }

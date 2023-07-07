@@ -11,11 +11,15 @@ public class StocktakingService : IStocktakingService
 {
     private readonly IStocktakingRepository _stocktakingRepository;
     private readonly IRoomRepository _roomRepository;
+    private readonly IAssetRepository _assetRepository;
+    private readonly IDateTimeService _dateTimeService;
 
-    public StocktakingService(IStocktakingRepository stocktakingRepository, IRoomRepository roomRepository)
+    public StocktakingService(IStocktakingRepository stocktakingRepository, IRoomRepository roomRepository, IAssetRepository assetRepository, IDateTimeService dateTimeService)
     {
         _stocktakingRepository = stocktakingRepository;
         _roomRepository = roomRepository;
+        _assetRepository = assetRepository;
+        _dateTimeService = dateTimeService;
     }
 
     public async Task<QueryResult<Stocktaking>> ListAsync(StocktakingQuery query, CancellationToken token)
@@ -46,9 +50,38 @@ public class StocktakingService : IStocktakingService
         }
     }
 
-    public async Task<StocktakingResponse> RegisterAssetAsync(Guid guid, CancellationToken token)
+    public async Task<StocktakingResponse> RegisterAssetAsync(int id, Guid guid, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var stocktaking = await _stocktakingRepository.FindByIdAsync(id, token);
+        if(stocktaking == null)
+        {
+            return new StocktakingResponse("There is no such stocktaking session.");
+        }
+        if (stocktaking.IsClosed)
+        {
+            return new StocktakingResponse("This stocktaking session is closed.");
+        }
+
+        var assetOnList = stocktaking.AssetStocktakings.FirstOrDefault(x=> x.Asset.QrCode == guid);
+
+        if(assetOnList == null)
+        {
+            var asset = await _assetRepository.FindByQrCodeAsync(guid,token);
+            asset.RoomId = stocktaking.RoomId;
+
+            await _assetRepository.UpdateAsync(asset, token);
+
+            stocktaking.Assets.Add(asset);
+            await _stocktakingRepository.UpdateAsync(stocktaking, token);
+
+        }
+
+        stocktaking.AssetStocktakings.FirstOrDefault(x=>x.Asset.QrCode == guid).IsScanned = true;
+        stocktaking.AssetStocktakings.FirstOrDefault(x=>x.Asset.QrCode == guid).ScannedTime = _dateTimeService.UtcNow;
+
+        await _stocktakingRepository.UpdateAsync(stocktaking,token);
+
+        return new StocktakingResponse(stocktaking);
     }
 
     public async Task<StocktakingResponse> CloseStocktakingAsync(int id, CancellationToken token)

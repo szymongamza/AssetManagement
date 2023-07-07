@@ -16,11 +16,18 @@ public class StocktakingRepository : GenericRepository<Stocktaking>, IStocktakin
 
     public async Task<QueryResult<Stocktaking>> ToListAsync(StocktakingQuery query, CancellationToken token)
     {
-        IQueryable<Stocktaking> queryable = _dbContext.Stocktakings.Include(x=>x.AssetStocktakings).Include(x=>x.Assets)
+        IQueryable<Stocktaking> queryable = _dbContext.Stocktakings.Include(x=>x.AssetStocktakings).ThenInclude(x=>x.Asset).Include(x=>x.Assets).Include(x=>x.Room)
             .AsNoTracking();
         int totalItems = await queryable.CountAsync(token);
         List<Stocktaking> stocktakings = await queryable.Skip((query.Page - 1) * query.ItemsPerPage).Take(query.ItemsPerPage).ToListAsync(token);
 
         return new QueryResult<Stocktaking> { Items = stocktakings, TotalItems = totalItems };
+    }
+
+    public new async Task<Stocktaking> FindByIdAsync(int id, CancellationToken token)
+    {
+        var stocktaking = await _dbContext.Stocktakings.Include(x=>x.Assets).Include(x=>x.Room).Include(x=>x.AssetStocktakings).ThenInclude(x=>x.Asset).FirstOrDefaultAsync(x => x.Id == id, token);
+
+        return stocktaking;
     }
 }

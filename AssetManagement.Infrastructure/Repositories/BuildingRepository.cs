@@ -1,4 +1,7 @@
-﻿using AssetManagement.Application.Interfaces;
+﻿
+
+using AssetManagement.Application.Interfaces.Repositories;
+using AssetManagement.Domain.Common.Query;
 using AssetManagement.Domain.Entities;
 using AssetManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -8,16 +11,24 @@ public class BuildingRepository : GenericRepository<Building>, IBuildingReposito
 {
     public BuildingRepository(AssetManagementContext dbContext) : base(dbContext)
     {
-        
     }
 
-    public async Task<List<Building>> GetAllBuildingsIncludeFaculties()
+    public async Task<QueryResult<Building>> ToListAsync(BuildingQuery query, CancellationToken token)
     {
-        return await _dbContext.Buildings.Include(b => b.Faculties).ToListAsync();
+        IQueryable<Building> queryable = _dbContext.Buildings
+            .Include(d => d.Faculties)
+            .AsNoTracking();
+        int totalItems = await queryable.CountAsync(token);
+        List<Building> buildings = await queryable.Skip((query.Page - 1) * query.ItemsPerPage).Take(query.ItemsPerPage).ToListAsync(token);
+
+        return new QueryResult<Building> { Items = buildings, TotalItems = totalItems };
     }
 
-    public async Task<Building?> GetBuildingByIdIncludeFaculties(int id)
+    public new async Task<Building> FindByIdAsync(int id, CancellationToken token)
     {
-        return await _dbContext.Buildings.Include(b => b.Faculties).FirstOrDefaultAsync(b=>b.Id == id);
+        return await _dbContext.Buildings
+            .Include(x=>x.BuildingFaculty)
+            .Include(x=>x.Faculties)
+            .FirstOrDefaultAsync(x => x.Id == id, token);
     }
 }

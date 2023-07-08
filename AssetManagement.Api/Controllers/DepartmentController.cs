@@ -1,5 +1,7 @@
-﻿using AssetManagement.Application.Dtos;
-using AssetManagement.Application.Interfaces;
+﻿using AssetManagement.Application.Interfaces.Services;
+using AssetManagement.Application.Resources;
+using AssetManagement.Application.Resources.Department;
+using AssetManagement.Domain.Common.Query;
 using AssetManagement.Domain.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -8,95 +10,73 @@ namespace AssetManagement.Api.Controllers;
 
 public class DepartmentController : BaseApiController
 {
-    private readonly IDepartmentRepository _departmentRepository;
+    private readonly IDepartmentService _departmentService;
     private readonly IMapper _mapper;
 
-    public DepartmentController(IDepartmentRepository departmentRepository, IMapper mapper)
+    public DepartmentController(IDepartmentService departmentService, IMapper mapper)
     {
-        _departmentRepository = departmentRepository;
+        _departmentService = departmentService;
         _mapper = mapper;
     }
 
-    [HttpGet("{id}")]
-    [ProducesResponseType(typeof(Department), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetDepartmentById(int id)
-    {
-        var department = await _departmentRepository.GetByIdAsync(id);
-        if (department is not Department)
-        {
-            return NotFound("Department not found");
-        }
-
-        return Ok(department);
-    }
-
     [HttpGet]
-    [ProducesResponseType(typeof(List<Department>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetDepartments()
+    [ProducesResponseType(typeof(QueryResultResource<DepartmentResource>), 200)]
+    public async Task<QueryResultResource<DepartmentResource>> ListAsync([FromQuery] DepartmentQueryResource query, CancellationToken token)
     {
-        var departments = await _departmentRepository.GetAllAsync();
-        if (departments == null || departments.Count <= 0)
-        {
-            return NotFound("Departments not found");
-        }
-        return Ok(departments);
-    }
+        var departmentQuery = _mapper.Map<DepartmentQueryResource, DepartmentQuery>(query);
+        var queryResult = await _departmentService.ListAsync(departmentQuery, token);
 
-    [HttpGet("paged")]
-    [ProducesResponseType(typeof(List<Department>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetPagedDepartments([FromQuery] int pageNumber, int pageSize)
-    {
-        var departments = await _departmentRepository.GetPagedResponseAsync(pageNumber, pageSize);
-        if (departments == null || departments.Items.Count() <= 0)
-        {
-            return NotFound("Departments not found");
-        }
-        return Ok(departments);
+        var resource = _mapper.Map<QueryResult<Department>, QueryResultResource<DepartmentResource>>(queryResult);
+        return resource;
     }
 
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> CreateDepartment(DepartmentCreateDto departmentDto)
+    [ProducesResponseType(typeof(DepartmentResource), 201)]
+    [ProducesResponseType(typeof(ErrorResource), 400)]
+    public async Task<IActionResult> PostAsync([FromBody] SaveDepartmentResource resource, CancellationToken token)
     {
-        var department = _mapper.Map<DepartmentCreateDto, Department>(departmentDto);
-        await _departmentRepository.AddAsync(department);
+        var department = _mapper.Map<SaveDepartmentResource, Department>(resource);
+        var result = await _departmentService.AddAsync(department, token);
 
-        return CreatedAtAction(nameof(GetDepartmentById), new { id = department.Id }, departmentDto);
+        if (!result.Success)
+        {
+            return BadRequest(new ErrorResource(result.Message));
+        }
+
+        var departmentResource = _mapper.Map<Department, DepartmentResource>(result.Resource);
+        return Ok(departmentResource);
     }
 
     [HttpPut("{id}")]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> Update(int id, Department department)
+    [ProducesResponseType(typeof(DepartmentResource), 201)]
+    [ProducesResponseType(typeof(ErrorResource), 400)]
+    public async Task<IActionResult> PutAsync(int id, [FromBody] SaveDepartmentResource resource, CancellationToken token)
     {
-        if (id != department.Id)
+        var department = _mapper.Map<SaveDepartmentResource, Department>(resource);
+        var result = await _departmentService.UpdateAsync(id, department, token);
+
+        if (!result.Success)
         {
-            return BadRequest("id and department.id aren't equal");
-        }
-        if (await _departmentRepository.GetByIdAsync(id) is not Department)
-        {
-            return NotFound("Department not found");
+            return BadRequest(new ErrorResource(result.Message));
         }
 
-        await _departmentRepository.UpdateAsync(department);
-        return NoContent();
+        var departmentResource = _mapper.Map<Department, DepartmentResource>(result.Resource);
+        return Ok(departmentResource);
     }
 
     [HttpDelete("{id}")]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> Delete(int id)
+    [ProducesResponseType(typeof(DepartmentResource), 200)]
+    [ProducesResponseType(typeof(ErrorResource), 400)]
+    public async Task<IActionResult> DeleteAsync(int id, CancellationToken token)
     {
-        var department = await _departmentRepository.GetByIdAsync(id);
-        if (department is not Department)
+        var result = await _departmentService.DeleteAsync(id, token);
+
+        if (!result.Success)
         {
-            return NotFound("Department not found");
+            return BadRequest(new ErrorResource(result.Message));
         }
-        await _departmentRepository.DeleteAsync(department);
-        return NoContent();
+
+        var departmentResource = _mapper.Map<Department, DepartmentResource>(result.Resource);
+        return Ok(departmentResource);
     }
 }

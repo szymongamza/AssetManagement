@@ -1,4 +1,7 @@
-﻿using AssetManagement.Application.Interfaces;
+﻿
+
+using AssetManagement.Application.Interfaces.Repositories;
+using AssetManagement.Domain.Common.Query;
 using AssetManagement.Domain.Entities;
 using AssetManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -8,16 +11,16 @@ public class DepartmentRepository : GenericRepository<Department>, IDepartmentRe
 {
     public DepartmentRepository(AssetManagementContext dbContext) : base(dbContext)
     {
-
     }
 
-    public async Task<Department?> GetDepartmentByIdIncludeFaculty(int id)
+    public async Task<QueryResult<Department>> ToListAsync(DepartmentQuery query, CancellationToken token)
     {
-        return await _dbContext.Departments.Include(b => b.Faculty).FirstOrDefaultAsync(b => b.Id == id);
-    }
+        IQueryable<Department> queryable = _dbContext.Departments
+            .Include(d => d.Faculty)
+            .AsNoTracking();
+        int totalItems = await queryable.CountAsync(token);
+        List<Department> departments = await queryable.Skip((query.Page - 1) * query.ItemsPerPage).Take(query.ItemsPerPage).ToListAsync(token);
 
-    public async Task<List<Department>> GetDepartmentsByFacultyId(int facultyId)
-    {
-        return await _dbContext.Departments.Where(x => x.FacultyId == facultyId).ToListAsync();
+        return new QueryResult<Department> { Items = departments, TotalItems = totalItems };
     }
 }

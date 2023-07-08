@@ -1,15 +1,15 @@
 ﻿using AssetManagement.Domain.Common;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using AssetManagement.Application.Interfaces;
+using AssetManagement.Application.Interfaces.Services;
 
 namespace AssetManagement.Infrastructure.Data;
 
 public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 {
-    private readonly IDateTime _dateTime;
+    private readonly IDateTimeService _dateTime;
 
-    public AuditableEntitySaveChangesInterceptor(IDateTime dateTime)
+    public AuditableEntitySaveChangesInterceptor(IDateTimeService dateTime)
     {
         _dateTime = dateTime;
     }
@@ -28,7 +28,7 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
-    public void UpdateEntities(DbContext? context)
+    public void UpdateEntities(DbContext context)
     {
         if (context == null) return;
 

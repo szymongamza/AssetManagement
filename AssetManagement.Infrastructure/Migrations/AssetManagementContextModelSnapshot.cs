@@ -51,7 +51,6 @@ namespace AssetManagement.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("QrCode")
@@ -60,13 +59,57 @@ namespace AssetManagement.Infrastructure.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<byte>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("StockNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ManufacturerId");
 
                     b.HasIndex("RoomId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Assets");
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Entities.AssetStocktaking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AssetId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("ChangedRoom")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsScanned")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PreviousRoomId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("ScannedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StocktakingId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssetId");
+
+                    b.HasIndex("StocktakingId");
+
+                    b.ToTable("AssetStocktaking");
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Building", b =>
@@ -79,7 +122,6 @@ namespace AssetManagement.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedUtc")
@@ -97,6 +139,27 @@ namespace AssetManagement.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Buildings");
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Entities.BuildingFaculty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BuildingId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FacultyId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("FacultyId");
+
+                    b.ToTable("BuildingFaculty");
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Department", b =>
@@ -118,7 +181,6 @@ namespace AssetManagement.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -144,43 +206,11 @@ namespace AssetManagement.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Faculties");
-                });
-
-            modelBuilder.Entity("AssetManagement.Domain.Entities.Maintenance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AssetId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("CreatedUtc")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DateEnd")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DateStart")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("LastModifiedUtc")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssetId");
-
-                    b.ToTable("Maintenances");
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Manufacturer", b =>
@@ -199,7 +229,6 @@ namespace AssetManagement.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
@@ -228,9 +257,6 @@ namespace AssetManagement.Infrastructure.Migrations
                     b.Property<DateTime>("LastModifiedUtc")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BuildingId");
@@ -238,19 +264,58 @@ namespace AssetManagement.Infrastructure.Migrations
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("BuildingFaculty", b =>
+            modelBuilder.Entity("AssetManagement.Domain.Entities.Stocktaking", b =>
                 {
-                    b.Property<int>("BuildingsId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("FacultiesId")
+                    b.Property<DateTime?>("ClosedUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsClosed")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("BuildingsId", "FacultiesId");
+                    b.Property<DateTime>("LastModifiedUtc")
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("FacultiesId");
+                    b.Property<int>("RoomId")
+                        .HasColumnType("INTEGER");
 
-                    b.ToTable("BuildingFaculty");
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Stocktakings");
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("LastModifiedUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Asset", b =>
@@ -265,9 +330,55 @@ namespace AssetManagement.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AssetManagement.Domain.Entities.User", "User")
+                        .WithMany("Assets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Manufacturer");
 
                     b.Navigation("Room");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Entities.AssetStocktaking", b =>
+                {
+                    b.HasOne("AssetManagement.Domain.Entities.Asset", "Asset")
+                        .WithMany("AssetStocktakings")
+                        .HasForeignKey("AssetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AssetManagement.Domain.Entities.Stocktaking", "Stocktaking")
+                        .WithMany("AssetStocktakings")
+                        .HasForeignKey("StocktakingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Asset");
+
+                    b.Navigation("Stocktaking");
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Entities.BuildingFaculty", b =>
+                {
+                    b.HasOne("AssetManagement.Domain.Entities.Building", "Building")
+                        .WithMany("BuildingFaculty")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AssetManagement.Domain.Entities.Faculty", "Faculty")
+                        .WithMany("BuildingFaculty")
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Building");
+
+                    b.Navigation("Faculty");
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Department", b =>
@@ -281,17 +392,6 @@ namespace AssetManagement.Infrastructure.Migrations
                     b.Navigation("Faculty");
                 });
 
-            modelBuilder.Entity("AssetManagement.Domain.Entities.Maintenance", b =>
-                {
-                    b.HasOne("AssetManagement.Domain.Entities.Asset", "Product")
-                        .WithMany("Maintenances")
-                        .HasForeignKey("AssetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("AssetManagement.Domain.Entities.Room", b =>
                 {
                     b.HasOne("AssetManagement.Domain.Entities.Building", "Building")
@@ -303,33 +403,33 @@ namespace AssetManagement.Infrastructure.Migrations
                     b.Navigation("Building");
                 });
 
-            modelBuilder.Entity("BuildingFaculty", b =>
+            modelBuilder.Entity("AssetManagement.Domain.Entities.Stocktaking", b =>
                 {
-                    b.HasOne("AssetManagement.Domain.Entities.Building", null)
-                        .WithMany()
-                        .HasForeignKey("BuildingsId")
+                    b.HasOne("AssetManagement.Domain.Entities.Room", "Room")
+                        .WithMany("Stocktakings")
+                        .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AssetManagement.Domain.Entities.Faculty", null)
-                        .WithMany()
-                        .HasForeignKey("FacultiesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Asset", b =>
                 {
-                    b.Navigation("Maintenances");
+                    b.Navigation("AssetStocktakings");
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Building", b =>
                 {
+                    b.Navigation("BuildingFaculty");
+
                     b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Faculty", b =>
                 {
+                    b.Navigation("BuildingFaculty");
+
                     b.Navigation("Departments");
                 });
 
@@ -339,6 +439,18 @@ namespace AssetManagement.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Entities.Room", b =>
+                {
+                    b.Navigation("Assets");
+
+                    b.Navigation("Stocktakings");
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Entities.Stocktaking", b =>
+                {
+                    b.Navigation("AssetStocktakings");
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Entities.User", b =>
                 {
                     b.Navigation("Assets");
                 });

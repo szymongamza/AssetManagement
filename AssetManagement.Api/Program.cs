@@ -4,11 +4,12 @@ using Microsoft.OpenApi.Models;
 using System;
 using AssetManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using AssetManagement.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddInfrastructure(builder.Configuration);
-    builder.Services.AddApplication(builder.Configuration);
+    builder.Services.AddApplication();
 
     builder.Services.AddControllers();
     builder.Services.AddSwaggerGen(c =>
@@ -28,6 +29,13 @@ var app = builder.Build();
     {
         var db = scope.ServiceProvider.GetRequiredService<AssetManagementContext>();
         db.Database.Migrate();
+        DataSeed.SeedFaculties(db);
+        DataSeed.SeedDepartments(db);
+        DataSeed.SeedBuildings(db);
+        DataSeed.SeedBuildingFaculty(db);
+        DataSeed.SeedRooms(db);
+        DataSeed.SeedManufacturers(db);
+        DataSeed.SeedUsers(db);
     }
 
     app.Run();

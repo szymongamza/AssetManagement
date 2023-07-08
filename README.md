@@ -26,6 +26,6 @@ It's simplified clean architecture as it is small project.
 ✔️ Create Asset Controller  
 ✔️ Create User Controller  
 ✔️ Create Stocktaking Controller  
-✔️ Make all entities repositories and services work
+✔️ Make all entities repositories and services work  
 :x: Web UI for managment of app and infrastructure  
 :x: Mobile App that scan QR codes and make request to API  

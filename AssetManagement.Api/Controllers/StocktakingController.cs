@@ -8,6 +8,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using AssetManagement.Application.Resources.Stocktaking;
 using AssetManagement.Application.Resources.Building;
+using AssetManagement.Application.Resources.Manufacturer;
 
 namespace AssetManagement.Api.Controllers;
 
@@ -36,7 +37,7 @@ public class StocktakingController : BaseApiController
     [HttpPost]
     [ProducesResponseType(typeof(StocktakingResource), 201)]
     [ProducesResponseType(typeof(ErrorResource), 400)]
-    public async Task<IActionResult> NewStocktakingAsync([FromBody]int roomId, CancellationToken token)
+    public async Task<IActionResult> NewStocktakingAsync(int roomId, CancellationToken token)
     {
         var result = await _stocktakingService.NewStocktakingAsync(roomId, token);
 
@@ -50,12 +51,12 @@ public class StocktakingController : BaseApiController
     }
 
     [HttpPost]
-    [Route("{id:int}")]
+    [Route("{id}/registerAsset")]
     [ProducesResponseType(typeof(StocktakingResource), 201)]
     [ProducesResponseType(typeof(ErrorResource), 400)]
-    public async Task<IActionResult> RegisterAssetAsync(int id, [FromBody] Guid guid, CancellationToken token)
+    public async Task<IActionResult> RegisterAssetAsync(int id, Guid assetGuid, CancellationToken token)
     {
-        var result = await _stocktakingService.RegisterAssetAsync(id, guid, token);
+        var result = await _stocktakingService.RegisterAssetAsync(id, assetGuid, token);
 
         if (!result.Success)
         {
@@ -64,6 +65,40 @@ public class StocktakingController : BaseApiController
 
         var stocktakingResource = _mapper.Map<Stocktaking, StocktakingResource>(result.Resource);
 
+        return Ok(stocktakingResource);
+    }
+
+    [HttpPost]
+    [Route("{id}/closeStocktaking")]
+    [ProducesResponseType(typeof(StocktakingResource), 201)]
+    [ProducesResponseType(typeof(ErrorResource), 400)]
+    public async Task<IActionResult> CloseStocktakingAsync(int id, CancellationToken token)
+    {
+        var result = await _stocktakingService.CloseStocktakingAsync(id, token);
+
+        if (!result.Success)
+        {
+            return BadRequest(new ErrorResource(result.Message));
+        }
+
+        var stocktakingResource = _mapper.Map<Stocktaking, StocktakingResource>(result.Resource);
+
+        return Ok(stocktakingResource);
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(StocktakingResource), 200)]
+    [ProducesResponseType(typeof(ErrorResource), 400)]
+    public async Task<IActionResult> DeleteAsync(int id, CancellationToken token)
+    {
+        var result = await _stocktakingService.DeleteAsync(id, token);
+
+        if (!result.Success)
+        {
+            return BadRequest(new ErrorResource(result.Message));
+        }
+
+        var stocktakingResource = _mapper.Map<Stocktaking, StocktakingResource>(result.Resource);
         return Ok(stocktakingResource);
     }
 

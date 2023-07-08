@@ -70,7 +70,6 @@ public class RoomService : IRoomService
 
         existingRoom.BuildingId = room.BuildingId;
         existingRoom.Code = room.Code;
-        existingRoom.Name = room.Name;
 
         try
         {

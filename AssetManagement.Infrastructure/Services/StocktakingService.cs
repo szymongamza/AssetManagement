@@ -5,6 +5,7 @@ using AssetManagement.Application.Interfaces.Services;
 using AssetManagement.Domain.Common.Query;
 using AssetManagement.Domain.Common.Responses;
 using AssetManagement.Domain.Entities;
+using AssetManagement.Domain.Enums;
 
 namespace AssetManagement.Infrastructure.Services;
 public class StocktakingService : IStocktakingService
@@ -62,35 +63,57 @@ public class StocktakingService : IStocktakingService
             return new StocktakingResponse("This stocktaking session is closed.");
         }
 
-        var assetOnList = stocktaking.AssetStocktakings.FirstOrDefault(x=> x.Asset.QrCode == guid);
+        var asset = await  _assetRepository.FindByQrCodeAsync(guid, token);
+        var assetStock = asset.AssetStocktakings.FirstOrDefault(x => x.StocktakingId == id);
 
-        if(assetOnList == null)
+        if (assetStock is not null)
         {
-            var asset = await _assetRepository.FindByQrCodeAsync(guid,token);
-            asset.RoomId = stocktaking.RoomId;
-
-            await _assetRepository.UpdateAsync(asset, token);
-
-            stocktaking.Assets.Add(asset);
-            await _stocktakingRepository.UpdateAsync(stocktaking, token);
-
+            assetStock.IsScanned = true;
+            assetStock.ScannedTime = _dateTimeService.UtcNow;
         }
 
-        stocktaking.AssetStocktakings.FirstOrDefault(x=>x.Asset.QrCode == guid).IsScanned = true;
-        stocktaking.AssetStocktakings.FirstOrDefault(x=>x.Asset.QrCode == guid).ScannedTime = _dateTimeService.UtcNow;
+        if (asset.RoomId != stocktaking.RoomId)
+        {
+            assetStock.ChangedRoom = true;
+            assetStock.PreviousRoomId = asset.RoomId;
+            asset.RoomId = stocktaking.RoomId;
+            asset.Status = AssetStatus.VerificationNeeded;
+        }
 
-        await _stocktakingRepository.UpdateAsync(stocktaking,token);
+        await _assetRepository.UpdateAsync(asset, token);
 
         return new StocktakingResponse(stocktaking);
     }
 
     public async Task<StocktakingResponse> CloseStocktakingAsync(int id, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var stocktaking = await _stocktakingRepository.FindByIdAsync(id, token);
+        if (stocktaking == null)
+        {
+            return new StocktakingResponse("There is no such stocktaking session.");
+        }
+        if (stocktaking.IsClosed)
+        {
+            return new StocktakingResponse("This stocktaking session is closed.");
+        }
+
+        stocktaking.IsClosed = true;
+
+        await _stocktakingRepository.UpdateAsync(stocktaking, token);
+
+        return new StocktakingResponse(stocktaking);
     }
 
     public async Task<StocktakingResponse> DeleteAsync(int id, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var stocktaking = await _stocktakingRepository.FindByIdAsync(id, token);
+        if (stocktaking == null)
+        {
+            return new StocktakingResponse("There is no such stocktaking session.");
+        }
+
+        await _stocktakingRepository.DeleteAsync(stocktaking, token);
+
+        return new StocktakingResponse(stocktaking);
     }
 }

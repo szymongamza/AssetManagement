@@ -12,4 +12,6 @@ public class AssetStocktaking : BaseEntity
     public Stocktaking Stocktaking { get; set; }
     public DateTime? ScannedTime { get; set; }
     public bool IsScanned { get; set; } = false;
+    public bool ChangedRoom { get; set; } = false;
+    public int? PreviousRoomId { get; set; }
 }

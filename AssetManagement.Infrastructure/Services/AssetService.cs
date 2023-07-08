@@ -15,14 +15,16 @@ public class AssetService : IAssetService
 {
     private readonly IAssetRepository _assetRepository;
     private readonly IRoomRepository _roomRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IMemoryCache _memoryCache;
     private readonly IMapper _mapper;
-    public AssetService(IAssetRepository assetRepository, IRoomRepository roomRepository, IMemoryCache memoryCache, IMapper mapper)
+    public AssetService(IAssetRepository assetRepository, IRoomRepository roomRepository, IMemoryCache memoryCache, IMapper mapper, IUserRepository userRepository)
     {
         _assetRepository = assetRepository;
         _roomRepository = roomRepository;
         _memoryCache = memoryCache;
         _mapper = mapper;
+        _userRepository = userRepository;
     }
     public async Task<QueryResult<Asset>> ListAsync(AssetQuery query, CancellationToken token)
     {
@@ -43,6 +45,12 @@ public class AssetService : IAssetService
         if (existingRoom == null)
         {
             return new AssetResponse("Invalid room.");
+        }
+
+        var existingUser = await _userRepository.FindByIdAsync(asset.UserId, token);
+        if (existingUser == null)
+        {
+            return new AssetResponse("Invalid user.");
         }
         try
         {

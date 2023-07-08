@@ -8,4 +8,5 @@ public enum CacheKeys : byte
     RoomList,
     ManufacturerList,
     AssetList,
+    UserList,
 }

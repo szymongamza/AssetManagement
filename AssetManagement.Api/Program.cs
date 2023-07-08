@@ -30,6 +30,12 @@ var app = builder.Build();
         var db = scope.ServiceProvider.GetRequiredService<AssetManagementContext>();
         db.Database.Migrate();
         DataSeed.SeedFaculties(db);
+        DataSeed.SeedDepartments(db);
+        DataSeed.SeedBuildings(db);
+        DataSeed.SeedBuildingFaculty(db);
+        DataSeed.SeedRooms(db);
+        DataSeed.SeedManufacturers(db);
+        DataSeed.SeedUsers(db);
     }
 
     app.Run();

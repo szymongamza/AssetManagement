@@ -14,6 +14,8 @@ public class AssetManagementContext : DbContext
     public DbSet<Manufacturer> Manufacturers { get; set; }
     public DbSet<Stocktaking> Stocktakings { get; set; }
     public DbSet<AssetStocktaking> AssetStocktaking { get; set; }
+    public DbSet<BuildingFaculty> BuildingFaculty { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public AssetManagementContext(DbContextOptions<AssetManagementContext> options, AuditableEntitySaveChangesInterceptor interceptor) : base(options)
     {

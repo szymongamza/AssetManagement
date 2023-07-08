@@ -14,7 +14,7 @@ public class AssetRepository : GenericRepository<Asset>, IAssetRepository
 
     public async Task<Asset> FindByQrCodeAsync(Guid guid, CancellationToken token)
     {
-        var asset = await _dbContext.Assets.FirstOrDefaultAsync(x=>x.QrCode == guid, token);
+        var asset = await _dbContext.Assets.Include(x=>x.AssetStocktakings).FirstOrDefaultAsync(x=>x.QrCode == guid, token);
         return asset;
     }
 
@@ -23,6 +23,7 @@ public class AssetRepository : GenericRepository<Asset>, IAssetRepository
         IQueryable<Asset> queryable = _dbContext.Assets
             .Include(d => d.Room.Building.Faculties)
             .Include(d => d.Manufacturer)
+            .Include(x=>x.User)
             .AsNoTracking();
         if(query.QRCode is not null)
         {

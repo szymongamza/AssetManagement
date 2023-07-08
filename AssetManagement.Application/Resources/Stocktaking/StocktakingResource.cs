@@ -10,7 +10,7 @@ public class StocktakingResource
     public DateTime CreatedUtc { get; set; }
     public DateTime LastModifiedUtc { get; set; }
     public DateTime? ClosedUtc { get; set; }
-    public bool IsClosed { get; set; } = false;
+    public bool IsClosed { get; set; }
     public RoomResource Room { get; set; }
     public ICollection<AssetStocktakingResource> Assets { get; set; } = new List<AssetStocktakingResource>();
     public int ScannedAssets { get; set; }

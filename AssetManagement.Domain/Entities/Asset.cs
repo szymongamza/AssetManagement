@@ -16,8 +16,11 @@ public class Asset : BaseAuditableEntity
     public string AdditionalDescription { get; set; }
     public AssetStatus Status { get; set; } = AssetStatus.OnSite;
     public Guid QrCode { get; set; } = Guid.NewGuid();
+    public string StockNumber { get; set; }
     public int RoomId { get; set; }
     public Room Room { get; set; }
+    public int UserId { get; set; }
+    public User User { get; set; }
     public ICollection<Stocktaking> Stocktakings { get; set; } = new List<Stocktaking>();
     public ICollection<AssetStocktaking> AssetStocktakings { get; set; } = new List<AssetStocktaking>();
 }

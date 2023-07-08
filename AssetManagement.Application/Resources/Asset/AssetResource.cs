@@ -1,7 +1,9 @@
 ﻿
 using AssetManagement.Application.Resources.Manufacturer;
 using AssetManagement.Application.Resources.Room;
+using AssetManagement.Application.Resources.User;
 using AssetManagement.Domain.Entities;
+using AssetManagement.Domain.Enums;
 
 namespace AssetManagement.Application.Resources.Asset;
 
@@ -18,7 +20,9 @@ public class AssetResource
     public DateTime? DateTimeOfNextMaintenance { get; set; }
     public DateTime? DateTimeOfEndOfGuarantee { get; set; }
     public string AdditionalDescription { get; set; }
-    public bool Hidden { get; set; } = false;
     public Guid QrCode { get; set; }
+    public string StockNumber { get; set; }
+    public AssetStatus AssetStatus { get; set; }
     public RoomResource Room { get; set; }
+    public UserResource User { get; set; }
 }

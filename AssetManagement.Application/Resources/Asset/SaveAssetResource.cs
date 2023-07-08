@@ -1,4 +1,6 @@
 ﻿
+using AssetManagement.Domain.Enums;
+
 namespace AssetManagement.Application.Resources.Asset;
 
 public class SaveAssetResource
@@ -11,6 +13,8 @@ public class SaveAssetResource
     public DateTime? DateTimeOfNextMaintenance { get; set; }
     public DateTime? DateTimeOfEndOfGuarantee { get; set; }
     public string AdditionalDescription { get; set; }
-    public bool Hidden { get; set; } = false;
+    public string StockNumber { get; set; }
+    public AssetStatus AssetStatus { get; set; }
     public int RoomId { get; set; }
+    public int UserId { get; set; }
 }

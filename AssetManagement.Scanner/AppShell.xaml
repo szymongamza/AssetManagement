@@ -4,11 +4,28 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:AssetManagement.Scanner"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Home" Icon="{StaticResource HomeIcon}">
+            <ShellContent
+                Title="Home"
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="OnePage" />
+        </Tab>
+        <Tab Title="Stocktaking" Icon="{StaticResource CalculatorIcon}">
+            <ShellContent
+                Title="Stocktaking"
+                ContentTemplate="{DataTemplate local:StocktakingPage}"
+                Route="TwoPage" />
+        </Tab>
+        <Tab Title="Asset Info" Icon="{StaticResource CameraIcon}">
+            <ShellContent
+                Title="Asset Info"
+                ContentTemplate="{DataTemplate local:AssetInfoPage}"
+                Route="ThreePage" />
+        </Tab>
+    </TabBar>
 
 </Shell>

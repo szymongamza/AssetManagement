@@ -64,23 +64,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="AssetInfoPage.xaml.cs">
-	    <DependentUpon>AssetInfoPage.xaml</DependentUpon>
+	  <Compile Update="AssetInfo.xaml.cs">
+	    <DependentUpon>AssetInfo.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="StocktakingPage.xaml.cs">
-	    <DependentUpon>StocktakingPage.xaml</DependentUpon>
+	  <Compile Update="Stocktaking.xaml.cs">
+	    <DependentUpon>Stocktaking.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="AssetInfoPage.xaml">
+	  <MauiXaml Update="AssetInfo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\AssetManagement.Application\AssetManagement.Application.csproj" />
-        <ProjectReference Include="..\AssetManagement.Infrastructure\AssetManagement.Infrastructure.csproj" />
-    </ItemGroup>
 
 </Project>

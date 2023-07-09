@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AssetManagement.Scanner.Services;
+using Microsoft.Extensions.Logging;
 
 namespace AssetManagement.Scanner;
 public static class MauiProgram
@@ -12,8 +13,12 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("fa_solid.ttf", "FontAwesome");
             });
-
+        builder.Services.AddSingleton<IRestService, RestService>();
+        builder.Services.AddSingleton<IHttpsClientHandlerService, HttpsClientHandlerService>();
+        builder.Services.AddSingleton<IStocktakingService, StocktakingService>();
+        builder.Services.AddSingleton<StocktakingPage>();
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif

@@ -16,7 +16,7 @@ public class StocktakingRepository : GenericRepository<Stocktaking>, IStocktakin
 
     public async Task<QueryResult<Stocktaking>> ToListAsync(StocktakingQuery query, CancellationToken token)
     {
-        IQueryable<Stocktaking> queryable = _dbContext.Stocktakings.Include(x=>x.AssetStocktakings).ThenInclude(x=>x.Asset).Include(x=>x.Assets).Include(x=>x.Room)
+        IQueryable<Stocktaking> queryable = _dbContext.Stocktakings.Include(x=>x.AssetStocktakings).ThenInclude(x=>x.Asset).Include(x=>x.Assets).Include(x=>x.Room).ThenInclude(x=>x.Building)
             .AsNoTracking();
         if (query.IsClosed)
         {

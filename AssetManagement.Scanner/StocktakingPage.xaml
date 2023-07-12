@@ -5,41 +5,6 @@
              x:Class="AssetManagement.Scanner.StocktakingPage">
     <StackLayout Margin="20">
         <CollectionView ItemsSource="{Binding Stocktakings}"
-                        IsGrouped="true">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.RowSpan="2"
-                               Text="{Binding Room.Code}"
-                               HeightRequest="60"
-                               WidthRequest="60" />
-                        <Label Grid.Row="1" Grid.Column="0"
-                               Text="{Binding Id}"
-                               FontAttributes="Bold" />
-                        <Label Grid.Row="1"
-                               Grid.Column="1"
-                               Text="{Binding TotalAssets}"
-                               FontAttributes="Italic"
-                               VerticalOptions="End" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.GroupHeaderTemplate>
-                <DataTemplate>
-                    <Label Text="{Binding GroupName}"
-                           BackgroundColor="LightGray"
-                           FontSize="20"
-                           FontAttributes="Bold" />
-                </DataTemplate>
-            </CollectionView.GroupHeaderTemplate>
-        </CollectionView>
+                        IsGrouped="true" />
     </StackLayout>
 </ContentPage>

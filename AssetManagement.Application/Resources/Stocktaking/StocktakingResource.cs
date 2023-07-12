@@ -1,4 +1,5 @@
 ﻿
+using System.Xml.Linq;
 using AssetManagement.Application.Resources.AssetStocktaking;
 using AssetManagement.Application.Resources.Room;
 

@@ -1,21 +1,32 @@
-﻿using AssetManagement.Scanner.Models;
+﻿using AssetManagement.Application.Resources.Stocktaking;
+using AssetManagement.Scanner.Models;
 using AssetManagement.Scanner.Services;
 
 namespace AssetManagement.Scanner;
 public class GroupedStocktakingViewModel
 {
-    private readonly IStocktakingService _stocktakingService;
-    public List<GroupedStocktaking> Stocktakings { get; private set; } = new List<GroupedStocktaking>();
+    public List<StocktakingGroup> Stocktakings { get; private set; } = new List<StocktakingGroup>();
 
-    public GroupedStocktakingViewModel(IStocktakingService stocktakingService)
+    public GroupedStocktakingViewModel()
     {
-        _stocktakingService = stocktakingService;
-        GetStocktakings();
+        Stocktakings.Add(new StocktakingGroup("Test1", new List<StocktakingDto>
+        {
+            new StocktakingDto
+            {
+                Id = 1,
+                Name = "ELO1"
+            }
+        }));      
+        Stocktakings.Add(new StocktakingGroup("Test2", new List<StocktakingDto>
+        {
+            new StocktakingDto
+            {
+                Id = 2,
+                Name = "ELO2"
+            }
+        }));
+
     }
 
-    async void GetStocktakings()
-    {
-        Stocktakings = await _stocktakingService.GetStocktakings();
-    }
 
 }

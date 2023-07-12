@@ -18,7 +18,6 @@ public static class MauiProgram
         builder.Services.AddSingleton<IRestService, RestService>();
         builder.Services.AddSingleton<IHttpsClientHandlerService, HttpsClientHandlerService>();
         builder.Services.AddSingleton<IStocktakingService, StocktakingService>();
-        builder.Services.AddSingleton<StocktakingPage>();
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif

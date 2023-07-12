@@ -6,5 +6,5 @@ using AssetManagement.Scanner.Models;
 namespace AssetManagement.Scanner.Services;
 public interface IStocktakingService
 {
-    Task<List<GroupedStocktaking>> GetStocktakings();
+    Task<List<StocktakingGroup>> GetStocktakings();
 }
